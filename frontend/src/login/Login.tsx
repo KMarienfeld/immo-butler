@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 type Props = {
     login: (username:string, password:string) => Promise<void>
 }
-function Login() {
+function Login(props:Props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const nav = useNavigate();
