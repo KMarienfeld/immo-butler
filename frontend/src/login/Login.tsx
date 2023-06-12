@@ -1,10 +1,34 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import "./Login.css"
 import logo from "../logo_tuerkis.png";
+import {useNavigate} from "react-router-dom";
+
+type Props = {
+    login: (username:string, password:string) => Promise<void>
+}
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const nav = useNavigate();
+    function onChangeHandlerUsername(e: ChangeEvent<HTMLInputElement>) {
+        setUsername(e.target.value);
+    }
+
+    function onChangeHandlerPassword(e: ChangeEvent<HTMLInputElement>) {
+        setPassword(e.target.value);
+    }
+
+    function loginOnSubmit(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        props.login(username, password)
+            .then(() => {
+                nav("/all")
+            })
+            .catch((error) => {
+                console.error("Error beim Login: ", error)
+            })
+    }
 
     return (
         <div>
@@ -17,17 +41,17 @@ function Login() {
                                     <div className="divLogo">
                                         <img className="logo" src={logo}/>
                                     </div>
-                                    <Form>
+                                    <Form onSubmit={loginOnSubmit}>
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label>E-Mail Adresse</Form.Label>
-                                            <Form.Control type="email" placeholder="E-Mail Adresse" />
+                                            <Form.Control type="email" onChange={onChangeHandlerUsername} placeholder="E-Mail Adresse" />
                                             <Form.Text className="text-muted">
                                                 Deine E-Mail Adresse wird nicht an Dritte weitergegeben.
                                             </Form.Text>
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="formBasicPassword">
                                             <Form.Label>Passwort</Form.Label>
-                                            <Form.Control type="password" placeholder="Passwort" />
+                                            <Form.Control type="password" onChange={onChangeHandlerPassword} placeholder="Passwort" />
                                         </Form.Group>
                                         <Button className="loginButton" type="submit">
                                             Login
