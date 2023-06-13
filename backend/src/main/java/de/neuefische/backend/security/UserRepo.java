@@ -1,4 +1,4 @@
-package de.neuefische.backend.repository;
+package de.neuefische.backend.security;
 
 import de.neuefische.backend.model.UserModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
