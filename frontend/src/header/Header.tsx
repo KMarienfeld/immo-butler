@@ -3,7 +3,7 @@ import {Container, Navbar} from 'react-bootstrap'
 import logo from "../logo_tuerkis.png"
 function Header() {
     return (
-        <div>
+        <header>
             <Navbar bg="dark" variant="dark">
                 <Container>
                     <Navbar.Brand href="#home">
@@ -16,7 +16,7 @@ function Header() {
                     </Navbar.Brand>
                 </Container>
             </Navbar>
-        </div>
+        </header>
     );
 }
 
