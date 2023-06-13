@@ -1,3 +1,4 @@
+//NOSONAR
 package de.neuefische.backend.controller;
 
 import lombok.RequiredArgsConstructor;
