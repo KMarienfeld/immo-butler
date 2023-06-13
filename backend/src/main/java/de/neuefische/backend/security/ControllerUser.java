@@ -1,4 +1,3 @@
-//NOSONAR
 package de.neuefische.backend.security;
 
 import lombok.RequiredArgsConstructor;
