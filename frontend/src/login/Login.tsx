@@ -23,7 +23,7 @@ function Login(props:Props) {
         e.preventDefault();
         props.login(username, password)
             .then(() => {
-                nav("/all")
+                nav("/all-bills")
             })
             .catch((error) => {
                 console.error("Error beim Login: ", error)
