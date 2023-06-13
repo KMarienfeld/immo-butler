@@ -3,7 +3,6 @@ package de.neuefische.backend.service;
 import de.neuefische.backend.model.UserModel;
 import de.neuefische.backend.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
