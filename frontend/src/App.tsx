@@ -5,7 +5,7 @@ import Login from "./login/Login";
 import UseLogin from "./login/UseLogin";
 
 function App() {
-    const {login, user} = UseLogin()
+    const {login} = UseLogin()
 
   return (
     <div>
