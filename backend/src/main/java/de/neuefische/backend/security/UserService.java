@@ -1,8 +1,7 @@
 //NOSONAR
-package de.neuefische.backend.service;
+package de.neuefische.backend.security;
 
 import de.neuefische.backend.model.UserModel;
-import de.neuefische.backend.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

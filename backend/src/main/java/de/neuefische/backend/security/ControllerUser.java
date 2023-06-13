@@ -1,5 +1,5 @@
 //NOSONAR
-package de.neuefische.backend.controller;
+package de.neuefische.backend.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContext;
