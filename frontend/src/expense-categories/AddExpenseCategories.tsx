@@ -30,7 +30,6 @@ function AddExpenseCategories() {
         setTotalN(Number(value))
     }
 
-
     function onChangeHandlerPortion(e:ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         setPortionN(Number(value))
@@ -69,7 +68,6 @@ function AddExpenseCategories() {
                         <Form.Select defaultValue="Wähle hier einen Umlageschlüssel aus..." onChange={onChangeHandlerDistributionKey}>
                             <option disabled>Wähle hier einen Umlageschlüssel aus...</option>
                             <option>Wohnfläche</option>
-                            <option>Wohneinheiten</option>
                             <option>Personenzahl</option>
                             <option>Direktzuordnung</option>
                             <option>Wohneinheiten</option>
