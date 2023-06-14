@@ -5,6 +5,7 @@ import Login from "./login/Login";
 import UseLogin from "./login/UseLogin";
 import Header from "./header/Header";
 import ProtectedRoutes from "./login/ProtectedRoutes";
+import AddExpenseCategories from "./expense-categories/AddExpenseCategories";
 
 function App() {
     const {login, user} = UseLogin()
@@ -12,7 +13,14 @@ function App() {
   return (
     <div>
         <Routes>
+            <Route path={""} element={<Login login={login}/>}/>
             <Route path={"/login"} element={<Login login={login}/>}/>
+            <Route path={"/add-expense-categories"} element={
+                <>
+                    <Header/>
+                    <AddExpenseCategories/>
+                </>
+            }/>
             <Route element={<ProtectedRoutes user={user}/>}>
                 <Route path={"/all-bills"} element={<Header/>}/>
                 <Route path={"/all-expense-category"} element={<Header/>}/>
@@ -21,5 +29,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
