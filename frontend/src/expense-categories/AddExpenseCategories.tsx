@@ -67,10 +67,10 @@ function AddExpenseCategories() {
                         <Form.Label>Umlageschlüssel</Form.Label>
                         <Form.Select defaultValue="Wähle hier einen Umlageschlüssel aus..." onChange={onChangeHandlerDistributionKey}>
                             <option disabled>Wähle hier einen Umlageschlüssel aus...</option>
-                            <option>Wohnfläche</option>
-                            <option>Personenzahl</option>
-                            <option>Direktzuordnung</option>
-                            <option>Wohneinheiten</option>
+                            <option value="AreaBasedKey">Wohnfläche</option>
+                            <option value="PersonBasedKey">Personenzahl</option>
+                            <option value="ConsumptionBasedKey">Direktzuordnung</option>
+                            <option value="UnitBasedKey">Wohneinheiten</option>
                         </Form.Select>
                     </Form.Group>
                     <Row className="mb-3">
