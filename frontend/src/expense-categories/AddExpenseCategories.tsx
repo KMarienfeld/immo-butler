@@ -1,9 +1,10 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import "./AddExpenseCategories.css"
 import {useNavigate} from "react-router-dom";
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import axios from "axios";
+import {QuestionCircleFill} from 'react-bootstrap-icons'
 
 function AddExpenseCategories() {
 
@@ -13,7 +14,7 @@ function AddExpenseCategories() {
     const [totalN, setTotalN] = useState<number>(0)
     const [portionN, setPortionN] = useState<number>(0)
     const [distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY] = useState<boolean>(false)
-
+    const infoContent = (<Tooltip id="tooltip">Da bei dem Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
     function onClickGoBack() {
         navigate("/all-expense-categories")
     }
@@ -67,7 +68,7 @@ function AddExpenseCategories() {
                         <Form.Control placeholder="Trage hier die Kostenart ein" onChange={onChangeHandlerExpenseCategory}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formGridDistributionKey">
-                        <Form.Label>Umlageschlüssel</Form.Label>
+                        <Form.Label>Umlageschlüssel</Form.Label> <OverlayTrigger overlay={infoContent}><div><QuestionCircleFill className="question-icon"/></div></OverlayTrigger>
                         <Form.Select defaultValue="Wähle hier einen Umlageschlüssel aus..." onChange={onChangeHandlerDistributionKey}>
                             <option disabled>Wähle hier einen Umlageschlüssel aus...</option>
                             <option value="AREABASEDKEY">Wohnfläche</option>
