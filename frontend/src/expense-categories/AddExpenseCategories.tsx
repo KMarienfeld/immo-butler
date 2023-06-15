@@ -76,11 +76,13 @@ function AddExpenseCategories() {
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridTotal">
                             <Form.Label>Gesamt</Form.Label>
-                            <Form.Control placeholder="Referenz" onChange={onChangeHandlerTotal}/>
+                            <Form.Control placeholder="Referenz" onChange={onChangeHandlerTotal} pattern="[0-9]*"
+                                          title="Bitte geben Sie nur Zahlen ein"/>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridPortion">
                             <Form.Label>Anteil</Form.Label>
-                            <Form.Control placeholder="Wohneinheitsanteil" onChange={onChangeHandlerPortion} />
+                            <Form.Control placeholder="Wohneinheitsanteil" onChange={onChangeHandlerPortion} pattern="[0-9]*"
+                                          title="Bitte geben Sie nur ganze Zahlen ein" />
                         </Form.Group>
                     </Row>
                     <Row className="mt-5">
