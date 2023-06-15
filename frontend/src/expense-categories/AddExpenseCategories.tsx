@@ -12,6 +12,7 @@ function AddExpenseCategories() {
     const [distributionKeyN, setDistributionKeyN] = useState<string>("")
     const [totalN, setTotalN] = useState<number>(0)
     const [portionN, setPortionN] = useState<number>(0)
+    const [distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY] = useState<boolean>(false)
 
     function onClickGoBack() {
         navigate("/all-expense-categories")
@@ -22,7 +23,9 @@ function AddExpenseCategories() {
     }
 
     function onChangeHandlerDistributionKey(e:ChangeEvent<HTMLSelectElement>) {
-        setDistributionKeyN(e.target.value)
+        const selectedValue = e.target.value;
+        setDistributionKeyN(selectedValue);
+        setDistributionKeyIsCONSUMPTIONBASEDKEY(selectedValue === "CONSUMPTIONBASEDKEY");
     }
 
     function onChangeHandlerTotal(e:ChangeEvent<HTMLInputElement>) {
@@ -77,12 +80,12 @@ function AddExpenseCategories() {
                         <Form.Group as={Col} controlId="formGridTotal">
                             <Form.Label>Gesamt</Form.Label>
                             <Form.Control placeholder="Referenz" onChange={onChangeHandlerTotal} pattern="[0-9]*"
-                                          title="Bitte geben Sie nur Zahlen ein"/>
+                                          title="Bitte geben Sie nur Zahlen ein" disabled={distributionKeyIsCONSUMPTIONBASEDKEY}/>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridPortion">
                             <Form.Label>Anteil</Form.Label>
                             <Form.Control placeholder="Wohneinheitsanteil" onChange={onChangeHandlerPortion} pattern="[0-9]*"
-                                          title="Bitte geben Sie nur ganze Zahlen ein" />
+                                          title="Bitte geben Sie nur ganze Zahlen ein" disabled={distributionKeyIsCONSUMPTIONBASEDKEY}/>
                         </Form.Group>
                     </Row>
                     <Row className="mt-5">
