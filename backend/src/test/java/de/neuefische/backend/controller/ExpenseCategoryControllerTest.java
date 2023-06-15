@@ -31,7 +31,7 @@ class ExpenseCategoryControllerTest {
                     .content("""
                             {
                                 "expanseCategory":"Strom",
-                                "distributionKey":"UnitBasedKey",
+                                "distributionKey":"UNITBASEDKEY",
                                 "total":2,
                                 "portion":1
                             }
@@ -41,7 +41,7 @@ class ExpenseCategoryControllerTest {
                 .andExpect(content().json("""
                         {
                                 "expanseCategory":"Strom",
-                                "distributionKey":"UnitBasedKey",
+                                "distributionKey":"UNITBASEDKEY",
                                 "total":2,
                                 "portion":1
                         }    
