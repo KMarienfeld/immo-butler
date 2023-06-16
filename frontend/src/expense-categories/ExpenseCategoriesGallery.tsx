@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
+import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import ExpenseCategoryCard from "./ExpenseCategoryCard";
 import {Button, Container} from "react-bootstrap";
@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import "./ExpenseCategoryCard.css"
 function ExpenseCategoriesGallery() {
 
-    const [expenseCategoryList, setExpenseCategoryList] = useState<ExpenseCategoryModel[]>([]);
+    const [expenseCategoryList, setExpenseCategoryList] = useState<ExpenseCategoryDTOModel[]>([]);
     const navigate = useNavigate();
 
     useEffect(getAllExpanseCategories, [])

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button, Card, Container, ListGroup, Row} from "react-bootstrap";
 import "./ExpenseCategoryCard.css"
-import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import {useNavigate} from "react-router-dom";
 
 type Props = {
