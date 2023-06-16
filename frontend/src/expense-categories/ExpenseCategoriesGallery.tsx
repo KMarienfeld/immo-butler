@@ -55,7 +55,7 @@ function ExpenseCategoriesGallery() {
                             ))}
                         </Row>
                     </Container>
-                    <Container className="d-flex justify-content-center mt-5">
+                    <Container className="d-flex pb-5 justify-content-center mt-5">
                         <Button className="buttonNewExpenseCategory" onClick={buttonNewExpenseCategory}>
                             neue Kostenart anlegen
                         </Button>
