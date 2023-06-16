@@ -4,10 +4,9 @@ import de.neuefische.backend.model.DTOExpenseCategory;
 import de.neuefische.backend.model.ExpenseCategory;
 import de.neuefische.backend.service.ExpenseCategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/expenseCategory")
@@ -18,5 +17,10 @@ public class ExpenseCategoryController {
     @PostMapping("/add")
     public ExpenseCategory addExpenseCategory (@RequestBody DTOExpenseCategory dtoExpenseCategory) {
         return expenseCategoryService.addExpenseCategory(dtoExpenseCategory);
+    }
+
+    @GetMapping("/get-all")
+    public List<ExpenseCategory> getAllExpenseCategories () {
+        return expenseCategoryService.getAllExpenseCategories();
     }
 }
