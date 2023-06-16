@@ -1,0 +1,15 @@
+.buttonBack {
+    width: 100%;
+    color: #006D77 !important;
+}
+.buttonBack:hover {
+    background-color: #83C5BE !important;
+}
+
+.buttonSubmit {
+    width: 100%;
+    background-color: #006D77 !important;
+}
+.buttonSubmit:hover {
+    background-color: #83C5BE !important;;
+}
