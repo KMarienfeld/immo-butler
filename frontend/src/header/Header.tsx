@@ -20,7 +20,7 @@ function Header() {
                         <Navbar.Collapse>
                             <Nav>
                                 <Nav.Link className="menuLink" href="/all-bills">Nebenostenabrechnung</Nav.Link>
-                                <Nav.Link className="menuLink" href="/all-expense-category">Kostenarten</Nav.Link>
+                                <Nav.Link className="menuLink" href="/all-expense-categories">Kostenarten</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                 </Container>
