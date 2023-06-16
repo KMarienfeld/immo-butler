@@ -6,7 +6,6 @@ import UseLogin from "./login/UseLogin";
 import Header from "./header/Header";
 import ProtectedRoutes from "./login/ProtectedRoutes";
 import AddExpenseCategories from "./expense-categories/AddExpenseCategories";
-import ExpenseCategoryCard from "./expense-categories/ExpenseCategoryCard";
 import ExpenseCategoriesGallery from "./expense-categories/ExpenseCategoriesGallery";
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
   return (
     <div>
         <Routes>
-            <Route path={""} element={<Login login={login}/>}/>
             <Route path={"/login"} element={<Login login={login}/>}/>
             <Route path={"/add-expense-categories"} element={
                 <>
@@ -30,8 +28,21 @@ function App() {
                 </>
             }/>
             <Route element={<ProtectedRoutes user={user}/>}>
+                <Route path={""} element={<Header/>}/>
                 <Route path={"/all-bills"} element={<Header/>}/>
                 <Route path={"/all-expense-categories"} element={<Header/>}/>
+                <Route path={"/add-expense-categories"} element={
+                    <>
+                        <Header/>
+                        <AddExpenseCategories/>
+                    </>
+                }/>
+                <Route path={"/all-expense-categories"} element={
+                    <>
+                        <Header/>
+                        <ExpenseCategoriesGallery/>
+                    </>
+                }/>
             </Route>
         </Routes>
     </div>
