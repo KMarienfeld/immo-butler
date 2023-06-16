@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -27,8 +28,8 @@ class ExpenseCategoryControllerTest {
     void when_addExpenseCategory_thenReturnNewExpenseCategory_andStatus200() throws Exception {
         //whenThen
         mockMvc.perform(post("/api/expenseCategory/add")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("""
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                             {
                                 "expanseCategory":"Strom",
                                 "distributionKey":"UNITBASEDKEY",
@@ -47,5 +48,15 @@ class ExpenseCategoryControllerTest {
                         }    
                         """)
                 );
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
+    void whenGetAllExpenseCategories_then_return200kAndEmptyList() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/expenseCategory/get-all"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+
     }
 }
