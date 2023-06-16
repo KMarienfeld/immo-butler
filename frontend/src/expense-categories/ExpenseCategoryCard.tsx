@@ -14,12 +14,22 @@ const navigate = useNavigate();
         navigate("/add-expense-categories")
     }
 
+    function getDistributionKeyLabel(distributionKey:string) {
+        switch (distributionKey) {
+            case "AREABASEDKEY":
+                return "Wohnfläche";
+            case "PERSONBASEDKEY":
+                return "Personenzahl";
+            case "CONSUMPTIONBASEDKEY":
+                return "Direktzuordnung";
+            case "UNITBASEDKEY":
+                return "Wohneinheiten";
+            default:
+                return "";
+        }
+    }
     return (
         <div>
-            <div className="pageContent">
-                <Container className="pt-5 d-flex justify-content-center">
-                    <h3 className="text-center">Hier siehst du alle deine angelegten Kostenarten</h3>
-                </Container>
                 <Container className="d-flex justify-content-center mt-4 mb-4">
                     <Card className="expenseCategoryCard" style={{ width: '18rem' }}>
                         <Card.Header>
@@ -27,22 +37,18 @@ const navigate = useNavigate();
                         </Card.Header>
                             {props.expenseCategory.total === 0 ?
                                 <ListGroup variant="flush">
-                                    <ListGroup.Item>Umlageschlüssel: {props.expenseCategory.distributionKey}</ListGroup.Item>
+                                    <ListGroup.Item>Umlageschlüssel: {getDistributionKeyLabel(props.expenseCategory.distributionKey)}</ListGroup.Item>
                                 </ListGroup>
                                     :
                                 <ListGroup variant="flush">
-                                    <ListGroup.Item>Umlageschlüssel: {props.expenseCategory.distributionKey}</ListGroup.Item>
+                                    <ListGroup.Item>Umlageschlüssel: {getDistributionKeyLabel(props.expenseCategory.distributionKey)}</ListGroup.Item>
                                     <ListGroup.Item>Gesamt: {props.expenseCategory.total}</ListGroup.Item>
                                     <ListGroup.Item>Anteil: {props.expenseCategory.portion} </ListGroup.Item>
                                 </ListGroup>
                             }
                     </Card>
                 </Container>
-                <Container className="d-flex justify-content-center mt-5">
-                    <Button className="buttonNewExpenseCategory" onClick={buttonNewExpenseCategory}>neue Kostenart anlegen</Button>
-                </Container>
             </div>
-        </div>
     );
 }
 
