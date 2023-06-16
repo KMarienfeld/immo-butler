@@ -50,7 +50,7 @@ function ExpenseCategoriesGallery() {
                         <Row>
                             {expenseCategoryList.map(currentExpenseCategory => (
                                 <Col md={4} key={currentExpenseCategory.id}>
-                                    <ExpenseCategoryCard  expenseCategory={currentExpenseCategory}/>
+                                        <ExpenseCategoryCard  expenseCategory={currentExpenseCategory}/>
                                 </Col>
                             ))}
                         </Row>
