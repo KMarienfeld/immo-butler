@@ -30,7 +30,7 @@ function ExpenseCategoriesGallery() {
             {expenseCategoryList.length === 0 ?
                 <div className="pageContent">
                 <Container className="pt-5 d-flex justify-content-center">
-                    <h4 className="text-center">du hast bisher noch keine Kostenstelle angelegt, starte direkt mit deiner ersten Kostenstelle!</h4>
+                    <h4 className="text-center">du hast bisher noch keine Kostenstelle angelegt, starte direkt mit deiner ersten Kostenart!</h4>
                 </Container>
                 <Container className="d-flex justify-content-center mt-5">
                     <Button className="buttonNewExpenseCategory" onClick={buttonNewExpenseCategory} >neue Kostenart anlegen</Button>
