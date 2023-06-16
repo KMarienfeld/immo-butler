@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import ExpenseCategoryCard from "./ExpenseCategoryCard";
 import {Button, Container} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import "./ExpenseCategoryCard.css"
+import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 function ExpenseCategoriesGallery() {
 
-    const [expenseCategoryList, setExpenseCategoryList] = useState<ExpenseCategoryDTOModel[]>([]);
+    const [expenseCategoryList, setExpenseCategoryList] = useState<ExpenseCategoryModel[]>([]);
     const navigate = useNavigate();
 
     useEffect(getAllExpanseCategories, [])
@@ -36,8 +36,8 @@ function ExpenseCategoriesGallery() {
                     <Button className="buttonNewExpenseCategory" onClick={buttonNewExpenseCategory} >neue Kostenart anlegen</Button>
                 </Container>
                 </div> :
-                expenseCategoryList.map(expenseCategory =>
-                    <ExpenseCategoryCard expenseCategory={expenseCategory}/>
+                expenseCategoryList.map(currentExpenseCategory =>
+                    <ExpenseCategoryCard expenseCategory={currentExpenseCategory} key={currentExpenseCategory.id}/>
                 )
             }
         </div>

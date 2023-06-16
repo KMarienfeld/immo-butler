@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Card, Container, ListGroup, Row} from "react-bootstrap";
 import "./ExpenseCategoryCard.css"
 import {useNavigate} from "react-router-dom";
+import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 
 type Props = {
     expenseCategory: ExpenseCategoryModel
