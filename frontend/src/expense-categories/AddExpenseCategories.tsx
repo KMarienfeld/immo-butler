@@ -2,7 +2,7 @@ import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import "./AddExpenseCategories.css"
 import {useNavigate} from "react-router-dom";
-import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
+import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import {QuestionCircleFill} from 'react-bootstrap-icons'
 
@@ -41,7 +41,7 @@ function AddExpenseCategories() {
 
     function addNewExpenseCategory(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const newExpenseCategory:ExpenseCategoryModel = {
+        const newExpenseCategory:ExpenseCategoryDTOModel = {
             expanseCategory:expanseCategoryN,
             distributionKey:distributionKeyN,
             total:totalN, portion:portionN
