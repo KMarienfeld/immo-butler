@@ -15,18 +15,6 @@ function App() {
     <div>
         <Routes>
             <Route path={"/login"} element={<Login login={login}/>}/>
-            <Route path={"/add-expense-categories"} element={
-                <>
-                    <Header/>
-                    <AddExpenseCategories/>
-                </>
-            }/>
-            <Route path={"/all-expense-categories"} element={
-                <>
-                    <Header/>
-                    <ExpenseCategoriesGallery/>
-                </>
-            }/>
             <Route element={<ProtectedRoutes user={user}/>}>
                 <Route path={""} element={<Header/>}/>
                 <Route path={"/all-bills"} element={<Header/>}/>
