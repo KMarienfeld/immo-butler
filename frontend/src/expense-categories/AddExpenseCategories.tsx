@@ -5,54 +5,11 @@ import {useNavigate} from "react-router-dom";
 import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import {QuestionCircleFill} from 'react-bootstrap-icons'
-
+import useAddingExpenseCategory from "../hooks/useAddingExpenseCategory"
 function AddExpenseCategories() {
-
-    const navigate = useNavigate();
-    const [expanseCategoryN, setExpanseCategoryN] = useState<string>("")
-    const [distributionKeyN, setDistributionKeyN] = useState<string>("")
-    const [totalN, setTotalN] = useState<number>(0)
-    const [portionN, setPortionN] = useState<number>(0)
-    const [distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY] = useState<boolean>(false)
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
-    function onClickGoBack() {
-        navigate("/all-expense-categories")
-    }
-
-    function onChangeHandlerExpenseCategory(e:ChangeEvent<HTMLInputElement>) {
-        setExpanseCategoryN(e.target.value)
-    }
-
-    function onChangeHandlerDistributionKey(e:ChangeEvent<HTMLSelectElement>) {
-        const selectedValue = e.target.value;
-        setDistributionKeyN(selectedValue);
-        setDistributionKeyIsCONSUMPTIONBASEDKEY(selectedValue === "CONSUMPTIONBASEDKEY");
-    }
-
-    function onChangeHandlerTotal(e:ChangeEvent<HTMLInputElement>) {
-        const value = e.target.value;
-        setTotalN(Number(value))
-    }
-
-    function onChangeHandlerPortion(e:ChangeEvent<HTMLInputElement>) {
-        const value = e.target.value;
-        setPortionN(Number(value))
-    }
-
-    function addNewExpenseCategory(e:FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        const newExpenseCategory:ExpenseCategoryDTOModel = {
-            expanseCategory:expanseCategoryN,
-            distributionKey:distributionKeyN,
-            total:totalN, portion:portionN
-        }
-       axios.post('api/expenseCategory/add', newExpenseCategory)
-           .then(response => {
-               console.log(response.data)
-           })
-           .then(()=> navigate("/all-expense-categories"))
-           .catch(error => console.log(error))
-    }
+    const {distributionKeyIsCONSUMPTIONBASEDKEY,
+        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion, addNewExpenseCategory } = useAddingExpenseCategory();
 
     return (
         <div>
@@ -93,7 +50,7 @@ function AddExpenseCategories() {
                     </Row>
                     <Row className="mt-5">
                         <Col>
-                            <Button className="buttonBack" variant="outline-dark" type="submit" onClick={onClickGoBack}>
+                            <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBack}>
                                 zurück
                             </Button>
                         </Col>
