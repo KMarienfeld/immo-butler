@@ -4,7 +4,6 @@ import {useParams} from "react-router-dom";
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
 import useAddingExpenseCategory from "../hooks/useFormValuesExpenseCategory";
-import useGetAllExpenseCategories from "../hooks/useGetAllExpenseCategories";
 
 type Props = {
     expenseCategories: ExpenseCategoryModel[]
@@ -13,7 +12,7 @@ function EditExpenseCategory(props:Props) {
 
     const params = useParams();
     const id:string|undefined = params.id
-    const actualExpenseCategory: ExpenseCategoryModel| undefined = props.expenseCategories.find(currentExpenseCategory => props.expenseCategories,id === id);
+    const actualExpenseCategory: ExpenseCategoryModel| undefined = props.expenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === id);
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
     const {distributionKeyIsCONSUMPTIONBASEDKEY, onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion, editExpenseCategoryById} = useAddingExpenseCategory();
 
@@ -34,7 +33,7 @@ function EditExpenseCategory(props:Props) {
                         <Form.Label>Umlageschlüssel
                             <OverlayTrigger trigger={['hover', 'click']} overlay={infoContent}><div><QuestionCircleFill className="question-icon"/></div></OverlayTrigger>
                         </Form.Label>
-                        <Form.Select defaultValue="Wähle hier einen Umlageschlüssel aus..." onChange={onChangeHandlerDistributionKey}>
+                        <Form.Select defaultValue={actualExpenseCategory?.distributionKey} onChange={onChangeHandlerDistributionKey}>
                             <option disabled>Wähle hier einen Umlageschlüssel aus...</option>
                             <option value="AREABASEDKEY">Wohnfläche</option>
                             <option value="PERSONBASEDKEY">Personenzahl</option>

@@ -31,7 +31,7 @@ function App() {
                     <ExpenseCategoriesGallery expenseCategories={expenseCategoryList}/>
                 </>
             }/>
-            <Route path={"all-expense-categories/expense-category/:id"} element={
+            <Route path="all-expense-categories/expense-category/:id" element={
                 <>
                     <Header/>
                     <EditExpenseCategory expenseCategories={expenseCategoryList}/>
