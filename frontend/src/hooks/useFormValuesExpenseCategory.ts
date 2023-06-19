@@ -1,10 +1,11 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
-import axios from "axios/index";
+import axios from "axios";
 
 
-export default function UseAddingExpenseCategory() {
+
+export default function useFormValuesExpenseCategory() {
     const navigate = useNavigate();
     const [expanseCategoryN, setExpanseCategoryN] = useState<string>("")
     const [distributionKeyN, setDistributionKeyN] = useState<string>("")

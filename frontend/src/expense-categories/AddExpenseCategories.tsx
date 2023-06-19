@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import {QuestionCircleFill} from 'react-bootstrap-icons'
-import useAddingExpenseCategory from "../hooks/useAddingExpenseCategory"
+import useAddingExpenseCategory from "../hooks/useFormValuesExpenseCategory"
 function AddExpenseCategories() {
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
     const {distributionKeyIsCONSUMPTIONBASEDKEY,

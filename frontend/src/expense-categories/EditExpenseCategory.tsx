@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import {useParams} from "react-router-dom";
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
-import useAddingExpenseCategory from "../hooks/useAddingExpenseCategory";
+import useAddingExpenseCategory from "../hooks/useFormValuesExpenseCategory";
+import useGetAllExpenseCategories from "../hooks/useGetAllExpenseCategories";
 
 type Props = {
     expenseCategories: ExpenseCategoryModel[]
@@ -15,7 +16,6 @@ function EditExpenseCategory(props:Props) {
     const actualExpenseCategory: ExpenseCategoryModel| undefined = props.expenseCategories.find(currentExpenseCategory => props.expenseCategories,id === id);
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
     const {distributionKeyIsCONSUMPTIONBASEDKEY, onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion, editExpenseCategoryById} = useAddingExpenseCategory();
-
 
     return (
         <div>
