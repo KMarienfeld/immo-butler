@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
 import Login from "./login/Login";
@@ -9,16 +9,17 @@ import AddExpenseCategories from "./expense-categories/AddExpenseCategories";
 import ExpenseCategoriesGallery from "./expense-categories/ExpenseCategoriesGallery";
 
 function App() {
-    const {login, user} = UseLogin()
+    const {login, user, getUsername} = UseLogin()
+    useEffect(()=>console.log("app.tsx"))
+    useEffect(() => getUsername, [])
 
   return (
     <div>
         <Routes>
-            <Route path={"/login"} element={<Login login={login}/>}/>
+            <Route path={"/login"} element={<Login login={login} getUsername={getUsername}/>}/>
             <Route element={<ProtectedRoutes user={user}/>}>
-                <Route path={""} element={<Header/>}/>
+                <Route path={"/"} element={<Header/>}/>
                 <Route path={"/all-bills"} element={<Header/>}/>
-                <Route path={"/all-expense-categories"} element={<Header/>}/>
                 <Route path={"/add-expense-categories"} element={
                     <>
                         <Header/>

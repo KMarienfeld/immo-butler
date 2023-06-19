@@ -93,7 +93,7 @@ function AddExpenseCategories() {
                     </Row>
                     <Row className="mt-5">
                         <Col>
-                            <Button className="buttonBack" variant="outline-dark" type="submit" onClick={onClickGoBack}>
+                            <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBack}>
                                 zurück
                             </Button>
                         </Col>

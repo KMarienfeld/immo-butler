@@ -5,7 +5,7 @@ type Props = {
     user:string | undefined;
 }
 function ProtectedRoutes(props:Props) {
-    const authenticated:boolean = props.user !== undefined && props.user !== "Not logged in"
+    const authenticated:boolean = props.user !== undefined
 
     return (
         authenticated ? <Outlet/> : <Navigate to={"/login"}/>
