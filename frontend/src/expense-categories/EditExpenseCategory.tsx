@@ -8,10 +8,6 @@ import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import useGetAllExpenseCategories from "../hooks/useGetAllExpenseCategories";
 
-type Props = {
-    expenseCategoryList: ExpenseCategoryModel[];
-}
-
 function EditExpenseCategory() {
     const params = useParams();
     const navigate = useNavigate();
