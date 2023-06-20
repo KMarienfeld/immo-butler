@@ -20,5 +20,6 @@ public class ControllerUser {
 
     @GetMapping("/login")
     public void login() {
+        //Diese Methode ist bewusst leer, da die getUsername Funktionalität in einer eigenen Funktion ausgelagert wurde.
     }
 }
