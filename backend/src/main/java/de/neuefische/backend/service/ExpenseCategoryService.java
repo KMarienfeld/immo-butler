@@ -29,4 +29,8 @@ public class ExpenseCategoryService {
         return expenseCategoryRepository.findAll();
     }
 
+    public ExpenseCategory editExpenseCategoryById(String idOfExpenseCategory, DTOExpenseCategory dtoExpenseCategory) {
+        ExpenseCategory editedExpenseCategory = new ExpenseCategory(idOfExpenseCategory, dtoExpenseCategory.getExpanseCategory(), dtoExpenseCategory.getDistributionKey(), dtoExpenseCategory.getTotal(), dtoExpenseCategory.getPortion());
+        return expenseCategoryRepository.save(editedExpenseCategory);
+    }
 }
