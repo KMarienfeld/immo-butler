@@ -10,7 +10,6 @@ type Props = {
 function Login(props:Props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const nav = useNavigate();
 
     function onChangeHandlerUsername(e: ChangeEvent<HTMLInputElement>) {
         setUsername(e.target.value);
