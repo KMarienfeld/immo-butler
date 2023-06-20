@@ -1,9 +1,5 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
-import axios from "axios";
-
-
 
 export default function useFormValuesExpenseCategory() {
     const navigate = useNavigate();
@@ -12,7 +8,6 @@ export default function useFormValuesExpenseCategory() {
     const [totalN, setTotalN] = useState<number>(0)
     const [portionN, setPortionN] = useState<number>(0)
     const [distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY] = useState<boolean>(false)
-
 
     function onClickGoBack() {
         navigate("/all-expense-categories")
@@ -38,22 +33,7 @@ export default function useFormValuesExpenseCategory() {
         setPortionN(Number(value))
     }
 
-    function addNewExpenseCategory(e:FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        const newExpenseCategory:ExpenseCategoryDTOModel = {
-            expanseCategory:expanseCategoryN,
-            distributionKey:distributionKeyN,
-            total:totalN, portion:portionN
-        }
-        axios.post('api/expenseCategory/add', newExpenseCategory)
-            .then(response => {
-                console.log(response.data)
-            })
-            .then(()=> navigate("/all-expense-categories"))
-            .catch(error => console.log(error))
-    }
-
     return{expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY,
-        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion, addNewExpenseCategory }
+        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion }
 }
 

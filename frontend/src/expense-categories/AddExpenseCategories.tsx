@@ -7,10 +7,25 @@ import axios from "axios";
 import {QuestionCircleFill} from 'react-bootstrap-icons'
 import useAddingExpenseCategory from "../hooks/useFormValuesExpenseCategory"
 function AddExpenseCategories() {
+    const navigate = useNavigate();
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
-    const {distributionKeyIsCONSUMPTIONBASEDKEY,
-        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion, addNewExpenseCategory } = useAddingExpenseCategory();
+    const {expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY,
+        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion } = useAddingExpenseCategory();
 
+    function addNewExpenseCategory(e:FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const newExpenseCategory:ExpenseCategoryDTOModel = {
+            expanseCategory:expanseCategoryN,
+            distributionKey:distributionKeyN,
+            total:totalN, portion:portionN
+        }
+        axios.post('api/expenseCategory/add', newExpenseCategory)
+            .then(response => {
+                console.log(response.data)
+            })
+            .then(()=> navigate("/all-expense-categories"))
+            .catch(error => console.log(error))
+    }
     return (
         <div>
             <Row className="mt-5">
