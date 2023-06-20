@@ -6,18 +6,28 @@ import {QuestionCircleFill} from "react-bootstrap-icons";
 import useAddingExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
+import useGetAllExpenseCategories from "../hooks/useGetAllExpenseCategories";
 
 type Props = {
-    expenseCategories: ExpenseCategoryModel[]
+    expenseCategoryList: ExpenseCategoryModel[];
 }
-function EditExpenseCategory(props:Props) {
 
+function EditExpenseCategory() {
     const params = useParams();
     const navigate = useNavigate();
     const id:string|undefined = params.id
-    const actualExpenseCategory: ExpenseCategoryModel| undefined = props.expenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === id);
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
     const {expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY, onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useAddingExpenseCategory();
+
+    const {getAllExpanseCategories, expenseCategoryList} = useGetAllExpenseCategories();
+    //const actualExpenseCategory: ExpenseCategoryModel| undefined = expenseCategoryList.find(currentExpenseCategory => currentExpenseCategory.id === id);
+    let actualExpenseCategory: ExpenseCategoryModel| undefined = undefined;
+
+    useEffect(getAllExpanseCategories, [])
+
+    if (expenseCategoryList.length > 0) {
+        actualExpenseCategory = expenseCategoryList.find(currentExpenseCategory => currentExpenseCategory.id === id);
+    }
 
     function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -26,7 +36,7 @@ function EditExpenseCategory(props:Props) {
             distributionKey:distributionKeyN,
             total:totalN, portion:portionN
         }
-        axios.put('/api/expenseCategory/edit/' + id, editedExpenseCategoryDTO)
+        axios.put("/api/expenseCategory/edit/" + id, editedExpenseCategoryDTO)
             .then(r => {
                 console.log(r.data)
             })

@@ -5,7 +5,7 @@ import axios from "axios";
 function UseGetAllExpenseCategories() {
     const [expenseCategoryList, setExpenseCategoryList] = useState<ExpenseCategoryModel[]>([]);
     function getAllExpanseCategories() {
-        axios.get("api/expenseCategory/get-all")
+        axios.get("/api/expenseCategory/get-all")
             .then(response => response.data)
             .then(data =>{
                 setExpenseCategoryList(data);

@@ -4,15 +4,13 @@ import ExpenseCategoryCard from "./ExpenseCategoryCard";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import "./ExpenseCategoryCard.css"
-import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import useGetAllExpenseCategories from "../hooks/useGetAllExpenseCategories";
-
-type Props = {
-    expenseCategories: ExpenseCategoryModel[]
-}
-function ExpenseCategoriesGallery(props:Props) {
+function ExpenseCategoriesGallery() {
 
     const navigate = useNavigate();
+    const {getAllExpanseCategories, expenseCategoryList} = useGetAllExpenseCategories();
+
+    useEffect(getAllExpanseCategories, [])
 
     function buttonNewExpenseCategory() {
         navigate("/add-expense-categories")
@@ -20,7 +18,7 @@ function ExpenseCategoriesGallery(props:Props) {
 
     return (
         <div>
-            {props.expenseCategories.length === 0 ?
+            {expenseCategoryList.length === 0 ?
                 <div className="pageContent">
                     <Container className="pt-5 d-flex justify-content-center">
                         <h4 className="text-center">
@@ -41,7 +39,7 @@ function ExpenseCategoriesGallery(props:Props) {
                     </Container>
                     <Container className="mt-4 mb-4">
                         <Row>
-                            {props.expenseCategories.map(currentExpenseCategory => (
+                            {expenseCategoryList.map(currentExpenseCategory => (
                                 <Col md={4} key={currentExpenseCategory.id}>
                                         <ExpenseCategoryCard  expenseCategory={currentExpenseCategory}/>
                                 </Col>

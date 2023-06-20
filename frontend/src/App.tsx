@@ -9,6 +9,7 @@ import AddExpenseCategories from "./expense-categories/AddExpenseCategories";
 import ExpenseCategoriesGallery from "./expense-categories/ExpenseCategoriesGallery";
 import useGetAllExpenseCategories from "./hooks/useGetAllExpenseCategories";
 import EditExpenseCategory from "./expense-categories/EditExpenseCategory";
+import exp from "constants";
 
 function App() {
     const {login, user, getUsername} = UseLogin()
@@ -23,8 +24,8 @@ function App() {
             <Route path={"/login"} element={<Login login={login}/>}/>
             <Route element={<ProtectedRoutes user={user}/>}>
                 <Route path={"/add-expense-categories"} element={<AddExpenseCategories/>}/>
-                <Route path={"/all-expense-categories"} element={<ExpenseCategoriesGallery expenseCategories={expenseCategoryList}/>}/>
-                <Route path={"all-expense-categories/expense-category/:id"} element={<EditExpenseCategory expenseCategories={expenseCategoryList}/>}/>
+                <Route path={"/all-expense-categories"} element={<ExpenseCategoriesGallery/>}/>
+                <Route path={"all-expense-categories/expense-category/:id"} element={<EditExpenseCategory/>}/>
             </Route>
         </Routes>
     </div>
