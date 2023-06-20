@@ -11,6 +11,7 @@ function Login(props:Props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const nav = useNavigate();
+
     function onChangeHandlerUsername(e: ChangeEvent<HTMLInputElement>) {
         setUsername(e.target.value);
     }
@@ -21,13 +22,9 @@ function Login(props:Props) {
 
     function loginOnSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        props.login(username, password)
-            .then(() => {
-                nav("/all-bills")
-            })
-            .catch((error) => {
-                console.error("Error beim Login: ", error)
-            })
+        props.login(username, password).catch((error) => {
+            console.log(error)
+        })
     }
 
     return (
