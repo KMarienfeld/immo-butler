@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 
 export default function useFormValuesExpenseCategory() {
     const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function useFormValuesExpenseCategory() {
         setPortionN(Number(value))
     }
 
-    return{expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY,
+    return{expanseCategoryN, setExpanseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY,
         onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion }
 }
 

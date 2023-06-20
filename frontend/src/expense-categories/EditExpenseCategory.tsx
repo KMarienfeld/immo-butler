@@ -13,7 +13,8 @@ function EditExpenseCategory() {
     const navigate = useNavigate();
     const id:string|undefined = params.id
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
-    const {expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY, onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useAddingExpenseCategory();
+    const {expanseCategoryN, setExpanseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY,
+        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useAddingExpenseCategory();
 
     const {getAllExpanseCategories, expenseCategoryList} = useGetAllExpenseCategories();
     //const actualExpenseCategory: ExpenseCategoryModel| undefined = expenseCategoryList.find(currentExpenseCategory => currentExpenseCategory.id === id);
@@ -27,11 +28,24 @@ function EditExpenseCategory() {
 
     function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
+        if (expanseCategoryN === "") {
+            setExpanseCategoryN(actualExpenseCategory?.expanseCategory || "");
+        }
+        if (distributionKeyN === "") {
+            setDistributionKeyN(actualExpenseCategory?.distributionKey || "");
+        }
+        if (totalN === 0) {
+            setTotalN(actualExpenseCategory?.total || 0);
+        }
+        if (portionN === 0) {
+            setPortionN(actualExpenseCategory?.total || 0);
+        }
         const editedExpenseCategoryDTO: ExpenseCategoryDTOModel = {
             expanseCategory: expanseCategoryN,
             distributionKey:distributionKeyN,
             total:totalN, portion:portionN
         }
+        console.log (actualExpenseCategory?.distributionKey);
         axios.put("/api/expenseCategory/edit/" + id, editedExpenseCategoryDTO)
             .then(r => {
                 console.log(r.data)
