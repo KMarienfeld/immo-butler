@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
 import Login from "./login/Login";
@@ -8,22 +8,16 @@ import ProtectedRoutes from "./login/ProtectedRoutes";
 import AddExpenseCategories from "./expense-categories/AddExpenseCategories";
 
 function App() {
-    const {login, user} = UseLogin()
+    const {login, user, getUsername} = UseLogin()
+    useEffect(()=> getUsername, [])
 
   return (
     <div>
+        {user === "" || user === "anonymousUser" ?  <> </> : <Header/>}
         <Routes>
-            <Route path={""} element={<Login login={login}/>}/>
             <Route path={"/login"} element={<Login login={login}/>}/>
-            <Route path={"/add-expense-categories"} element={
-                <>
-                    <Header/>
-                    <AddExpenseCategories/>
-                </>
-            }/>
             <Route element={<ProtectedRoutes user={user}/>}>
-                <Route path={"/all-bills"} element={<Header/>}/>
-                <Route path={"/all-expense-category"} element={<Header/>}/>
+                <Route path={"/add-expense-categories"} element={<AddExpenseCategories/>}/>
             </Route>
         </Routes>
     </div>
