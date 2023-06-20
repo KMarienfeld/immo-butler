@@ -6,28 +6,32 @@ function UseLogin() {
 
     const [user, setUser] = useState<string>()
     const nav = useNavigate()
-
     function login(username:string, password:string) {
-        return axios.post("/user/login", undefined, {auth: {username:username, password:password}})
-            .then((r)=>console.log("Blub"+ r))
-            .then(() => {
-                nav("/all-bills")
+        return axios.post("/user/login", undefined, {auth: {username, password}})
+            .then((response) => {
+                getUsername()
+            }).catch((error) => {
+                console.log(error)
             })
-            .catch((error) => {
-                console.error("Error beim Login: ", error)
-            })
+
     }
 
     function getUsername() {
-        if (user && user !== "anonymousUser") {
-            nav("/all-bills")
-        } else
-        axios.get("/user/me")
-            .then((r)=>setUser(r.data))
-
-
+        let username = undefined;
+        axios.get("/user/me").then((response) => {
+            setUser(response.data);
+            username = response.data;
+            if (username === "anonymousUser" || username === undefined) {
+                nav("/login")
+            } else nav("/all-expense-categories")
+        }).then(() => {
+        })
+            .catch(error => {
+                console.log(error)
+            })
     }
-    return {login, user, getUsername}
+
+    return {login, getUsername, user}
 }
 
 export default UseLogin;

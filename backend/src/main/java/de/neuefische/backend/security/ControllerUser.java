@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ControllerUser {
 
-    @GetMapping ("/me")
-    public String getUserName() {
+    @PostMapping("/me")
+    public String getUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    @PostMapping ("/login")
+    @GetMapping("/login")
     public void login() {
-
+        //Diese Methode ist bewusst leer, da die getUsername Funktionalität in einer eigenen Funktion ausgelagert wurde.
     }
 }

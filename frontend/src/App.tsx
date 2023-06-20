@@ -10,28 +10,15 @@ import ExpenseCategoriesGallery from "./expense-categories/ExpenseCategoriesGall
 
 function App() {
     const {login, user, getUsername} = UseLogin()
-    useEffect(()=>console.log("app.tsx"))
-    useEffect(() => getUsername, [])
+    useEffect(()=> getUsername, [])
 
   return (
     <div>
+        {user === "" || user === "anonymousUser" ?  <> </> : <Header/>}
         <Routes>
-            <Route path={"/login"} element={<Login login={login} getUsername={getUsername}/>}/>
+            <Route path={"/login"} element={<Login login={login}/>}/>
             <Route element={<ProtectedRoutes user={user}/>}>
-                <Route path={"/"} element={<Header/>}/>
-                <Route path={"/all-bills"} element={<Header/>}/>
-                <Route path={"/add-expense-categories"} element={
-                    <>
-                        <Header/>
-                        <AddExpenseCategories/>
-                    </>
-                }/>
-                <Route path={"/all-expense-categories"} element={
-                    <>
-                        <Header/>
-                        <ExpenseCategoriesGallery/>
-                    </>
-                }/>
+                <Route path={"/add-expense-categories"} element={<AddExpenseCategories/>}/>
             </Route>
         </Routes>
     </div>
