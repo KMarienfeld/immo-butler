@@ -21,6 +21,7 @@ function App() {
             <Route path={"/login"} element={<Login login={login}/>}/>
             <Route element={<ProtectedRoutes user={user}/>}>
                 <Route path={"/add-expense-categories"} element={<AddExpenseCategories/>}/>
+                <Route path={"/all-expense-categories"} element={<ExpenseCategoriesGallery/>}/>
             </Route>
         </Routes>
     </div>
