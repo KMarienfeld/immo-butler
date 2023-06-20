@@ -30,6 +30,7 @@ public class ExpenseCategoryService {
     }
 
     public ExpenseCategory editExpenseCategoryById(String idOfExpenseCategory, DTOExpenseCategory dtoExpenseCategory) {
+        expenseCategoryRepository.findById(idOfExpenseCategory).orElseThrow();
         ExpenseCategory editedExpenseCategory = new ExpenseCategory(idOfExpenseCategory, dtoExpenseCategory.getExpanseCategory(), dtoExpenseCategory.getDistributionKey(), dtoExpenseCategory.getTotal(), dtoExpenseCategory.getPortion());
         return expenseCategoryRepository.save(editedExpenseCategory);
     }
