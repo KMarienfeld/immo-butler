@@ -25,7 +25,7 @@ public class ExpenseCategoryController {
     }
 
     @PutMapping("/edit/{id}")
-    public ExpenseCategory editExpenseCategory(@PathVariable String IdOfExpenseCategory, @RequestBody DTOExpenseCategory dtoExpenseCategory) {
-        return expenseCategoryService.editExpenseCategoryById(IdOfExpenseCategory, dtoExpenseCategory);
+    public ExpenseCategory editExpenseCategory(@PathVariable String id, @RequestBody DTOExpenseCategory dtoExpenseCategory) {
+        return expenseCategoryService.editExpenseCategoryById(id, dtoExpenseCategory);
     }
 }

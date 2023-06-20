@@ -18,7 +18,7 @@ function EditExpenseCategory(props:Props) {
     const actualExpenseCategory: ExpenseCategoryModel| undefined = props.expenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === id);
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
     const {expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY, onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useAddingExpenseCategory();
-
+    axios.defaults.baseURL = "http://localhost:3000";
     function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
         const editedExpenseCategoryDTO: ExpenseCategoryDTOModel = {
