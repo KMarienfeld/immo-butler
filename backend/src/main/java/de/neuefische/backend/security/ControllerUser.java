@@ -3,6 +3,7 @@ package de.neuefische.backend.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,9 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ControllerUser {
 
-    @PostMapping("/login")
-    public String login() {
+    @PostMapping("/me")
+    public String getUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
+    @GetMapping("/login")
+    public void login() {
+        //Diese Methode ist bewusst leer, da die getUsername Funktionalität in einer eigenen Funktion ausgelagert wurde.
+    }
 }

@@ -19,4 +19,6 @@ public class ExpenseCategoryController {
     public ExpenseCategory addExpenseCategory (@RequestBody DTOExpenseCategory dtoExpenseCategory) {
         return expenseCategoryService.addExpenseCategory(dtoExpenseCategory);
     }
+
+
 }
