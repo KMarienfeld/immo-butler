@@ -14,7 +14,6 @@ function ExpenseCategoriesGallery(props:Props) {
 
     const navigate = useNavigate();
 
-
     function buttonNewExpenseCategory() {
         navigate("/add-expense-categories")
     }
