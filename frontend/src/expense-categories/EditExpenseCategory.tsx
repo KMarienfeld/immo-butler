@@ -21,12 +21,12 @@ function EditExpenseCategory(props:Props) {
 
     function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const editedExpenseCategory: ExpenseCategoryDTOModel = {
+        const editedExpenseCategoryDTO: ExpenseCategoryDTOModel = {
             expanseCategory: expanseCategoryN,
             distributionKey:distributionKeyN,
             total:totalN, portion:portionN
         }
-        axios.put('api/expenseCategory/edit/' + id, editedExpenseCategory)
+        axios.put('api/expenseCategory/edit/' + id, editedExpenseCategoryDTO)
             .then(r => {
                 console.log(r.data)
             })
