@@ -53,22 +53,7 @@ export default function useFormValuesExpenseCategory() {
             .catch(error => console.log(error))
     }
 
-    function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        const editedExpenseCategory: ExpenseCategoryDTOModel = {
-            expanseCategory: expanseCategoryN,
-            distributionKey:distributionKeyN,
-            total:totalN, portion:portionN
-        }
-        axios.put('api/expenseCategory/edit', editedExpenseCategory)
-            .then(r => {
-                console.log(r.data)
-            })
-            .then(() => navigate("/all-expense-categories"))
-            .catch(error => console.log(error))
-    }
-
     return{expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY,
-        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion, addNewExpenseCategory, editExpenseCategoryById }
+        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion, addNewExpenseCategory }
 }
 

@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {FormEvent, useEffect} from 'react';
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
 import useAddingExpenseCategory from "../hooks/useFormValuesExpenseCategory";
+import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
+import axios from "axios";
 
 type Props = {
     expenseCategories: ExpenseCategoryModel[]
@@ -11,10 +13,26 @@ type Props = {
 function EditExpenseCategory(props:Props) {
 
     const params = useParams();
+    const navigate = useNavigate();
     const id:string|undefined = params.id
     const actualExpenseCategory: ExpenseCategoryModel| undefined = props.expenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === id);
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
-    const {distributionKeyIsCONSUMPTIONBASEDKEY, onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion, editExpenseCategoryById} = useAddingExpenseCategory();
+    const {expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY, onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useAddingExpenseCategory();
+
+    function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const editedExpenseCategory: ExpenseCategoryDTOModel = {
+            expanseCategory: expanseCategoryN,
+            distributionKey:distributionKeyN,
+            total:totalN, portion:portionN
+        }
+        axios.put('api/expenseCategory/edit/' + id, editedExpenseCategory)
+            .then(r => {
+                console.log(r.data)
+            })
+            .then(() => navigate("/all-expense-categories"))
+            .catch(error => console.log(error))
+    }
 
     return (
         <div>
