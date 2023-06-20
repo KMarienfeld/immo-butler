@@ -21,7 +21,7 @@ function Header() {
                         <Navbar.Collapse>
                             <Nav>
                                 <Link className="menuLink" to="/all-bills">Nebenkostenabrechnung</Link>
-                                <Link className="menuLink" to="/all-expense-category">Kostenarten</Link>
+                                <Link className="menuLink" to="/all-expense-categories">Kostenarten</Link>
                             </Nav>
                         </Navbar.Collapse>
                 </Container>
