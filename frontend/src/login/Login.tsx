@@ -2,7 +2,6 @@ import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import "./Login.css"
 import logo from "../logo_tuerkis.png";
-import {useNavigate} from "react-router-dom";
 
 type Props = {
     login: (username:string, password:string) => Promise<void>
@@ -10,7 +9,7 @@ type Props = {
 function Login(props:Props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const nav = useNavigate();
+
     function onChangeHandlerUsername(e: ChangeEvent<HTMLInputElement>) {
         setUsername(e.target.value);
     }
@@ -21,13 +20,9 @@ function Login(props:Props) {
 
     function loginOnSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        props.login(username, password)
-            .then(() => {
-                nav("/all-bills")
-            })
-            .catch((error) => {
-                console.error("Error beim Login: ", error)
-            })
+        props.login(username, password).catch((error) => {
+            console.log(error)
+        })
     }
 
     return (
