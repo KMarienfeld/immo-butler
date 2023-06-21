@@ -24,22 +24,25 @@ function EditExpenseCategory() {
     if (expenseCategoryList.length > 0) {
         actualExpenseCategory = expenseCategoryList.find(currentExpenseCategory => currentExpenseCategory.id === id);
     }
+    useEffect( () => {
+            if (expanseCategoryN === "") {
+                setExpanseCategoryN(actualExpenseCategory?.expanseCategory || "");
+            }
+            if (distributionKeyN === "") {
+                setDistributionKeyN(actualExpenseCategory?.distributionKey || "");
+            }
+            if (totalN === 0) {
+                setTotalN(actualExpenseCategory?.total || 0);
+            }
+            if (portionN === 0) {
+                setPortionN(actualExpenseCategory?.total || 0);
+            }
+        }
+    )
 
     function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        console.log (actualExpenseCategory?.distributionKey);
-        if (expanseCategoryN === "") {
-            setExpanseCategoryN(actualExpenseCategory?.expanseCategory || "");
-        }
-        if (distributionKeyN === "") {
-            setDistributionKeyN(actualExpenseCategory?.distributionKey || "");
-        }
-        if (totalN === 0) {
-            setTotalN(actualExpenseCategory?.total || 0);
-        }
-        if (portionN === 0) {
-            setPortionN(actualExpenseCategory?.total || 0);
-        }
+
         const editedExpenseCategoryDTO: ExpenseCategoryDTOModel = {
             expanseCategory: expanseCategoryN,
             distributionKey:distributionKeyN,
