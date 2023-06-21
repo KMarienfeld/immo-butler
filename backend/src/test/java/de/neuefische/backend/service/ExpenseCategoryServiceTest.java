@@ -8,6 +8,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
+import java.util.Optional;
 
 import static de.neuefische.backend.model.DistributionKey.UNITBASEDKEY;
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,5 +51,25 @@ class ExpenseCategoryServiceTest {
        //THEN
         verify(expenseCategoryRepository).findAll();
         assertEquals(actual, List.of(expenseCategory1));
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
+
+    void when_editExpenseService_then_ReturnEditedExpenseService() throws Exception {
+        //GIVEN
+        DTOExpenseCategory newDtoExpenseCategory = new DTOExpenseCategory("Strom", UNITBASEDKEY, 3, 1);
+        String testID = "123";
+        ExpenseCategory oldExpenseCategory = new ExpenseCategory("123","Strom", UNITBASEDKEY, 2, 1);
+        ExpenseCategory expectedExpenseCategory = new ExpenseCategory("123","Strom", UNITBASEDKEY, 3, 1);
+        when(expenseCategoryRepository.findById(testID)).thenReturn(Optional.of(oldExpenseCategory));
+        when(expenseCategoryRepository.save(expectedExpenseCategory)).thenReturn(expectedExpenseCategory);
+        //WHEN
+        ExpenseCategory actual = expenseCategoryService.editExpenseCategoryById(testID, newDtoExpenseCategory);
+        //THEN
+        assertEquals(actual, expectedExpenseCategory);
+        verify(expenseCategoryRepository).findById(testID);
+        verify(expenseCategoryRepository).save(expectedExpenseCategory);
     }
 }

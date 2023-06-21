@@ -22,8 +22,9 @@ function EditExpenseCategory(props:Props) {
     let actualExpenseCategory: ExpenseCategoryModel| undefined = undefined;
 
     if (props.listOfExpenseCategories.length > 0) {
-        actualExpenseCategory = props.listOfExpenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === id);
+         actualExpenseCategory = props.listOfExpenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === id);
     }
+
     useEffect( () => {
             if (expanseCategoryN === "") {
                 setExpanseCategoryN(actualExpenseCategory?.expanseCategory || "");
