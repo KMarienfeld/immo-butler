@@ -36,7 +36,7 @@ class ExpenseCategoryControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                             {
-                                "expanseCategory":"Strom",
+                                "expenseCategory":"Strom",
                                 "distributionKey":"UNITBASEDKEY",
                                 "total":2,
                                 "portion":1
@@ -46,7 +46,7 @@ class ExpenseCategoryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {
-                                "expanseCategory":"Strom",
+                                "expenseCategory":"Strom",
                                 "distributionKey":"UNITBASEDKEY",
                                 "total":2,
                                 "portion":1
@@ -73,7 +73,7 @@ class ExpenseCategoryControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                             {
-                                "expanseCategory":"Strom",
+                                "expenseCategory":"Strom",
                                 "distributionKey":"UNITBASEDKEY",
                                 "total":2,
                                 "portion":1
