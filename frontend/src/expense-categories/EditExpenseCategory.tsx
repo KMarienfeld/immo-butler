@@ -9,14 +9,14 @@ import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory"
 
 type Props = {
     listOfExpenseCategories:ExpenseCategoryModel[],
-    getAllExpanseCategories: () => void
+    getAllExpenseCategories: () => void
 }
 function EditExpenseCategory(props:Props) {
     const params = useParams();
     const navigate = useNavigate();
     const id:string|undefined = params.id
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
-    const {expanseCategoryN, setExpanseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY,
+    const {expenseCategoryN, setExpenseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY,
         onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useFormValuesExpenseCategory();
 
     let actualExpenseCategory: ExpenseCategoryModel| undefined = undefined;
@@ -26,8 +26,8 @@ function EditExpenseCategory(props:Props) {
     }
 
     useEffect( () => {
-            if (expanseCategoryN === "") {
-                setExpanseCategoryN(actualExpenseCategory?.expanseCategory ?? "");
+            if (expenseCategoryN === "") {
+                setExpenseCategoryN(actualExpenseCategory?.expenseCategory ?? "");
             }
             if (distributionKeyN === "") {
                 setDistributionKeyN(actualExpenseCategory?.distributionKey ?? "");
@@ -45,7 +45,7 @@ function EditExpenseCategory(props:Props) {
         e.preventDefault()
 
         const editedExpenseCategoryDTO: ExpenseCategoryDTOModel = {
-            expanseCategory: expanseCategoryN,
+            expenseCategory: expenseCategoryN,
             distributionKey:distributionKeyN,
             total:totalN, portion:portionN
         }
@@ -53,7 +53,7 @@ function EditExpenseCategory(props:Props) {
             .then(r => {
                 console.log(r.data)
             })
-            .then(props.getAllExpanseCategories)
+            .then(props.getAllExpenseCategories)
             .then(() => navigate("/all-expense-categories"))
             .catch(error => console.log(error))
     }
@@ -69,7 +69,7 @@ function EditExpenseCategory(props:Props) {
                 <Form onSubmit={editExpenseCategoryById}>
                     <Form.Group className="mb-3" controlId="formGridExpenseCategory">
                         <Form.Label>Kostenart</Form.Label>
-                        <Form.Control placeholder={actualExpenseCategory?.expanseCategory} onChange={onChangeHandlerExpenseCategory}/>
+                        <Form.Control placeholder={actualExpenseCategory?.expenseCategory} onChange={onChangeHandlerExpenseCategory}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formGridDistributionKey">
                         <Form.Label>Umlageschlüssel

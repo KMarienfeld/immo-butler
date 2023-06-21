@@ -13,13 +13,13 @@ type Props = {
 function AddExpenseCategories(props:Props) {
     const navigate = useNavigate();
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
-    const {expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY,
+    const {expenseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY,
         onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion } = useFormValuesExpenseCategory();
 
     function addNewExpenseCategory(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
         const newExpenseCategory:ExpenseCategoryDTOModel = {
-            expanseCategory:expanseCategoryN,
+            expenseCategory:expenseCategoryN,
             distributionKey:distributionKeyN,
             total:totalN, portion:portionN
         }

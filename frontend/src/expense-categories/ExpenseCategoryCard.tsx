@@ -38,7 +38,7 @@ const navigate = useNavigate();
                     <button className="cardButtonExpenseCategory btn-unstyled" onClick={() => clickToExpenseCategoryEdit()}>
                         <Card className="expenseCategoryCard" style={{ width: '18rem' }}>
                             <Card.Header>
-                                Kostenart: {props.expenseCategory.expanseCategory}
+                                Kostenart: {props.expenseCategory.expenseCategory}
                             </Card.Header>
                                 {props.expenseCategory.total === 0 ?
                                     <ListGroup variant="flush">

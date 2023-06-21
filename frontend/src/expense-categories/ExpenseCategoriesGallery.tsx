@@ -7,7 +7,7 @@ import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 
 type Props = {
     listOfExpenseCategories:ExpenseCategoryModel[],
-    getAllExpanseCategories: () => void
+    getAllExpenseCategories: () => void
 }
 function ExpenseCategoriesGallery(props:Props) {
 

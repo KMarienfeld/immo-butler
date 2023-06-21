@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 export default function useFormValuesExpenseCategory() {
     const navigate = useNavigate();
-    const [expanseCategoryN, setExpanseCategoryN] = useState<string>("")
+    const [expenseCategoryN, setExpenseCategoryN] = useState<string>("")
     const [distributionKeyN, setDistributionKeyN] = useState<string>("")
     const [totalN, setTotalN] = useState<number>(0)
     const [portionN, setPortionN] = useState<number>(0)
@@ -13,7 +13,7 @@ export default function useFormValuesExpenseCategory() {
     }
 
     function onChangeHandlerExpenseCategory(e:ChangeEvent<HTMLInputElement>) {
-        setExpanseCategoryN(e.target.value)
+        setExpenseCategoryN(e.target.value)
     }
 
     function onChangeHandlerDistributionKey(e:ChangeEvent<HTMLSelectElement>) {
@@ -32,7 +32,7 @@ export default function useFormValuesExpenseCategory() {
         setPortionN(Number(value))
     }
 
-    return{expanseCategoryN, setExpanseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY,
+    return{expenseCategoryN, setExpenseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY,
         onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion }
 }
 
