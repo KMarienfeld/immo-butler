@@ -3,10 +3,10 @@ import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import {useNavigate, useParams} from "react-router-dom";
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
-import useAddingExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import useGetAllExpenseCategories from "../hooks/useGetAllExpenseCategories";
+import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 
 function EditExpenseCategory() {
     const params = useParams();
@@ -14,10 +14,9 @@ function EditExpenseCategory() {
     const id:string|undefined = params.id
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
     const {expanseCategoryN, setExpanseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY,
-        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useAddingExpenseCategory();
+        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useFormValuesExpenseCategory();
 
     const {getAllExpanseCategories, expenseCategoryList} = useGetAllExpenseCategories();
-    //const actualExpenseCategory: ExpenseCategoryModel| undefined = expenseCategoryList.find(currentExpenseCategory => currentExpenseCategory.id === id);
     let actualExpenseCategory: ExpenseCategoryModel| undefined = undefined;
 
     useEffect(getAllExpanseCategories, [])
@@ -28,6 +27,7 @@ function EditExpenseCategory() {
 
     function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
+        console.log (actualExpenseCategory?.distributionKey);
         if (expanseCategoryN === "") {
             setExpanseCategoryN(actualExpenseCategory?.expanseCategory || "");
         }
@@ -45,7 +45,6 @@ function EditExpenseCategory() {
             distributionKey:distributionKeyN,
             total:totalN, portion:portionN
         }
-        console.log (actualExpenseCategory?.distributionKey);
         axios.put("/api/expenseCategory/edit/" + id, editedExpenseCategoryDTO)
             .then(r => {
                 console.log(r.data)
