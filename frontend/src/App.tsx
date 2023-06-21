@@ -15,6 +15,7 @@ function App() {
     const {getAllExpanseCategories,listOfExpenseCategories } = useGetAllExpenseCategories();
 
     useEffect(getAllExpanseCategories, [])
+    useEffect(getAllExpanseCategories, [user])
     useEffect(()=> getUsername, [])
 
   return (
