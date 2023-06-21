@@ -24,8 +24,8 @@ function App() {
             <Route path={"/login"} element={<Login login={login}/>}/>
             <Route element={<ProtectedRoutes user={user}/>}>
                 <Route path={"/add-expense-categories"} element={<AddExpenseCategories getAllExpanseCategories={getAllExpanseCategories}/>}/>
-                <Route path={"/all-expense-categories"} element={<ExpenseCategoriesGallery getAllExpanseCategories={getAllExpanseCategories} listOfExpenseCategories={listOfExpenseCategories}/>}/>
-                <Route path={"all-expense-categories/expense-category/:id"} element={<EditExpenseCategory getAllExpanseCategories={getAllExpanseCategories} listOfExpenseCategories={listOfExpenseCategories}/>}/>
+                <Route path={"/all-expense-categories"} element={<ExpenseCategoriesGallery getAllExpenseCategories={getAllExpanseCategories} listOfExpenseCategories={listOfExpenseCategories}/>}/>
+                <Route path={"all-expense-categories/expense-category/:id"} element={<EditExpenseCategory getAllExpenseCategories={getAllExpanseCategories} listOfExpenseCategories={listOfExpenseCategories}/>}/>
             </Route>
         </Routes>
     </div>
