@@ -5,12 +5,16 @@ import {useNavigate} from "react-router-dom";
 import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import {QuestionCircleFill} from 'react-bootstrap-icons'
-import useAddingExpenseCategory from "../hooks/useFormValuesExpenseCategory"
-function AddExpenseCategories() {
+import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
+
+type Props = {
+    getAllExpanseCategories: () => void
+}
+function AddExpenseCategories(props:Props) {
     const navigate = useNavigate();
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
     const {expanseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY,
-        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion } = useAddingExpenseCategory();
+        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion } = useFormValuesExpenseCategory();
 
     function addNewExpenseCategory(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -23,6 +27,7 @@ function AddExpenseCategories() {
             .then(response => {
                 console.log(response.data)
             })
+            .then(props.getAllExpanseCategories)
             .then(()=> navigate("/all-expense-categories"))
             .catch(error => console.log(error))
     }

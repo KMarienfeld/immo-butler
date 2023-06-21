@@ -5,10 +5,13 @@ import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-
 import {QuestionCircleFill} from "react-bootstrap-icons";
 import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
-import useGetAllExpenseCategories from "../hooks/useGetAllExpenseCategories";
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 
-function EditExpenseCategory() {
+type Props = {
+    listOfExpenseCategories:ExpenseCategoryModel[],
+    getAllExpanseCategories: () => void
+}
+function EditExpenseCategory(props:Props) {
     const params = useParams();
     const navigate = useNavigate();
     const id:string|undefined = params.id
@@ -16,13 +19,10 @@ function EditExpenseCategory() {
     const {expanseCategoryN, setExpanseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY,
         onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useFormValuesExpenseCategory();
 
-    const {getAllExpanseCategories, expenseCategoryList} = useGetAllExpenseCategories();
     let actualExpenseCategory: ExpenseCategoryModel| undefined = undefined;
 
-    useEffect(getAllExpanseCategories, [])
-
-    if (expenseCategoryList.length > 0) {
-        actualExpenseCategory = expenseCategoryList.find(currentExpenseCategory => currentExpenseCategory.id === id);
+    if (props.listOfExpenseCategories.length > 0) {
+        actualExpenseCategory = props.listOfExpenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === id);
     }
     useEffect( () => {
             if (expanseCategoryN === "") {
@@ -52,6 +52,7 @@ function EditExpenseCategory() {
             .then(r => {
                 console.log(r.data)
             })
+            .then(props.getAllExpanseCategories)
             .then(() => navigate("/all-expense-categories"))
             .catch(error => console.log(error))
     }
