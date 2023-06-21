@@ -6,10 +6,12 @@ import de.neuefische.backend.repository.ExpenseCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ExpenseCategoryService {
-    private final ExpenseCategoryRepository repositoryExpenseCategory;
+    private final ExpenseCategoryRepository expenseCategoryRepository;
     private final GenerateIDService generateIDService;
 
     public ExpenseCategory addExpenseCategory(DTOExpenseCategory dtoExpenseCategory) {
@@ -20,7 +22,11 @@ public class ExpenseCategoryService {
         newExpenseCategory.setTotal(dtoExpenseCategory.getTotal());
         newExpenseCategory.setPortion(dtoExpenseCategory.getPortion());
 
-        return repositoryExpenseCategory.save(newExpenseCategory);
+        return expenseCategoryRepository.save(newExpenseCategory);
+    }
+
+    public List<ExpenseCategory> getAllExpenseCategories() {
+        return expenseCategoryRepository.findAll();
     }
 
 }

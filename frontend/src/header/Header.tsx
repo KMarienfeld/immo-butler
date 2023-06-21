@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 function Header() {
     return (
         <header>
-            <Navbar bg="dark" variant="dark" sticky="top" expand="sm" collapseOnSelect >
+            <Navbar bg="dark" variant="dark" fixed="top" expand="sm" collapseOnSelect >
                 <Container>
                     <Navbar.Brand>
                         <img
@@ -21,7 +21,7 @@ function Header() {
                         <Navbar.Collapse>
                             <Nav>
                                 <Link className="menuLink" to="/all-bills">Nebenkostenabrechnung</Link>
-                                <Link className="menuLink" to="/all-expense-category">Kostenarten</Link>
+                                <Link className="menuLink" to="/all-expense-categories">Kostenarten</Link>
                             </Nav>
                         </Navbar.Collapse>
                 </Container>

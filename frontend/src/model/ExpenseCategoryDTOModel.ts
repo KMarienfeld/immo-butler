@@ -1,5 +1,4 @@
-export type ExpenseCategoryModel = {
-    id:string,
+export type ExpenseCategoryDTOModel = {
     expanseCategory:string,
     distributionKey:string,
     total:number,

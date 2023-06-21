@@ -1,0 +1,17 @@
+.pageContent {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(45deg, rgb(230, 230, 230), white);
+}
+
+.expenseCategoryCard {
+    box-shadow: 0 3px 12px rgb(0 0 0 / 0.2);
+}
+
+.buttonNewExpenseCategory {
+    background-color: #006D77 !important;
+}
+
+.buttonNewExpenseCategory:hover {
+    background-color: #83C5BE !important;
+}
