@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from "axios";
 import ExpenseCategoryCard from "./ExpenseCategoryCard";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";

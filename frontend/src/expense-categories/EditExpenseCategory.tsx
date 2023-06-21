@@ -16,7 +16,7 @@ function EditExpenseCategory(props:Props) {
     const navigate = useNavigate();
     const id:string|undefined = params.id
     const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
-    const {expanseCategoryN, setExpanseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY,
+    const {expanseCategoryN, setExpanseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY,
         onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useFormValuesExpenseCategory();
 
     let actualExpenseCategory: ExpenseCategoryModel| undefined = undefined;
@@ -27,16 +27,16 @@ function EditExpenseCategory(props:Props) {
 
     useEffect( () => {
             if (expanseCategoryN === "") {
-                setExpanseCategoryN(actualExpenseCategory?.expanseCategory || "");
+                setExpanseCategoryN(actualExpenseCategory?.expanseCategory ?? "");
             }
             if (distributionKeyN === "") {
-                setDistributionKeyN(actualExpenseCategory?.distributionKey || "");
+                setDistributionKeyN(actualExpenseCategory?.distributionKey ?? "");
             }
             if (totalN === 0) {
-                setTotalN(actualExpenseCategory?.total || 0);
+                setTotalN(actualExpenseCategory?.total ?? 0);
             }
             if (portionN === 0) {
-                setPortionN(actualExpenseCategory?.total || 0);
+                setPortionN(actualExpenseCategory?.total ?? 0);
             }
         }
     )

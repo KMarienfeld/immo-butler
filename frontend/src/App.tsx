@@ -9,7 +9,6 @@ import AddExpenseCategories from "./expense-categories/AddExpenseCategories";
 import ExpenseCategoriesGallery from "./expense-categories/ExpenseCategoriesGallery";
 import useGetAllExpenseCategories from "./hooks/useGetAllExpenseCategories";
 import EditExpenseCategory from "./expense-categories/EditExpenseCategory";
-import exp from "constants";
 
 function App() {
     const {login, user, getUsername} = UseLogin()

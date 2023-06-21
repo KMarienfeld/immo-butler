@@ -1,7 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
-
 export default function useFormValuesExpenseCategory() {
     const navigate = useNavigate();
     const [expanseCategoryN, setExpanseCategoryN] = useState<string>("")
