@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("expenseCategory")
 public class ExpenseCategory {
     private String id;
-    private String expanseCategory;
+    private String expenseCategory;
     private DistributionKey distributionKey;
     private int total;
     private int portion;

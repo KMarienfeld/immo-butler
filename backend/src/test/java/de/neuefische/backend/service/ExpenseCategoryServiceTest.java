@@ -28,7 +28,7 @@ class ExpenseCategoryServiceTest {
         DTOExpenseCategory dtoExpenseCategory = new DTOExpenseCategory("Strom", UNITBASEDKEY, 2, 1);
         String testID = "testID123";
         when(generateIDService.generateExpenseCategoryUUID()).thenReturn(testID);
-        ExpenseCategory expected = new ExpenseCategory(testID, dtoExpenseCategory.getExpanseCategory(), dtoExpenseCategory.getDistributionKey(), dtoExpenseCategory.getTotal(), dtoExpenseCategory.getPortion());
+        ExpenseCategory expected = new ExpenseCategory(testID, dtoExpenseCategory.getExpenseCategory(), dtoExpenseCategory.getDistributionKey(), dtoExpenseCategory.getTotal(), dtoExpenseCategory.getPortion());
         when(expenseCategoryRepository.save(any())).thenReturn(expected);
         //WHEN
         ExpenseCategory actual = expenseCategoryService.addExpenseCategory(dtoExpenseCategory);
