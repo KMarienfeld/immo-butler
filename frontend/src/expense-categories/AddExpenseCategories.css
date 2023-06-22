@@ -13,3 +13,7 @@
 .buttonSubmit:hover {
     background-color: #83C5BE !important;
 }
+
+.buttonDelete {
+    width: 100%;
+}

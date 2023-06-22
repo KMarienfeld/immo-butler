@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect} from 'react';
+import React, {FormEvent, MouseEventHandler, useEffect} from 'react';
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import {useNavigate, useParams} from "react-router-dom";
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
@@ -6,6 +6,9 @@ import {QuestionCircleFill} from "react-bootstrap-icons";
 import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
+import "./AddExpenseCategories.css";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 type Props = {
     listOfExpenseCategories:ExpenseCategoryModel[],
@@ -43,7 +46,6 @@ function EditExpenseCategory(props:Props) {
 
     function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
-
         const editedExpenseCategoryDTO: ExpenseCategoryDTOModel = {
             expenseCategory: expenseCategoryN,
             distributionKey:distributionKeyN,
@@ -55,6 +57,16 @@ function EditExpenseCategory(props:Props) {
             })
             .then(props.getAllExpenseCategories)
             .then(() => navigate("/all-expense-categories"))
+            .catch(error => console.log(error))
+    }
+
+    function onClickDelete() {
+        axios.delete("/api/expenseCategory/delete/" + id)
+            .then(r => {
+                console.log(r.data)
+            })
+            .then(props.getAllExpenseCategories)
+            .then(()=> navigate("/all-expense-categories"))
             .catch(error => console.log(error))
     }
 
@@ -97,15 +109,20 @@ function EditExpenseCategory(props:Props) {
                     </Row>
                     <Row className="mt-5">
                         <Col>
-                            <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBack}>
-                                zurück
+                            <Button className="buttonDelete" variant="danger" onClick={onClickDelete}>
+                                löschen
                             </Button>
                         </Col>
                         <Col>
                             <Button className="buttonSubmit" type="submit">
-                                Kostenart speichern
+                                Kostenart ändern
                             </Button>
                         </Col>
+                    </Row>
+                    <Row className="mt-3 mb-5">
+                    <Col>
+                        <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBack} >zurück</Button>
+                    </Col>
                     </Row>
                 </Form>
             </Container>
