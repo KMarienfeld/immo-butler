@@ -87,7 +87,7 @@ class ExpenseCategoryControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         ExpenseCategory expenseCategory = objectMapper.readValue(content, ExpenseCategory.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/edit/" + expenseCategory.getId())
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/expenseCategory/edit/" + expenseCategory.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                             {
