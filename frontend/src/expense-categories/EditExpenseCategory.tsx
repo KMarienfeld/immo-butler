@@ -39,7 +39,7 @@ function EditExpenseCategory(props:Props) {
                 setTotalN(actualExpenseCategory?.total ?? 0);
             }
             if (portionN === 0) {
-                setPortionN(actualExpenseCategory?.total ?? 0);
+                setPortionN(actualExpenseCategory?.portion ?? 0);
             }
         }
     )
