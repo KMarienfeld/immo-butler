@@ -21,8 +21,6 @@ class ExpenseCategoryServiceTest {
     private final ExpenseCategoryService expenseCategoryService = new ExpenseCategoryService(expenseCategoryRepository, generateIDService);
 
     @Test
-    @WithMockUser(username = "user", password = "123")
-    @DirtiesContext
     void when_addExpenseCategoryDTO_then_returnReturnNewExpenseCategory() {
         //GIVEN
         DTOExpenseCategory dtoExpenseCategory = new DTOExpenseCategory("Strom", UNITBASEDKEY, 2, 1);
@@ -40,8 +38,6 @@ class ExpenseCategoryServiceTest {
 
     @Test
     @DirtiesContext
-    @WithMockUser(username = "user", password = "123")
-
     void when_getAllExpenseCategories_then_returnAllExpenseCategories() throws Exception {
        //GIVEN
        ExpenseCategory expenseCategory1 = new ExpenseCategory("123", "Strom", UNITBASEDKEY, 2, 1);
@@ -49,14 +45,11 @@ class ExpenseCategoryServiceTest {
        //WHEN
        List<ExpenseCategory> actual = expenseCategoryService.getAllExpenseCategories();
        //THEN
-        verify(expenseCategoryRepository).findAll();
-        assertEquals(actual, List.of(expenseCategory1));
+       verify(expenseCategoryRepository).findAll();
+       assertEquals(actual, List.of(expenseCategory1));
     }
 
     @Test
-    @DirtiesContext
-    @WithMockUser(username = "user", password = "123")
-
     void when_editExpenseService_then_ReturnEditedExpenseService() throws Exception {
         //GIVEN
         DTOExpenseCategory newDtoExpenseCategory = new DTOExpenseCategory("Strom", UNITBASEDKEY, 3, 1);
@@ -68,8 +61,47 @@ class ExpenseCategoryServiceTest {
         //WHEN
         ExpenseCategory actual = expenseCategoryService.editExpenseCategoryById(testID, newDtoExpenseCategory);
         //THEN
-        assertEquals(actual, expectedExpenseCategory);
         verify(expenseCategoryRepository).findById(testID);
         verify(expenseCategoryRepository).save(expectedExpenseCategory);
+        assertEquals(actual, expectedExpenseCategory);
+    }
+
+    @Test
+    void when_editExpenseService_withWrongID_then_throwException() {
+        //GIVEN
+        String wrongId = "wrongID";
+        ExpenseCategory expectedExpenseCategory = new ExpenseCategory("123","Strom", UNITBASEDKEY, 3, 1);
+        when(expenseCategoryRepository.findById(wrongId)).thenReturn(Optional.empty());
+        //WHEN & THEN
+        assertThrows(RuntimeException.class, () ->{
+            expenseCategoryService.deleteExpenseCategory(wrongId);
+        });
+    }
+    @Test
+    void when_deleteExpenseService_then_deleteById() throws Exception {
+        //GIVEN
+        DTOExpenseCategory expenseCategoryDTO = new DTOExpenseCategory("Strom", UNITBASEDKEY, 3, 1);
+        String testID = "123";
+        ExpenseCategory expectedExpenseCategory = new ExpenseCategory("123","Strom", UNITBASEDKEY, 3, 1);
+        when(expenseCategoryRepository.findById(testID)).thenReturn(Optional.of(expectedExpenseCategory));
+        //WHEN
+        ExpenseCategory actualExpenseCategory = expenseCategoryService.deleteExpenseCategory(testID);
+        //THEN
+        verify(expenseCategoryRepository).findById(testID);
+        verify(expenseCategoryRepository).deleteById(testID);
+        assertEquals(actualExpenseCategory, expectedExpenseCategory);
+    }
+
+    @Test
+    void when_deleteExpenseService_withWrongID_then_throwException() {
+        //GIVEN
+        String wrongId = "wrongID";
+        when(expenseCategoryRepository.findById(wrongId)).thenReturn(Optional.empty());
+        //WHEN & THEN
+        assertThrows(RuntimeException.class, () ->{
+            expenseCategoryService.deleteExpenseCategory(wrongId);
+        });
+        verify(expenseCategoryRepository).findById(wrongId);
+        verify(expenseCategoryRepository, never()).deleteById(wrongId);
     }
 }
