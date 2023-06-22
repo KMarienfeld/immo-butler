@@ -13,13 +13,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.Objects;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -52,7 +49,8 @@ class ExpenseCategoryControllerTest {
                                 "portion":1
                         }    
                         """)
-                );
+                )
+                .andExpect(jsonPath("$.id").isNotEmpty());
     }
 
     @Test
@@ -99,5 +97,39 @@ class ExpenseCategoryControllerTest {
                             }
                     """.replace("<id>", expenseCategory.getId()))
         );
+    }
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
+    public void when_deleteExpenseCategory_then_deleteAndReturnStatus200_() throws Exception{
+        MvcResult postResult = mockMvc.perform(post("/api/expenseCategory/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                            {
+                                "expenseCategory":"Strom",
+                                "distributionKey":"UNITBASEDKEY",
+                                "total":2,
+                                "portion":1
+                            }
+                            """)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
+        String content = postResult.getResponse().getContentAsString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ExpenseCategory expenseCategory = objectMapper.readValue(content, ExpenseCategory.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/expenseCategory/delete/" + expenseCategory.getId())
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                            {
+                                "expenseCategory":"Strom",
+                                "distributionKey":"UNITBASEDKEY",
+                                "total":2,
+                                "portion":1
+                            }
+                """)).andExpect(jsonPath("$.id").value(expenseCategory.getId()));
     }
 }

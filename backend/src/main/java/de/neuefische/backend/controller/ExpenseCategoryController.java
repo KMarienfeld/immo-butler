@@ -30,7 +30,7 @@ public class ExpenseCategoryController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteExpenseCategory(@PathVariable String id) {
-        expenseCategoryService.deleteExpenseCategory(id);
+    public ExpenseCategory deleteExpenseCategory(@PathVariable String id) {
+        return expenseCategoryService.deleteExpenseCategory(id);
     }
 }
