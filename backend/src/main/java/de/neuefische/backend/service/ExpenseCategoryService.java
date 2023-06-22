@@ -37,4 +37,8 @@ public class ExpenseCategoryService {
         actualExpenseCategory.setPortion(dtoExpenseCategory.getPortion());
         return expenseCategoryRepository.save(actualExpenseCategory);
     }
+
+    public void deleteExpenseCategory(String id) {
+        expenseCategoryRepository.deleteById(id);
+    }
 }
