@@ -17,7 +17,7 @@ public class ExpenseCategoryService {
     public ExpenseCategory addExpenseCategory(DTOExpenseCategory dtoExpenseCategory) {
         ExpenseCategory newExpenseCategory = new ExpenseCategory();
         newExpenseCategory.setId(generateIDService.generateExpenseCategoryUUID());
-        newExpenseCategory.setExpanseCategory(dtoExpenseCategory.getExpanseCategory());
+        newExpenseCategory.setExpenseCategory(dtoExpenseCategory.getExpenseCategory());
         newExpenseCategory.setDistributionKey(dtoExpenseCategory.getDistributionKey());
         newExpenseCategory.setTotal(dtoExpenseCategory.getTotal());
         newExpenseCategory.setPortion(dtoExpenseCategory.getPortion());
@@ -29,4 +29,12 @@ public class ExpenseCategoryService {
         return expenseCategoryRepository.findAll();
     }
 
+    public ExpenseCategory editExpenseCategoryById(String idOfExpenseCategory, DTOExpenseCategory dtoExpenseCategory) {
+        ExpenseCategory actualExpenseCategory = expenseCategoryRepository.findById(idOfExpenseCategory).orElseThrow();
+        actualExpenseCategory.setExpenseCategory(dtoExpenseCategory.getExpenseCategory());
+        actualExpenseCategory.setDistributionKey(dtoExpenseCategory.getDistributionKey());
+        actualExpenseCategory.setTotal(dtoExpenseCategory.getTotal());
+        actualExpenseCategory.setPortion(dtoExpenseCategory.getPortion());
+        return expenseCategoryRepository.save(actualExpenseCategory);
+    }
 }

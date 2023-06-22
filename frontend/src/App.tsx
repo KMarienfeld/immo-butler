@@ -7,9 +7,15 @@ import Header from "./header/Header";
 import ProtectedRoutes from "./login/ProtectedRoutes";
 import AddExpenseCategories from "./expense-categories/AddExpenseCategories";
 import ExpenseCategoriesGallery from "./expense-categories/ExpenseCategoriesGallery";
+import useGetAllExpenseCategories from "./hooks/useGetAllExpenseCategories";
+import EditExpenseCategory from "./expense-categories/EditExpenseCategory";
 
 function App() {
     const {login, user, getUsername} = UseLogin()
+    const {getAllExpanseCategories,listOfExpenseCategories } = useGetAllExpenseCategories();
+
+    useEffect(getAllExpanseCategories, [])
+    useEffect(getAllExpanseCategories, [user])
     useEffect(()=> getUsername, [])
 
   return (
@@ -18,8 +24,9 @@ function App() {
         <Routes>
             <Route path={"/login"} element={<Login login={login}/>}/>
             <Route element={<ProtectedRoutes user={user}/>}>
-                <Route path={"/add-expense-categories"} element={<AddExpenseCategories/>}/>
-                <Route path={"/all-expense-categories"} element={<ExpenseCategoriesGallery/>}/>
+                <Route path={"/add-expense-categories"} element={<AddExpenseCategories getAllExpanseCategories={getAllExpanseCategories}/>}/>
+                <Route path={"/all-expense-categories"} element={<ExpenseCategoriesGallery getAllExpenseCategories={getAllExpanseCategories} listOfExpenseCategories={listOfExpenseCategories}/>}/>
+                <Route path={"all-expense-categories/expense-category/:id"} element={<EditExpenseCategory getAllExpenseCategories={getAllExpanseCategories} listOfExpenseCategories={listOfExpenseCategories}/>}/>
             </Route>
         </Routes>
     </div>

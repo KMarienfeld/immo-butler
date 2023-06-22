@@ -28,25 +28,31 @@ const navigate = useNavigate();
                 return "";
         }
     }
+    function clickToExpenseCategoryEdit() {
+        navigate("expense-category/"+ props.expenseCategory.id)
+    }
+
     return (
         <div>
                 <Container className="d-flex justify-content-center mt-4 mb-4">
-                    <Card className="expenseCategoryCard" style={{ width: '18rem' }}>
-                        <Card.Header>
-                            Kostenart: {props.expenseCategory.expanseCategory}
-                        </Card.Header>
-                            {props.expenseCategory.total === 0 ?
-                                <ListGroup variant="flush">
-                                    <ListGroup.Item>Umlageschlüssel: {getDistributionKeyLabel(props.expenseCategory.distributionKey)}</ListGroup.Item>
-                                </ListGroup>
-                                    :
-                                <ListGroup variant="flush">
-                                    <ListGroup.Item>Umlageschlüssel: {getDistributionKeyLabel(props.expenseCategory.distributionKey)}</ListGroup.Item>
-                                    <ListGroup.Item>Gesamt: {props.expenseCategory.total}</ListGroup.Item>
-                                    <ListGroup.Item>Anteil: {props.expenseCategory.portion} </ListGroup.Item>
-                                </ListGroup>
-                            }
-                    </Card>
+                    <button className="cardButtonExpenseCategory btn-unstyled" onClick={() => clickToExpenseCategoryEdit()}>
+                        <Card className="expenseCategoryCard" style={{ width: '18rem' }}>
+                            <Card.Header>
+                                Kostenart: {props.expenseCategory.expenseCategory}
+                            </Card.Header>
+                                {props.expenseCategory.total === 0 ?
+                                    <ListGroup variant="flush">
+                                        <ListGroup.Item>Umlageschlüssel: {getDistributionKeyLabel(props.expenseCategory.distributionKey)}</ListGroup.Item>
+                                    </ListGroup>
+                                        :
+                                    <ListGroup variant="flush">
+                                        <ListGroup.Item>Umlageschlüssel: {getDistributionKeyLabel(props.expenseCategory.distributionKey)}</ListGroup.Item>
+                                        <ListGroup.Item>Gesamt: {props.expenseCategory.total}</ListGroup.Item>
+                                        <ListGroup.Item>Anteil: {props.expenseCategory.portion} </ListGroup.Item>
+                                    </ListGroup>
+                                }
+                        </Card>
+                    </button>
                 </Container>
             </div>
     );

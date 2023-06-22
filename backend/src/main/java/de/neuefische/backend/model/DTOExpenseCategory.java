@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DTOExpenseCategory {
-    private String expanseCategory;
+    private String expenseCategory;
     private DistributionKey distributionKey;
     private int total;
     private int portion;

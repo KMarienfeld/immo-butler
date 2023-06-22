@@ -1,25 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import axios from "axios";
+import React from 'react';
 import ExpenseCategoryCard from "./ExpenseCategoryCard";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import "./ExpenseCategoryCard.css"
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
-function ExpenseCategoriesGallery() {
 
-    const [expenseCategoryList, setExpenseCategoryList] = useState<ExpenseCategoryModel[]>([]);
+type Props = {
+    listOfExpenseCategories:ExpenseCategoryModel[],
+    getAllExpenseCategories: () => void
+}
+function ExpenseCategoriesGallery(props:Props) {
+
     const navigate = useNavigate();
-
-    useEffect(getAllExpanseCategories, [])
-    function getAllExpanseCategories() {
-        axios.get("api/expenseCategory/get-all")
-            .then(response => response.data)
-            .then(data =>{
-                setExpenseCategoryList(data);
-                console.log(data)
-            })
-            .catch(error => console.log(error))
-    }
 
     function buttonNewExpenseCategory() {
         navigate("/add-expense-categories")
@@ -27,7 +19,7 @@ function ExpenseCategoriesGallery() {
 
     return (
         <div>
-            {expenseCategoryList.length === 0 ?
+            {props.listOfExpenseCategories.length === 0 ?
                 <div className="pageContent">
                     <Container className="pt-5 d-flex justify-content-center">
                         <h4 className="text-center">
@@ -48,9 +40,9 @@ function ExpenseCategoriesGallery() {
                     </Container>
                     <Container className="mt-4 mb-4">
                         <Row>
-                            {expenseCategoryList.map(currentExpenseCategory => (
+                            {props.listOfExpenseCategories.map(currentExpenseCategory => (
                                 <Col md={4} key={currentExpenseCategory.id}>
-                                    <ExpenseCategoryCard  expenseCategory={currentExpenseCategory}/>
+                                        <ExpenseCategoryCard  expenseCategory={currentExpenseCategory}/>
                                 </Col>
                             ))}
                         </Row>

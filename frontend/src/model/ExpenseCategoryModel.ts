@@ -1,6 +1,6 @@
 export type ExpenseCategoryModel = {
     id:string,
-    expanseCategory:string,
+    expenseCategory:string,
     distributionKey:string,
     total:number,
     portion:number

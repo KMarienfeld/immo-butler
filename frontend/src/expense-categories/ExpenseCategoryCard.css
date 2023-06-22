@@ -15,3 +15,8 @@
 .buttonNewExpenseCategory:hover {
     background-color: #83C5BE !important;
 }
+
+.cardButtonExpenseCategory {
+    background-color: transparent;
+    border: none;
+}
