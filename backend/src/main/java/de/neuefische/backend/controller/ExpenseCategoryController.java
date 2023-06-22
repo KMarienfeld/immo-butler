@@ -29,7 +29,7 @@ public class ExpenseCategoryController {
         return expenseCategoryService.editExpenseCategoryById(id, dtoExpenseCategory);
     }
 
-    @DeleteMapping("/delete/")
+    @DeleteMapping("/delete/{id}")
     public void deleteExpenseCategory(@PathVariable String id) {
         expenseCategoryService.deleteExpenseCategory(id);
     }
