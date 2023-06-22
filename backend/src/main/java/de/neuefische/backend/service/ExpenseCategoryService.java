@@ -30,11 +30,17 @@ public class ExpenseCategoryService {
     }
 
     public ExpenseCategory editExpenseCategoryById(String idOfExpenseCategory, DTOExpenseCategory dtoExpenseCategory) {
-        ExpenseCategory actualExpenseCategory = expenseCategoryRepository.findById(idOfExpenseCategory).orElseThrow();
+        ExpenseCategory actualExpenseCategory = expenseCategoryRepository.findById(idOfExpenseCategory).orElseThrow(() -> new RuntimeException("Id not found"));
         actualExpenseCategory.setExpenseCategory(dtoExpenseCategory.getExpenseCategory());
         actualExpenseCategory.setDistributionKey(dtoExpenseCategory.getDistributionKey());
         actualExpenseCategory.setTotal(dtoExpenseCategory.getTotal());
         actualExpenseCategory.setPortion(dtoExpenseCategory.getPortion());
         return expenseCategoryRepository.save(actualExpenseCategory);
+    }
+
+    public ExpenseCategory deleteExpenseCategory(String id) {
+            ExpenseCategory expenseCategory = expenseCategoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+            expenseCategoryRepository.deleteById(id);
+            return expenseCategory;
     }
 }

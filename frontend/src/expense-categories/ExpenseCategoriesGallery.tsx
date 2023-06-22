@@ -23,7 +23,7 @@ function ExpenseCategoriesGallery(props:Props) {
                 <div className="pageContent">
                     <Container className="pt-5 d-flex justify-content-center">
                         <h4 className="text-center">
-                            du hast bisher noch keine Kostenstelle angelegt, starte direkt mit deiner ersten Kostenart!
+                            du hast bisher noch nichts angelegt, starte direkt mit deiner ersten Kostenart!
                         </h4>
                     </Container>
                     <Container className="d-flex justify-content-center mt-5">
