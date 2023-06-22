@@ -101,7 +101,7 @@ class ExpenseCategoryControllerTest {
     @Test
     @DirtiesContext
     @WithMockUser(username = "user", password = "123")
-    public void when_deleteExpenseCategory_then_deleteAndReturnStatus200_() throws Exception{
+    void when_deleteExpenseCategory_then_deleteAndReturnStatus200_() throws Exception{
         MvcResult postResult = mockMvc.perform(post("/api/expenseCategory/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
