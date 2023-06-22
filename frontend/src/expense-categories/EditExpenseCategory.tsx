@@ -74,7 +74,7 @@ function EditExpenseCategory(props:Props) {
         <div>
             <Row className="mt-5">
                 <Container className="d-flex justify-content-center">
-                    <h3 className="text-center">Hier kannst du deine Kostenstelle bearbeiten:</h3>
+                    <h3 className="text-center">Hier kannst du deine Kostenart bearbeiten:</h3>
                 </Container>
             </Row>
             <Container className="mt-5">

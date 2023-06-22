@@ -35,7 +35,7 @@ function AddExpenseCategories(props:Props) {
         <div>
             <Row className="mt-5">
                 <Container className="d-flex justify-content-center">
-                    <h3 className="text-center">Hier kannst du eine neue Kostenstelle anlegen:</h3>
+                    <h3 className="text-center">Hier kannst du eine neue Kostenart anlegen:</h3>
                 </Container>
             </Row>
             <Container className="mt-5">
