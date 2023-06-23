@@ -1,4 +1,4 @@
-import React, {FormEvent, MouseEventHandler, useEffect} from 'react';
+import React, {FormEvent, useEffect} from 'react';
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import {useNavigate, useParams} from "react-router-dom";
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
@@ -7,8 +7,7 @@ import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 import "./AddExpenseCategories.css";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
+
 
 type Props = {
     listOfExpenseCategories:ExpenseCategoryModel[],

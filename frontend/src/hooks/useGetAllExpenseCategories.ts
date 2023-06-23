@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import axios from "axios";
 
