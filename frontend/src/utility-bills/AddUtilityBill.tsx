@@ -1,9 +1,8 @@
-import React from 'react';
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import React, {ChangeEvent, useState} from 'react';
+import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
-import ExpenseCategoryForBillFormCard from "./ExpenseCategoryForBillFormCard";
 import "./AddUtilityBill.css";
-import {HouseAddFill, HouseDash} from "react-bootstrap-icons";
+import {HouseAddFill, HouseDash, QuestionCircleFill} from "react-bootstrap-icons";
 
 type Props = {
     listOfExpenseCategories: ExpenseCategoryModel[],
@@ -11,6 +10,9 @@ type Props = {
 }
 
 function AddUtilityBill(props: Props) {
+    const infoContentExpenseCategoryForBillFormCard = (
+        <Tooltip id="tooltip">Bei Auswahl einer erstellen Kostenart greift automatisch der dort hinterlegte
+            Umlageschlüssel.</Tooltip>);
 
     function addNewUtilityBill() {
 
@@ -31,6 +33,34 @@ function AddUtilityBill(props: Props) {
     function onClickAddNextExpenseCategoryForBillFormCard() {
 
     }
+
+    const [customExpenseCategoryFormCards, setCustomExpenseCategoryFormCards] = useState([{
+        expenseCategory: "",
+        totalBill: 0,
+    },]);
+
+    const addNewField = () => {
+        let newPlainForm = {
+            expenseCategory: "",
+            totalBill: 0,
+        }
+        setCustomExpenseCategoryFormCards([...customExpenseCategoryFormCards, newPlainForm])
+    }
+    const removeLastField = () => {
+        let data = [...customExpenseCategoryFormCards];
+        data.splice(data.length - 1, 1)
+        setCustomExpenseCategoryFormCards(data)
+    }
+
+    function onChangeHandlerTotalBill(e: ChangeEvent<HTMLInputElement>) {
+        console.log(e.target.value)
+        return undefined;
+    }
+
+    function onChangeHandlerExpenseCategory() {
+
+    }
+
 
     return (
         <div>
@@ -61,18 +91,55 @@ function AddUtilityBill(props: Props) {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row>
-                        <ExpenseCategoryForBillFormCard listOfExpenseCategories={props.listOfExpenseCategories}/>
-                    </Row>
+                    {customExpenseCategoryFormCards.map((formCard, index) => (
+                            <div key={index}>
+                                <Container className="mt-5 expenseCategoryForBillFormCard">
+                                    <OverlayTrigger trigger={['hover', 'click']}
+                                                    overlay={infoContentExpenseCategoryForBillFormCard}>
+                                        <div><QuestionCircleFill className="question-icon"/></div>
+                                    </OverlayTrigger>
+                                    <Row className="mb-3">
+                                        <Col md={6}>
+                                            <Form.Group as={Col} className="mb-3" controlId="formGridSelectExpenseCategory">
+                                                <Form.Label>
+                                                    Kostenart:
+                                                </Form.Label>
+                                                <Form.Select defaultValue="Wähle hier eine Kostenart aus..."
+                                                             onChange={onChangeHandlerExpenseCategory}>
+                                                    <option disabled>Wähle hier eine Kostenart aus...</option>
+                                                    <option value="AREABASEDKEY">Wohnfläche</option>
+                                                    <option value="PERSONBASEDKEY">Personenzahl</option>
+                                                    <option value="CONSUMPTIONBASEDKEY">Direktzuordnung</option>
+                                                    <option value="UNITBASEDKEY">Wohneinheiten</option>
+                                                </Form.Select>
+                                            </Form.Group>
+                                        </Col>
+                                        <Col md={6}>
+                                            <Form.Group as={Col} controlId="formGridTotalBill">
+                                                <div></div>
+                                                <Form.Label>Jahresbeitrag:</Form.Label>
+                                                <Form.Control placeholder="Trage hier den Jahresbeitrag ein"
+                                                              onChange={onChangeHandlerTotalBill}
+                                                              value={formCard.totalBill}
+                                                              pattern="[0-9]*([.,][0-9]+)?"
+                                                              title="Es können nur Zahlen eintragen"/>
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                </Container>
+
+                            </div>
+                        )
+                    )}
                     <Row className="mt-3 buttonPlus">
                         <Col>
                             <Button className="buttonNextExpenseCategoryForBillFormCard m-2"
-                                    onClick={onClickAddNextExpenseCategoryForBillFormCard} variant="success">
+                                    onClick={addNewField} variant="success">
                                 <HouseAddFill></HouseAddFill>
                             </Button>
 
                             <Button className="buttonNextExpenseCategoryForBillFormCard"
-                                    onClick={onClickAddNextExpenseCategoryForBillFormCard} variant="outline-danger">
+                                    onClick={removeLastField} variant="outline-danger">
                                 <HouseDash></HouseDash>
 
                             </Button>

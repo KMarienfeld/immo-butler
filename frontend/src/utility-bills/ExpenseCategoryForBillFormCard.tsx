@@ -4,6 +4,7 @@ import {QuestionCircleFill} from "react-bootstrap-icons";
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import "./ExpenseCategoryForBillFormCard.css";
 
+
 type Props = {
     listOfExpenseCategories: ExpenseCategoryModel[],
 }
@@ -20,7 +21,6 @@ function ExpenseCategoryForBillFormCard(props: Props) {
     function onChangeHandlerTotalBill() {
 
     }
-
 
     return (
         <div>
