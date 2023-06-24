@@ -24,8 +24,8 @@ function App() {
     <div>
         {user === "" || user === "anonymousUser" ?  <> </> : <Header/>}
         <Routes>
-            <Route path={"/add-utility-bill"} element={<AddUtilityBill getAllExpanseCategories={getAllExpanseCategories}
-                                                                       listOfExpenseCategories={listOfExpenseCategories}/>}/>
+            <Route path={"/add-utility-bill"}
+                   element={<AddUtilityBill listOfExpenseCategories={listOfExpenseCategories}/>}/>
             <Route path={"/login"} element={<Login login={login}/>}/>
             <Route path={"/all-bills"} element={<Test123/>}/>
             <Route element={<ProtectedRoutes user={user}/>}>

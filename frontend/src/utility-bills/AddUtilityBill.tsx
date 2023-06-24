@@ -1,47 +1,83 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import "./AddUtilityBill.css";
 import {HouseAddFill, HouseDash, QuestionCircleFill} from "react-bootstrap-icons";
+import {useNavigate} from "react-router-dom";
+import {UtilityBillDTOModel} from "../model/UtilityBillDTOModel";
+import {CustomExpenseCategoryForBillDTO} from "../model/CustomExpenseCategoryForBillDTO";
+import axios from "axios";
 
 type Props = {
     listOfExpenseCategories: ExpenseCategoryModel[],
-    getAllExpanseCategories: () => void,
 }
 
 function AddUtilityBill(props: Props) {
+    const navigate = useNavigate();
+    const [year, setYear] = useState<number>(0)
+    const [prepaymentMonthly, setPrepaymentMonthly] = useState<number>(0);
     const infoContentExpenseCategoryForBillFormCard = (
         <Tooltip id="tooltip">Bei Auswahl einer erstellen Kostenart greift automatisch der dort hinterlegte
             Umlageschlüssel.</Tooltip>);
-
-    function addNewUtilityBill() {
-
-    }
-
-    function onChangeHandlerYear() {
-
-    }
-
-    function onChangeHandlerPrepaymentMonthly() {
-
-    }
-
-    function onClickGoBack() {
-
-    }
-
-    function onClickAddNextExpenseCategoryForBillFormCard() {
-
-    }
-
     const [customExpenseCategoryFormCards, setCustomExpenseCategoryFormCards] = useState([{
-        expenseCategory: "",
+        idOfExpenseCategory: "",
         totalBill: 0,
     },]);
 
+    function onClickGoBack() {
+        navigate("/all-utility-bills")
+    }
+
+    function addNewUtilityBill(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const newCustomExpenseCategories: CustomExpenseCategoryForBillDTO[] = customExpenseCategoryFormCards.map((formCard, index: number) => {
+            const selectedExpenseCategory = props.listOfExpenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === formCard.idOfExpenseCategory);
+            return {
+                expenseCategory: selectedExpenseCategory?.expenseCategory || "",
+                distributionKey: selectedExpenseCategory?.distributionKey || "",
+                total: selectedExpenseCategory?.total || 0,
+                portion: selectedExpenseCategory?.portion || 0,
+                totalBill: customExpenseCategoryFormCards[index].totalBill,
+            }
+        })
+        const newUtilityBillDTO: UtilityBillDTOModel = {
+            year: year,
+            prepaymentMonthly: prepaymentMonthly,
+            customExpenseCategoryDTO: newCustomExpenseCategories,
+        }
+        axios.post('api/utilityBill/add', newUtilityBillDTO)
+            .then(response => {
+                console.log(response.data)
+            })
+            .then(() => navigate("/all-utility-bills"))
+            .catch(error => console.log(error))
+    }
+
+    function onChangeHandlerYear(e: ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
+        setYear(Number(value))
+    }
+
+    function onChangeHandlerPrepaymentMonthly(e: ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
+        setPrepaymentMonthly(Number(value))
+    }
+
+    function onChangeHandlerExpenseCategory(e: ChangeEvent<HTMLSelectElement>, index: number) {
+        const updatedFormCard = [...customExpenseCategoryFormCards];
+        updatedFormCard[index].idOfExpenseCategory = e.target.value;
+        setCustomExpenseCategoryFormCards(updatedFormCard)
+    }
+
+    function onChangeHandlerTotalBill(e: ChangeEvent<HTMLInputElement>, index: number) {
+        const updatedFormCard = [...customExpenseCategoryFormCards];
+        updatedFormCard[index].totalBill = parseFloat(e.target.value);
+        setCustomExpenseCategoryFormCards(updatedFormCard)
+    }
+
     const addNewField = () => {
         let newPlainForm = {
-            expenseCategory: "",
+            idOfExpenseCategory: "",
             totalBill: 0,
         }
         setCustomExpenseCategoryFormCards([...customExpenseCategoryFormCards, newPlainForm])
@@ -51,16 +87,6 @@ function AddUtilityBill(props: Props) {
         data.splice(data.length - 1, 1)
         setCustomExpenseCategoryFormCards(data)
     }
-
-    function onChangeHandlerTotalBill(e: ChangeEvent<HTMLInputElement>) {
-        console.log(e.target.value)
-        return undefined;
-    }
-
-    function onChangeHandlerExpenseCategory() {
-
-    }
-
 
     return (
         <div>
@@ -105,12 +131,13 @@ function AddUtilityBill(props: Props) {
                                                     Kostenart:
                                                 </Form.Label>
                                                 <Form.Select defaultValue="Wähle hier eine Kostenart aus..."
-                                                             onChange={onChangeHandlerExpenseCategory}>
+                                                             onChange={(e: ChangeEvent<HTMLSelectElement>) => onChangeHandlerExpenseCategory(e, index)}>
                                                     <option disabled>Wähle hier eine Kostenart aus...</option>
-                                                    <option value="AREABASEDKEY">Wohnfläche</option>
-                                                    <option value="PERSONBASEDKEY">Personenzahl</option>
-                                                    <option value="CONSUMPTIONBASEDKEY">Direktzuordnung</option>
-                                                    <option value="UNITBASEDKEY">Wohneinheiten</option>
+                                                    {props.listOfExpenseCategories.map(expenseCategory => (
+                                                        <option key={expenseCategory.id} value={expenseCategory.id}>
+                                                            {expenseCategory.expenseCategory}
+                                                        </option>
+                                                    ))}
                                                 </Form.Select>
                                             </Form.Group>
                                         </Col>
@@ -119,8 +146,7 @@ function AddUtilityBill(props: Props) {
                                                 <div></div>
                                                 <Form.Label>Jahresbeitrag:</Form.Label>
                                                 <Form.Control placeholder="Trage hier den Jahresbeitrag ein"
-                                                              onChange={onChangeHandlerTotalBill}
-                                                              value={formCard.totalBill}
+                                                              onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeHandlerTotalBill(e, index)}
                                                               pattern="[0-9]*([.,][0-9]+)?"
                                                               title="Es können nur Zahlen eintragen"/>
                                             </Form.Group>
@@ -145,7 +171,7 @@ function AddUtilityBill(props: Props) {
                             </Button>
                         </Col>
                     </Row>
-                    <Row className="mt-5">
+                    <Row className="mt-5 mb-5">
                         <Col>
                             <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBack}>
                                 zurück
