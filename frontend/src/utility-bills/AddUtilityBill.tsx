@@ -48,16 +48,16 @@ function AddUtilityBill(props: Props) {
                                 <Form.Control className="formControlTotal"
                                               placeholder="Trage hier das Jahr der Abrechnung ein, z.B. 2022"
                                               onChange={onChangeHandlerYear} pattern="[0-9]{4}"
-                                              title="Bitte geben das Kalenderjahr ein"/>
+                                              title="Nur ganze Zahlen im Format YYYY eintragen"/>
                             </Form.Group>
                         </Col>
                         <Col md={6}>
                             <Form.Group as={Col} controlId="formGridPortion">
                                 <Form.Label>monatliche Vorauszahlung:</Form.Label>
                                 <Form.Control className="formControlTotal"
-                                              placeholder="geleistete Vorauszahlung in Monaten"
-                                              onChange={onChangeHandlerPrepaymentMonthly} pattern="[0-9]*"
-                                              title="Bitte geben Sie nur ganze Zahlen ein"/>
+                                              placeholder="geleistete Vorauszahlung pro Monat"
+                                              onChange={onChangeHandlerPrepaymentMonthly} pattern="^\d+(\.\d{1,2})?$"
+                                              title="Statt dem Komma bitte einen Punkt verwenden, max 2 Nachkommastellen sind möglich"/>
                             </Form.Group>
                         </Col>
                     </Row>
