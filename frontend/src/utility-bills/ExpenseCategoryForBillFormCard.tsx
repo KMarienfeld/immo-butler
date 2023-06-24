@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Col, Container, Form, OverlayTrigger, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 
@@ -8,6 +8,26 @@ type Props = {
 }
 
 function ExpenseCategoryForBillFormCard(props: Props) {
+    const infoContentExpenseCategoryForBillFormCard = (
+        <Tooltip id="tooltip">Bei Auswahl einer erstellen Kostenart greift automatisch der dort hinterlegte
+            Umlageschlüssel.</Tooltip>);
+
+    function onChangeHandlerExpenseCategory() {
+
+    }
+
+    function onChangeHandlerTotalBill() {
+
+    }
+
+    function onClickDeleteActualExpenseCategoryForBillFormCard() {
+
+    }
+
+    function onClickAddNextExpenseCategoryForBillFormCard() {
+
+    }
+
     return (
         <div>
             <Container className="mt-5">

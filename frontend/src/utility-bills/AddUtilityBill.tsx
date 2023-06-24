@@ -1,7 +1,30 @@
 import React from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
+import ExpenseCategoryForBillFormCard from "./ExpenseCategoryForBillFormCard";
 
-function AddUtilityBill() {
+type Props = {
+    listOfExpenseCategories: ExpenseCategoryModel[],
+    getAllExpanseCategories: () => void,
+}
+
+function AddUtilityBill(props: Props) {
+
+    function addNewUtilityBill() {
+
+    }
+
+    function onChangeHandlerYear() {
+
+    }
+
+    function onChangeHandlerPrepaymentMonthly() {
+
+    }
+
+    function onClickGoBack() {
+
+    }
 
     return (
         <div>
@@ -25,6 +48,11 @@ function AddUtilityBill() {
                                           onChange={onChangeHandlerPrepaymentMonthly} pattern="[0-9]*"
                                           title="Bitte geben Sie nur ganze Zahlen ein"/>
                         </Form.Group>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <ExpenseCategoryForBillFormCard listOfExpenseCategories={props.listOfExpenseCategories}/>
+                        </Col>
                     </Row>
                     <Row className="mt-5">
                         <Col>
