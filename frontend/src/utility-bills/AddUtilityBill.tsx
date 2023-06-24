@@ -2,6 +2,8 @@ import React from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import ExpenseCategoryForBillFormCard from "./ExpenseCategoryForBillFormCard";
+import "./AddUtilityBill.css";
+import {HouseAddFill, HouseDash} from "react-bootstrap-icons";
 
 type Props = {
     listOfExpenseCategories: ExpenseCategoryModel[],
@@ -26,6 +28,10 @@ function AddUtilityBill(props: Props) {
 
     }
 
+    function onClickAddNextExpenseCategoryForBillFormCard() {
+
+    }
+
     return (
         <div>
             <Row className="mt-5">
@@ -36,22 +42,40 @@ function AddUtilityBill(props: Props) {
             <Container className="mt-5">
                 <Form onSubmit={addNewUtilityBill}>
                     <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formGridTotal">
-                            <Form.Label>Jahr der Abrechnung:</Form.Label>
-                            <Form.Control placeholder="Trage hier das Jahr der Abrechnung ein, z.B. 2022"
-                                          onChange={onChangeHandlerYear} pattern="[0-9]{4}"
-                                          title="Bitte geben das Kalenderjahr ein"/>
-                        </Form.Group>
-                        <Form.Group as={Col} controlId="formGridPortion">
-                            <Form.Label>monatliche Vorauszahlung:</Form.Label>
-                            <Form.Control placeholder="geleistete Vorauszahlung in Monaten"
-                                          onChange={onChangeHandlerPrepaymentMonthly} pattern="[0-9]*"
-                                          title="Bitte geben Sie nur ganze Zahlen ein"/>
-                        </Form.Group>
+                        <Col md={6}>
+                            <Form.Group as={Col} controlId="formGridTotal" className="mb-3">
+                                <Form.Label>Jahr der Abrechnung:</Form.Label>
+                                <Form.Control className="formControlTotal"
+                                              placeholder="Trage hier das Jahr der Abrechnung ein, z.B. 2022"
+                                              onChange={onChangeHandlerYear} pattern="[0-9]{4}"
+                                              title="Bitte geben das Kalenderjahr ein"/>
+                            </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                            <Form.Group as={Col} controlId="formGridPortion">
+                                <Form.Label>monatliche Vorauszahlung:</Form.Label>
+                                <Form.Control className="formControlTotal"
+                                              placeholder="geleistete Vorauszahlung in Monaten"
+                                              onChange={onChangeHandlerPrepaymentMonthly} pattern="[0-9]*"
+                                              title="Bitte geben Sie nur ganze Zahlen ein"/>
+                            </Form.Group>
+                        </Col>
                     </Row>
                     <Row>
+                        <ExpenseCategoryForBillFormCard listOfExpenseCategories={props.listOfExpenseCategories}/>
+                    </Row>
+                    <Row className="mt-3 buttonPlus">
                         <Col>
-                            <ExpenseCategoryForBillFormCard listOfExpenseCategories={props.listOfExpenseCategories}/>
+                            <Button className="buttonNextExpenseCategoryForBillFormCard m-2"
+                                    onClick={onClickAddNextExpenseCategoryForBillFormCard} variant="success">
+                                <HouseAddFill></HouseAddFill>
+                            </Button>
+
+                            <Button className="buttonNextExpenseCategoryForBillFormCard"
+                                    onClick={onClickAddNextExpenseCategoryForBillFormCard} variant="outline-danger">
+                                <HouseDash></HouseDash>
+
+                            </Button>
                         </Col>
                     </Row>
                     <Row className="mt-5">
@@ -62,7 +86,7 @@ function AddUtilityBill(props: Props) {
                         </Col>
                         <Col>
                             <Button className="buttonSubmit" type="submit">
-                                Nebenkostenabrechnung erstellen
+                                Abrechnung erstellen
                             </Button>
                         </Col>
                     </Row>

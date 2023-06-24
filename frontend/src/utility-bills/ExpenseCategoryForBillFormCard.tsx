@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
+import "./ExpenseCategoryForBillFormCard.css";
 
 type Props = {
     listOfExpenseCategories: ExpenseCategoryModel[],
@@ -20,53 +21,39 @@ function ExpenseCategoryForBillFormCard(props: Props) {
 
     }
 
-    function onClickDeleteActualExpenseCategoryForBillFormCard() {
-
-    }
-
-    function onClickAddNextExpenseCategoryForBillFormCard() {
-
-    }
 
     return (
         <div>
-            <Container className="mt-5">
+            <Container className="mt-5 expenseCategoryForBillFormCard">
+                <OverlayTrigger trigger={['hover', 'click']}
+                                overlay={infoContentExpenseCategoryForBillFormCard}>
+                    <div><QuestionCircleFill className="question-icon"/></div>
+                </OverlayTrigger>
                 <Row className="mb-3">
-                    <Form.Group as={Col} className="mb-3" controlId="formGridSelectExpenseCategory">
-                        <Form.Label>Kostenart
-                            <OverlayTrigger trigger={['hover', 'click']}
-                                            overlay={infoContentExpenseCategoryForBillFormCard}>
-                                <div><QuestionCircleFill className="question-icon"/></div>
-                            </OverlayTrigger>
-                        </Form.Label>
-                        <Form.Select defaultValue="Wähle hier eine Kostenart aus..."
-                                     onChange={onChangeHandlerExpenseCategory}>
-                            <option disabled>Wähle hier eine Kostenart aus...</option>
-                            <option value="AREABASEDKEY">Wohnfläche</option>
-                            <option value="PERSONBASEDKEY">Personenzahl</option>
-                            <option value="CONSUMPTIONBASEDKEY">Direktzuordnung</option>
-                            <option value="UNITBASEDKEY">Wohneinheiten</option>
-                        </Form.Select>
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="formGridTotalBill">
-                        <Form.Label>Jahresbeitrag</Form.Label>
-                        <Form.Control placeholder="Trage hier den Jahresbeitrag ein" onChange={onChangeHandlerTotalBill}
-                                      pattern="[0-9]*([.,][0-9]+)?"
-                                      title="Es können nur Zahlen eintragen"/>
-                    </Form.Group>
-                </Row>
-                <Row className="mt-5">
-                    <Col>
-                        <Button className="buttonDeleteExpenseCategoryForBillFormCard" variant="outline-dark"
-                                onClick={onClickDeleteActualExpenseCategoryForBillFormCard}>
-                            zurück
-                        </Button>
+                    <Col md={6}>
+                        <Form.Group as={Col} className="mb-3" controlId="formGridSelectExpenseCategory">
+                            <Form.Label>
+                                Kostenart:
+                            </Form.Label>
+                            <Form.Select defaultValue="Wähle hier eine Kostenart aus..."
+                                         onChange={onChangeHandlerExpenseCategory}>
+                                <option disabled>Wähle hier eine Kostenart aus...</option>
+                                <option value="AREABASEDKEY">Wohnfläche</option>
+                                <option value="PERSONBASEDKEY">Personenzahl</option>
+                                <option value="CONSUMPTIONBASEDKEY">Direktzuordnung</option>
+                                <option value="UNITBASEDKEY">Wohneinheiten</option>
+                            </Form.Select>
+                        </Form.Group>
                     </Col>
-                    <Col>
-                        <Button className="buttonNextExpenseCategoryForBillFormCard"
-                                onClick={onClickAddNextExpenseCategoryForBillFormCard}>
-                            +
-                        </Button>
+                    <Col md={6}>
+                        <Form.Group as={Col} controlId="formGridTotalBill">
+                            <div></div>
+                            <Form.Label>Jahresbeitrag:</Form.Label>
+                            <Form.Control placeholder="Trage hier den Jahresbeitrag ein"
+                                          onChange={onChangeHandlerTotalBill}
+                                          pattern="[0-9]*([.,][0-9]+)?"
+                                          title="Es können nur Zahlen eintragen"/>
+                        </Form.Group>
                     </Col>
                 </Row>
             </Container>
