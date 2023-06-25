@@ -1,4 +1,4 @@
-export type CustomExpenseCategoryForBillDTO = {
+export type CustomExpenseCategoryForBillModel = {
     id: string,
     expenseCategory: string,
     distributionKey: string,

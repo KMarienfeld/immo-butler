@@ -1,4 +1,4 @@
-import {CustomExpenseCategoryForBillDTO} from "./CustomExpenseCategoryForBillDTO";
+import {CustomExpenseCategoryForBillModel} from "./CustomExpenseCategoryForBillModel"
 
 export type UtilityBillModel = {
     id: string,
@@ -7,5 +7,5 @@ export type UtilityBillModel = {
     totalCosts: number,
     prepaymentMonthly: number,
     prepaymentYear: number,
-    customExpenseCategoryDTO: CustomExpenseCategoryForBillDTO[];
+    customExpenseCategoryModel: CustomExpenseCategoryForBillModel[];
 }
