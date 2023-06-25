@@ -22,9 +22,12 @@ public class UtilityBillService {
     private CustomExpenseCategoryModel calculateProportionalBill(CustomExpenseCategoryDTO customExpenseCategoryDTO) {
         BigDecimal total = new BigDecimal(customExpenseCategoryDTO.getTotal());
         BigDecimal portion = new BigDecimal(customExpenseCategoryDTO.getPortion());
-        BigDecimal conversionKey = total.divide(portion);
+        if (portion.compareTo(BigDecimal.ZERO) == 0) {
+            throw new ArithmeticException("Division by zero error");
+        }
+        BigDecimal conversionKey = total.divide(portion, 20, RoundingMode.HALF_UP);
         BigDecimal totalBill = new BigDecimal(customExpenseCategoryDTO.getTotalBill());
-        BigDecimal proportionalBill = totalBill.divide(conversionKey);
+        BigDecimal proportionalBill = totalBill.divide(conversionKey, 20, RoundingMode.HALF_UP);
         BigDecimal roundedProportionalBill = proportionalBill.setScale(2, RoundingMode.HALF_UP);
         double proportionalBillDouble = roundedProportionalBill.doubleValue();
         CustomExpenseCategoryModel newCustomExpenseCategoryModel = new CustomExpenseCategoryModel();
