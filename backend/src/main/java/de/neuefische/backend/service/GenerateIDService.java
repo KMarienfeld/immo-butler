@@ -8,4 +8,12 @@ public class GenerateIDService {
     public String generateExpenseCategoryUUID() {
         return "E" + UUID.randomUUID();
     }
+
+    public String generateCustomExpenseCategoryUUID() {
+        return "CE" + UUID.randomUUID();
+    }
+
+    public String generateUtilityBillUUID() {
+        return "U" + UUID.randomUUID();
+    }
 }
