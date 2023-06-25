@@ -45,6 +45,7 @@ function AddUtilityBill(props: Props) {
             prepaymentMonthly: prepaymentMonthly,
             customExpenseCategoryDTO: newCustomExpenseCategories,
         }
+        console.log(newUtilityBillDTO)
         axios.post('api/utilityBill/add', newUtilityBillDTO)
             .then(response => {
                 console.log(response.data)
