@@ -48,7 +48,7 @@ public class UtilityBillService {
     }
 
     public double calculatePrepaymentYear(double prepaymentMonthly) {
-        BigDecimal prepaymentMonthlyBD = new BigDecimal(prepaymentMonthly);
+        BigDecimal prepaymentMonthlyBD = BigDecimal.valueOf(prepaymentMonthly);
         BigDecimal prepaymentYearBD = prepaymentMonthlyBD.multiply(new BigDecimal(12)).setScale(2, RoundingMode.HALF_UP);
         return prepaymentYearBD.doubleValue();
     }
@@ -61,7 +61,7 @@ public class UtilityBillService {
 
     public double calculateFinalResult(double prepaymentYear, double totalCostsExpenseCategories) {
         double result = totalCostsExpenseCategories - prepaymentYear;
-        BigDecimal resultBD = new BigDecimal(result);
+        BigDecimal resultBD = BigDecimal.valueOf(result);
         BigDecimal roundedResultBD = resultBD.setScale(2, RoundingMode.HALF_UP);
         double roundedResult = roundedResultBD.doubleValue();
         return roundedResult;
