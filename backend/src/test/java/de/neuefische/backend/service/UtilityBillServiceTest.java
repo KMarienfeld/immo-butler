@@ -63,11 +63,12 @@ class UtilityBillServiceTest {
     @Test
     void calculatePrepaymentYear() {
         //GIVEN
-
+        double prepaymentYear = 120.10;
+        double expected = 1441.2;
         //WHEN
-
+        double actual = utilityBillService.calculatePrepaymentYear(prepaymentYear);
         //THEN
-
+        assertEquals(expected, actual);
     }
 
     @Test
