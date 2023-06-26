@@ -19,7 +19,7 @@ public class UtilityBillService {
     private final UtilityBillRepository utilityBillRepository;
     private final GenerateIDService generateIDService;
 
-    private CustomExpenseCategoryModel calculateProportionalBill(CustomExpenseCategoryDTO customExpenseCategoryDTO) {
+    private CustomExpenseCategoryModel calculateProportionalBillAndCreateModel(CustomExpenseCategoryDTO customExpenseCategoryDTO) {
         BigDecimal total = new BigDecimal(customExpenseCategoryDTO.getTotal());
         BigDecimal portion = new BigDecimal(customExpenseCategoryDTO.getPortion());
         if (portion.compareTo(BigDecimal.ZERO) == 0) {
@@ -47,11 +47,22 @@ public class UtilityBillService {
         return prepaymentYearBD.doubleValue();
     }
 
+    public double calculateTotalCostsExpenseCategories(List<CustomExpenseCategoryModel> customExpenseCategoryModelList) {
+        return customExpenseCategoryModelList.stream()
+                .mapToDouble(customExpenseCategoryModel -> customExpenseCategoryModel.getProportionalBill())
+                .sum();
+    }
+
+    public double calculateFinalResult(double prepaymentYear, double totalCostsExpenseCategories) {
+        double result = totalCostsExpenseCategories - prepaymentYear;
+        return result;
+    }
+
     public UtilityBillModel addUtilityBill(UtilityBillDTOModel utilityBillDTOModel) {
         List<CustomExpenseCategoryModel> listOfCustomExpenseCategoryModel = new ArrayList<>();
         List<CustomExpenseCategoryDTO> listOfCustomExpenseCategoryDTO = utilityBillDTOModel.getCustomExpenseCategoryDTO();
         for (CustomExpenseCategoryDTO dto : listOfCustomExpenseCategoryDTO) {
-            CustomExpenseCategoryModel newCustomExpenseCategoryModel = calculateProportionalBill(dto);
+            CustomExpenseCategoryModel newCustomExpenseCategoryModel = calculateProportionalBillAndCreateModel(dto);
             listOfCustomExpenseCategoryModel.add(newCustomExpenseCategoryModel);
         }
         double calculatedPrepaymentYear = calculatePrepaymentYear(utilityBillDTOModel.getPrepaymentMonthly());
@@ -61,6 +72,9 @@ public class UtilityBillService {
         newUtilityBillModel.setPrepaymentMonthly(utilityBillDTOModel.getPrepaymentMonthly());
         newUtilityBillModel.setPrepaymentYear(calculatedPrepaymentYear);
         newUtilityBillModel.setCustomExpenseCategoryModel(listOfCustomExpenseCategoryModel);
+        double totalCostsOfAllExpenseCategories = calculateTotalCostsExpenseCategories(newUtilityBillModel.getCustomExpenseCategoryModel());
+        double finalResult = calculateFinalResult(newUtilityBillModel.getPrepaymentYear(), totalCostsOfAllExpenseCategories);
+        newUtilityBillModel.setFinalResult(finalResult);
         return utilityBillRepository.save(newUtilityBillModel);
     }
 }
