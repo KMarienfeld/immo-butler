@@ -19,14 +19,20 @@ public class UtilityBillService {
     private final UtilityBillRepository utilityBillRepository;
     private final GenerateIDService generateIDService;
 
-    private CustomExpenseCategoryModel calculateProportionalBillAndCreateModel(CustomExpenseCategoryDTO customExpenseCategoryDTO) {
+    public CustomExpenseCategoryModel calculateProportionalBillAndCreateModel(CustomExpenseCategoryDTO customExpenseCategoryDTO) {
         BigDecimal total = new BigDecimal(customExpenseCategoryDTO.getTotal());
         BigDecimal portion = new BigDecimal(customExpenseCategoryDTO.getPortion());
         if (portion.compareTo(BigDecimal.ZERO) == 0) {
             throw new ArithmeticException("Division by zero error");
         }
+        if (total.compareTo(BigDecimal.ZERO) == 0) {
+            throw new ArithmeticException("Division by zero error");
+        }
         BigDecimal conversionKey = total.divide(portion, 20, RoundingMode.HALF_UP);
         BigDecimal totalBill = new BigDecimal(customExpenseCategoryDTO.getTotalBill());
+        if (totalBill.compareTo(BigDecimal.ZERO) == 0) {
+            throw new ArithmeticException("Division by zero error");
+        }
         BigDecimal proportionalBill = totalBill.divide(conversionKey, 20, RoundingMode.HALF_UP);
         BigDecimal roundedProportionalBill = proportionalBill.setScale(2, RoundingMode.HALF_UP);
         double proportionalBillDouble = roundedProportionalBill.doubleValue();
