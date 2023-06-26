@@ -33,10 +33,10 @@ function AddUtilityBill(props: Props) {
         const newCustomExpenseCategories: CustomExpenseCategoryForBillDTO[] = customExpenseCategoryFormCards.map((formCard, index: number) => {
             const selectedExpenseCategory = props.listOfExpenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === formCard.idOfExpenseCategory);
             return {
-                expenseCategory: selectedExpenseCategory?.expenseCategory || "",
-                distributionKey: selectedExpenseCategory?.distributionKey || "",
-                total: selectedExpenseCategory?.total || 0,
-                portion: selectedExpenseCategory?.portion || 0,
+                expenseCategory: selectedExpenseCategory?.expenseCategory ?? "",
+                distributionKey: selectedExpenseCategory?.distributionKey ?? "",
+                total: selectedExpenseCategory?.total ?? 0,
+                portion: selectedExpenseCategory?.portion ?? 0,
                 totalBill: customExpenseCategoryFormCards[index].totalBill,
             }
         })
@@ -119,17 +119,17 @@ function AddUtilityBill(props: Props) {
                         </Col>
                     </Row>
                     {customExpenseCategoryFormCards.map((formCard, index) => (
-                            <div key={index}>
-                                <Container className="mt-5 expenseCategoryForBillFormCard">
-                                    <OverlayTrigger trigger={['hover', 'click']}
-                                                    overlay={infoContentExpenseCategoryForBillFormCard}>
-                                        <div><QuestionCircleFill className="question-icon"/></div>
-                                    </OverlayTrigger>
-                                    <Row className="mb-3">
-                                        <Col md={6}>
-                                            <Form.Group as={Col} className="mb-3" controlId="formGridSelectExpenseCategory">
-                                                <Form.Label>
-                                                    Kostenart:
+                        <div key={formCard.idOfExpenseCategory}>
+                            <Container className="mt-5 expenseCategoryForBillFormCard">
+                                <OverlayTrigger trigger={['hover', 'click']}
+                                                overlay={infoContentExpenseCategoryForBillFormCard}>
+                                    <div><QuestionCircleFill className="question-icon"/></div>
+                                </OverlayTrigger>
+                                <Row className="mb-3">
+                                    <Col md={6}>
+                                        <Form.Group as={Col} className="mb-3" controlId="formGridSelectExpenseCategory">
+                                            <Form.Label>
+                                                Kostenart:
                                                 </Form.Label>
                                                 <Form.Select defaultValue="Wähle hier eine Kostenart aus..."
                                                              onChange={(e: ChangeEvent<HTMLSelectElement>) => onChangeHandlerExpenseCategory(e, index)}>

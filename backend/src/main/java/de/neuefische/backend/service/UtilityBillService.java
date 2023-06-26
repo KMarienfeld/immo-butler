@@ -23,15 +23,15 @@ public class UtilityBillService {
         BigDecimal total = new BigDecimal(customExpenseCategoryDTO.getTotal());
         BigDecimal portion = new BigDecimal(customExpenseCategoryDTO.getPortion());
         if (portion.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Division by zero error");
+            throw new ArithmeticException("Division by zero error(Portion is null)");
         }
         if (total.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Division by zero error");
+            throw new ArithmeticException("Division by zero error(Total is null)");
         }
         BigDecimal conversionKey = total.divide(portion, 20, RoundingMode.HALF_UP);
         BigDecimal totalBill = new BigDecimal(customExpenseCategoryDTO.getTotalBill());
         if (totalBill.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Division by zero error");
+            throw new ArithmeticException("Division by zero error(totalBill is null)");
         }
         BigDecimal proportionalBill = totalBill.divide(conversionKey, 20, RoundingMode.HALF_UP);
         BigDecimal roundedProportionalBill = proportionalBill.setScale(2, RoundingMode.HALF_UP);
@@ -63,8 +63,7 @@ public class UtilityBillService {
         double result = totalCostsExpenseCategories - prepaymentYear;
         BigDecimal resultBD = BigDecimal.valueOf(result);
         BigDecimal roundedResultBD = resultBD.setScale(2, RoundingMode.HALF_UP);
-        double roundedResult = roundedResultBD.doubleValue();
-        return roundedResult;
+        return roundedResultBD.doubleValue();
     }
 
     public UtilityBillModel addUtilityBill(UtilityBillDTOModel utilityBillDTOModel) {
