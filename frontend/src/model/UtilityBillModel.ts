@@ -7,5 +7,6 @@ export type UtilityBillModel = {
     totalCosts: number,
     prepaymentMonthly: number,
     prepaymentYear: number,
+    finalResult: number,
     customExpenseCategoryModel: CustomExpenseCategoryForBillModel[];
 }

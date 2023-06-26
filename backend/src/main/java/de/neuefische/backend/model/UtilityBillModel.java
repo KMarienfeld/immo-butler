@@ -16,5 +16,6 @@ public class UtilityBillModel {
     private int year;
     private double prepaymentMonthly;
     private double prepaymentYear;
+    private double finalResult;
     private List<CustomExpenseCategoryModel> customExpenseCategoryModel;
 }
