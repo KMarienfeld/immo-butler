@@ -61,8 +61,10 @@ public class UtilityBillService {
 
     public double calculateFinalResult(double prepaymentYear, double totalCostsExpenseCategories) {
         double result = totalCostsExpenseCategories - prepaymentYear;
-        double resultRounded = Math.round(result * 100.0) / 100;
-        return resultRounded;
+        BigDecimal resultBD = new BigDecimal(result);
+        BigDecimal roundedResultBD = resultBD.setScale(2, RoundingMode.HALF_UP);
+        double roundedResult = roundedResultBD.doubleValue();
+        return roundedResult;
     }
 
     public UtilityBillModel addUtilityBill(UtilityBillDTOModel utilityBillDTOModel) {
