@@ -43,7 +43,7 @@ class UtilityBillControllerTest {
                         "year":2022,
                         "prepaymentMonthly":100.0,
                         "prepaymentYear":1200.0,
-                        "finalResult":-866.6700000000001,
+                        "finalResult":-866.0,
                         "customExpenseCategoryModel":[{
                                                        "expenseCategory":"Strom",
                                                        "distributionKey":"UNITBASEDKEY",
