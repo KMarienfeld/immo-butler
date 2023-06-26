@@ -13,5 +13,4 @@ public class UtilityBillDTOModel {
     private int year;
     private double prepaymentMonthly;
     private List<CustomExpenseCategoryDTO> customExpenseCategoryDTO;
-
 }
