@@ -24,10 +24,7 @@ function App() {
     <div>
         {user === "" || user === "anonymousUser" ?  <> </> : <Header/>}
         <Routes>
-            <Route path={"/add-utility-bill"}
-                   element={<AddUtilityBill listOfExpenseCategories={listOfExpenseCategories}/>}/>
             <Route path={"/login"} element={<Login login={login}/>}/>
-            <Route path={"/all-bills"} element={<Test123/>}/>
             <Route element={<ProtectedRoutes user={user}/>}>
                 <Route path={"/add-expense-categories"}
                        element={<AddExpenseCategories getAllExpanseCategories={getAllExpanseCategories}/>}/>
@@ -37,6 +34,9 @@ function App() {
                 <Route path={"all-expense-categories/expense-category/:id"}
                        element={<EditExpenseCategory getAllExpenseCategories={getAllExpanseCategories}
                                                      listOfExpenseCategories={listOfExpenseCategories}/>}/>
+                <Route path={"/all-bills"} element={<Test123/>}/>
+                <Route path={"/add-utility-bill"}
+                       element={<AddUtilityBill listOfExpenseCategories={listOfExpenseCategories}/>}/>
 
             </Route>
         </Routes>
