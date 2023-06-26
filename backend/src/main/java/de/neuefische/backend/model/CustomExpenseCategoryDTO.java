@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CustomExpenseCategoryDTO {
     private String expenseCategory;
-    private String distributionKey;
+    private DistributionKey distributionKey;
     private int total;
     private int portion;
     private double totalBill;

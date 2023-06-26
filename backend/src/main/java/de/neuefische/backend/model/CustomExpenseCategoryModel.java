@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class CustomExpenseCategoryModel {
     private String id;
     private String expenseCategory;
-    private String distributionKey;
+    private DistributionKey distributionKey;
     private int total;
     private int portion;
     private double totalBill;
