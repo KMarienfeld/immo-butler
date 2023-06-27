@@ -1,18 +1,19 @@
-import React, {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 import {useNavigate} from "react-router-dom";
+
 export default function useFormValuesExpenseCategory() {
     const navigate = useNavigate();
     const [expenseCategoryN, setExpenseCategoryN] = useState<string>("")
     const [distributionKeyN, setDistributionKeyN] = useState<string>("")
-    const [totalN, setTotalN] = useState<number>(0)
-    const [portionN, setPortionN] = useState<number>(0)
+    const [totalN, setTotalN] = useState<number>(1)
+    const [portionN, setPortionN] = useState<number>(1)
     const [distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY] = useState<boolean>(false)
 
     function onClickGoBack() {
         navigate("/all-expense-categories")
     }
 
-    function onChangeHandlerExpenseCategory(e:ChangeEvent<HTMLInputElement>) {
+    function onChangeHandlerExpenseCategory(e: ChangeEvent<HTMLInputElement>) {
         setExpenseCategoryN(e.target.value)
     }
 

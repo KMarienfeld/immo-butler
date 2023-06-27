@@ -10,10 +10,6 @@ type Props = {
 function ExpenseCategoryCard(props:Props) {
 const navigate = useNavigate();
 
-    function buttonNewExpenseCategory() {
-        navigate("/add-expense-categories")
-    }
-
     function getDistributionKeyLabel(distributionKey:string) {
         switch (distributionKey) {
             case "AREABASEDKEY":
