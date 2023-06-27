@@ -12,11 +12,12 @@ import EditExpenseCategory from "./expense-categories/EditExpenseCategory";
 import Test123 from "./utility-bills/Test123";
 import AddUtilityBill from "./utility-bills/AddUtilityBill";
 import DetailOfUtilityBill from "./utility-bills/DetailOfUtilityBill";
+import useGetAllUtilityBills from "./hooks/useGetAllUtilityBills";
 
 function App() {
     const {login, user, getUsername} = UseLogin()
     const {getAllExpanseCategories, listOfExpenseCategories} = useGetAllExpenseCategories();
-
+    const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills();
     useEffect(getAllExpanseCategories, [])
     useEffect(getAllExpanseCategories, [user])
     useEffect(() => getUsername, [])
@@ -38,7 +39,8 @@ function App() {
                 <Route path={"/all-bills"} element={<Test123/>}/>
                 <Route path={"/add-utility-bill"}
                        element={<AddUtilityBill listOfExpenseCategories={listOfExpenseCategories}/>}/>
-                <Route path={"/all-bills/utility-bill/:id"} element={<DetailOfUtilityBill/>}/>
+                <Route path={"/all-bills/utility-bill/:id"}
+                       element={<DetailOfUtilityBill listOfUtilityBills={listOfUtilityBills}/>}/>
             </Route>
         </Routes>
     </div>
