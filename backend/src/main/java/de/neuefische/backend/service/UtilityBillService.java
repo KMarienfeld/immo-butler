@@ -81,6 +81,7 @@ public class UtilityBillService {
         newUtilityBillModel.setPrepaymentYear(calculatedPrepaymentYear);
         newUtilityBillModel.setCustomExpenseCategoryModel(listOfCustomExpenseCategoryModel);
         double totalCostsOfAllExpenseCategories = calculateTotalCostsExpenseCategories(newUtilityBillModel.getCustomExpenseCategoryModel());
+        newUtilityBillModel.setTotalCostsOfAllExpenseCategories(totalCostsOfAllExpenseCategories);
         double finalResult = calculateFinalResult(newUtilityBillModel.getPrepaymentYear(), totalCostsOfAllExpenseCategories);
         newUtilityBillModel.setFinalResult(finalResult);
         return utilityBillRepository.save(newUtilityBillModel);
