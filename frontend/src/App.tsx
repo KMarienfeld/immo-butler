@@ -11,6 +11,7 @@ import useGetAllExpenseCategories from "./hooks/useGetAllExpenseCategories";
 import EditExpenseCategory from "./expense-categories/EditExpenseCategory";
 import Test123 from "./utility-bills/Test123";
 import AddUtilityBill from "./utility-bills/AddUtilityBill";
+import DetailOfUtilityBill from "./utility-bills/DetailOfUtilityBill";
 
 function App() {
     const {login, user, getUsername} = UseLogin()
@@ -37,7 +38,7 @@ function App() {
                 <Route path={"/all-bills"} element={<Test123/>}/>
                 <Route path={"/add-utility-bill"}
                        element={<AddUtilityBill listOfExpenseCategories={listOfExpenseCategories}/>}/>
-
+                <Route path={"/all-bills/utility-bill/:id"} element={<DetailOfUtilityBill/>}/>
             </Route>
         </Routes>
     </div>
