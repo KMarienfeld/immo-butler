@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -56,5 +57,14 @@ class UtilityBillControllerTest {
                 )
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.customExpenseCategoryModel[0].id").isNotEmpty());
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
+    void when_getAllUtilityBills_then_return200kAndEmptyList() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/utilityBill/get-all"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
     }
 }
