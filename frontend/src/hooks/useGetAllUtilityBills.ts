@@ -6,7 +6,7 @@ function UseGetAllUtilityBills() {
     const [listOfUtilityBills, setListOfUtilityBills] = useState<UtilityBillModel[]>([]);
 
     function getAllUtilityBills() {
-        axios.get("api/utilityBill/add")
+        axios.get("api/utilityBill/get-all")
             .then(r => r.data)
             .then(data => {
                 setListOfUtilityBills(data)

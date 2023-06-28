@@ -19,7 +19,7 @@ function App() {
     const {getAllExpanseCategories, listOfExpenseCategories} = useGetAllExpenseCategories(); // eslint-disable-line no-use-before-define
     const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills(); // eslint-disable-line no-use-before-define
     useEffect(getAllExpanseCategories, [user]) // eslint-disable-line no-use-before-define
-    useEffect(() => getUsername, [])
+    useEffect(() => getUsername, []) // eslint-disable-line no-use-before-define
 
     return (
         <div>
