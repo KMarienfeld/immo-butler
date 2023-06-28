@@ -86,4 +86,8 @@ public class UtilityBillService {
         newUtilityBillModel.setFinalResult(finalResult);
         return utilityBillRepository.save(newUtilityBillModel);
     }
+
+    public List<UtilityBillModel> getAllUtilityBills() {
+        return utilityBillRepository.findAll();
+    }
 }

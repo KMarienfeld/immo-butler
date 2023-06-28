@@ -105,9 +105,9 @@ class UtilityBillServiceTest {
     void addUtilityBill() {
         //GIVEN
         UtilityBillDTOModel utilityBillDTOModel = new UtilityBillDTOModel(
-                2022, 100, Arrays.asList(new CustomExpenseCategoryDTO("Strom", UNITBASEDKEY, 3, 1, 1000)));
+                2022, 100, Arrays.asList(new CustomExpenseCategoryDTO("Strom", UNITBASEDKEY, 3, 1, 300)));
         UtilityBillModel expected = new UtilityBillModel(
-                "1", 2022, 100.0, 1200.0, -866.67, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 1000.0, 333.33)));
+                "1", 2022, 100.0, 1200.0, 300, -900.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 1000.0, 333.33)));
         String IdForUtilityBillModel = "1";
         String IdForCustomExpenseCategoryModel = "10";
         when(generateIDService.generateCustomExpenseCategoryUUID()).thenReturn(IdForCustomExpenseCategoryModel);
