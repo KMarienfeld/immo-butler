@@ -20,8 +20,8 @@ function DetailOfUtilityBill(props: Props) {
     }
 
     return (
-        <div>
-            <Container className="d-flex justify-content-center mt-3 mb-3">
+        <div className="pageContent">
+            <Container className="pt-5 d-flex justify-content-center">
                 <h1>Nebenkostenabrechnung {actualUtilityBill?.year}</h1>
             </Container>
             <Container>
