@@ -120,4 +120,16 @@ class UtilityBillServiceTest {
         verify(generateIDService).generateUtilityBillUUID();
         verify(utilityBillRepository).save((any()));
     }
+
+    @Test
+    void getAllUtilityBills() throws Exception {
+        //GIVEN
+        UtilityBillModel utilityBillModel1 = new UtilityBillModel("1", 2022, 100.0, 1200.0, 800.0, -300.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 300, 100)));
+        when(utilityBillRepository.findAll()).thenReturn(List.of(utilityBillModel1));
+        //WHEN
+        List<UtilityBillModel> acutal = utilityBillService.getAllUtilityBills();
+        //THEN
+        verify(utilityBillRepository).findAll();
+        assertEquals(acutal, List.of(utilityBillModel1));
+    }
 }
