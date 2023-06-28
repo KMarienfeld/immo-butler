@@ -14,6 +14,10 @@ function AllUtilityBills(props: Props) {
         navigate("/add-utility-bill")
     }
 
+    function clickToSeeDetails(id: string) {
+        navigate("/all-bills/utility-bill/" + id)
+    }
+
     return (
         <div>
             {props.listOfUtilityBill.length === 0 ?
@@ -58,16 +62,20 @@ function AllUtilityBills(props: Props) {
                                 <tr key={currentUtilityBill.id}>
                                     <td><strong>{index + 1}</strong></td>
                                     <td>{currentUtilityBill.year}</td>
-                                    <td>{currentUtilityBill.finalResult}</td>
-                                    <td><Button className="m-2 buttonNewExpenseCategory">Details</Button><br
-                                        className="d-sm-none"/><Button variant="outline-danger">löschen</Button></td>
+                                    <td style={{color: currentUtilityBill.finalResult < 0 ? 'green' : 'red'}}>
+                                        {Math.abs(currentUtilityBill.finalResult)}
+                                    </td>
+                                    <td><Button className="m-2 buttonNewExpenseCategory"
+                                                onClick={() => clickToSeeDetails(currentUtilityBill.id)}>Details</Button><br
+                                        className="d-sm-none"/><Button variant="outline-danger">löschen</Button>
+                                    </td>
                                 </tr>
                             ))}
                             </tbody>
                         </Table>
                         <Container className="d-flex pb-5 justify-content-center mt-5">
                             <Button className="buttonNewExpenseCategory" onClick={buttonNewUtilityBill}>
-                                erste Nebenkostenabrechnung anlegen
+                                neue Nebenkostenabrechnung anlegen
                             </Button>
                         </Container>
                     </Container>
