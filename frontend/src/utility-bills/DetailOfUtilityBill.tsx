@@ -34,7 +34,7 @@ function DetailOfUtilityBill(props: Props) {
                 <tbody>
                 {listOfActualCustomExpenseCategories?.map((currentCustomExpenseCategory, index) => (
                     <tr>
-                        <td>{index + 1}</td>
+                        <td key={currentCustomExpenseCategory.id}>{index + 1}</td>
                         <td>{currentCustomExpenseCategory.expenseCategory}</td>
                         <td>{currentCustomExpenseCategory.totalBill}</td>
                         <td>{currentCustomExpenseCategory.proportionalBill}</td>
@@ -51,11 +51,14 @@ function DetailOfUtilityBill(props: Props) {
             <p>
                 Daraus ergibt sich eine{' '}
                 {actualUtilityBill?.finalResult !== undefined
-                    ? (actualUtilityBill?.finalResult < 0
-                            ? <>Rückerstattung in Höhe von {actualUtilityBill?.finalResult}</>
-                            : <>Nachzahlung in Höhe von {actualUtilityBill?.finalResult}</>
-                    )
-                    : ''}
+                    ? (actualUtilityBill?.finalResult < 0 ? (
+                            <>Rückerstattung in Höhe von {actualUtilityBill?.finalResult}</>
+                        ) : (
+                            <>Nachzahlung in Höhe von {actualUtilityBill?.finalResult}</>
+                        )
+                    ) : (
+                        ''
+                    )}
             </p>
             );
 
