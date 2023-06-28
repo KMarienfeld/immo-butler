@@ -36,8 +36,8 @@ function DetailOfUtilityBill(props: Props) {
                     </thead>
                     <tbody>
                     {listOfActualCustomExpenseCategories?.map((currentCustomExpenseCategory, index) => (
-                        <tr>
-                            <td key={currentCustomExpenseCategory.id}>{index + 1}</td>
+                        <tr key={currentCustomExpenseCategory.id}>
+                            <td>{index + 1}</td>
                             <td>{currentCustomExpenseCategory.expenseCategory}</td>
                             <td>{currentCustomExpenseCategory.totalBill}</td>
                             <td>{currentCustomExpenseCategory.proportionalBill}</td>
