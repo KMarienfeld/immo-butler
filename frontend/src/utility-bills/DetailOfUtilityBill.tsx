@@ -55,7 +55,7 @@ function DetailOfUtilityBill(props: Props) {
                             ? <>Rückerstattung in Höhe von {actualUtilityBill?.finalResult}</>
                             : <>Nachzahlung in Höhe von {actualUtilityBill?.finalResult}</>
                     )
-                    : '' ?? ''}
+                    : ''}
             </p>
             );
 
