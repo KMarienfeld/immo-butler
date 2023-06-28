@@ -48,7 +48,7 @@ function AllUtilityBills(props: Props) {
                         <h3>Hier siehst du alle deine <br className="d-sm-none"/> Nebenkostenabrechnungen: </h3>
                     </Container>
                     <Container className="mt-5 mb-5">
-                        <Table>
+                        <Table className="expenseCategoryCard">
                             <thead>
                             <tr>
                                 <th>#</th>
