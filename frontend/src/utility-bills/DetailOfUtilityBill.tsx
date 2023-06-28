@@ -13,10 +13,10 @@ function DetailOfUtilityBill(props: Props) {
     const id: string | undefined = params.id;
 
     let actualUtilityBill: UtilityBillModel | undefined;
-    let listOfactualCustomExpenseCategories: CustomExpenseCategoryForBillModel[] | undefined;
+    let listOfActualCustomExpenseCategories: CustomExpenseCategoryForBillModel[] | undefined;
     if (props.listOfUtilityBills.length > 0) {
         actualUtilityBill = props.listOfUtilityBills.find(currentUtilityBill => currentUtilityBill.id === id);
-        listOfactualCustomExpenseCategories = actualUtilityBill?.customExpenseCategoryModel;
+        listOfActualCustomExpenseCategories = actualUtilityBill?.customExpenseCategoryModel;
     }
 
     return (
@@ -32,7 +32,7 @@ function DetailOfUtilityBill(props: Props) {
                 </tr>
                 </thead>
                 <tbody>
-                {listOfactualCustomExpenseCategories?.map((currentCustomExpenseCategory, index) => (
+                {listOfActualCustomExpenseCategories?.map((currentCustomExpenseCategory, index) => (
                     <tr>
                         <td>{index + 1}</td>
                         <td>{currentCustomExpenseCategory.expenseCategory}</td>

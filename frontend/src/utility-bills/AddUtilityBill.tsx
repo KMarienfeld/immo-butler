@@ -10,6 +10,7 @@ import axios from "axios";
 
 type Props = {
     listOfExpenseCategories: ExpenseCategoryModel[],
+    getAllUtilityBills: () => void
 }
 
 function AddUtilityBill(props: Props) {
@@ -46,12 +47,15 @@ function AddUtilityBill(props: Props) {
             customExpenseCategoryDTO: newCustomExpenseCategories,
         }
         console.log(newUtilityBillDTO)
+        let navigateId = "";
         axios.post('api/utilityBill/add', newUtilityBillDTO)
-            .then(response => {
-                console.log(response.data)
+            .then(response => response.data)
+            .then(data => {
+                navigateId = data.id;
             })
-            .then(() => navigate("/all-utility-bills"))
+            .then(props.getAllUtilityBills)
             .catch(error => console.log(error))
+            .then(() => navigate("/all-bills/utility-bill/" + navigateId))
     }
 
     function onChangeHandlerYear(e: ChangeEvent<HTMLInputElement>) {

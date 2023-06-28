@@ -13,6 +13,7 @@ function UseGetAllUtilityBills() {
                 console.log(data)
             })
             .catch(error => console.log(error))
+            .then()
     }
 
     return {listOfUtilityBills, getAllUtilityBills}
