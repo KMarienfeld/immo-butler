@@ -3,10 +3,9 @@ import {CustomExpenseCategoryForBillModel} from "./CustomExpenseCategoryForBillM
 export type UtilityBillModel = {
     id: string,
     year: number,
-    proportionalCosts: number,
-    totalCosts: number,
     prepaymentMonthly: number,
     prepaymentYear: number,
+    totalCostsOfAllExpenseCategories: number;
     finalResult: number,
     customExpenseCategoryModel: CustomExpenseCategoryForBillModel[];
 }
