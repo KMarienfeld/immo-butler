@@ -24,7 +24,7 @@ function DetailOfUtilityBill(props: Props) {
             <Container className="pt-5 d-flex justify-content-center">
                 <h1>Nebenkostenabrechnung {actualUtilityBill?.year}</h1>
             </Container>
-            <Container>
+            <Container className="mt-5 mb-5">
                 <Table striped bordered hover size="sm">
                     <thead>
                     <tr>
