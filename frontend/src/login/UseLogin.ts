@@ -23,7 +23,7 @@ function UseLogin() {
             username = response.data;
             if (username === "anonymousUser" || username === undefined) {
                 nav("/login")
-            } else nav("/all-expense-categories")
+            } else nav("/all-bills")
         }).then(() => {
         })
             .catch(error => {
