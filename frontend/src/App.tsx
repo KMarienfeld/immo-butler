@@ -15,12 +15,12 @@ import useGetAllUtilityBills from "./hooks/useGetAllUtilityBills";
 import AllUtilityBills from "./utility-bills/AllUtilityBills";
 
 function App() {
-    const {login, user, getUsername} = UseLogin()
+    const {login, user, getUsername} = UseLogin() // eslint-disable-line no-use-before-define
     const {getAllExpanseCategories, listOfExpenseCategories} = useGetAllExpenseCategories(); // eslint-disable-line no-use-before-define
     const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills(); // eslint-disable-line no-use-before-define
     useEffect(getAllExpanseCategories, [user]) // eslint-disable-line no-use-before-define
     useEffect(() => getUsername, []) // eslint-disable-line no-use-before-define
-    useEffect(getAllUtilityBills, [user])
+    useEffect(getAllUtilityBills, [user]) // eslint-disable-line no-use-before-define
 
     return (
         <div>
