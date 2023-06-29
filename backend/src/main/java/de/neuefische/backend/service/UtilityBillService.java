@@ -90,4 +90,10 @@ public class UtilityBillService {
     public List<UtilityBillModel> getAllUtilityBills() {
         return utilityBillRepository.findAll();
     }
+
+    public UtilityBillModel deleteUtilityBillById(String id) {
+        UtilityBillModel utilityBillModel = utilityBillRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+        utilityBillRepository.deleteById(id);
+        return utilityBillModel;
+    }
 }
