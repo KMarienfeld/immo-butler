@@ -18,6 +18,7 @@ function App() {
     const {login, user, getUsername} = UseLogin() // eslint-disable-line no-use-before-define
     const {getAllExpanseCategories, listOfExpenseCategories} = useGetAllExpenseCategories(); // eslint-disable-line no-use-before-define
     const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills(); // eslint-disable-line no-use-before-define
+
     useEffect(getAllExpanseCategories, [user]) // eslint-disable-line no-use-before-define
     useEffect(() => getUsername, []) // eslint-disable-line no-use-before-define
     useEffect(getAllUtilityBills, [user]) // eslint-disable-line no-use-before-define
@@ -36,12 +37,14 @@ function App() {
                     <Route path={"all-expense-categories/expense-category/:id"}
                            element={<EditExpenseCategory getAllExpenseCategories={getAllExpanseCategories}
                                                          listOfExpenseCategories={listOfExpenseCategories}/>}/>
-                    <Route path={"/all-bills"} element={<AllUtilityBills listOfUtilityBill={listOfUtilityBills}/>}/>
+                    <Route path={"/all-bills"} element={<AllUtilityBills listOfUtilityBills={listOfUtilityBills}
+                                                                         getAllUtilityBills={getAllUtilityBills}/>}/>
                     <Route path={"/add-utility-bill"}
                            element={<AddUtilityBill listOfExpenseCategories={listOfExpenseCategories}
                                                     getAllUtilityBills={getAllUtilityBills}/>}/>
                     <Route path={"/all-bills/utility-bill/:id"}
-                           element={<DetailOfUtilityBill listOfUtilityBills={listOfUtilityBills}/>}/>
+                           element={<DetailOfUtilityBill listOfUtilityBills={listOfUtilityBills}
+                                                         getAllUtilityBills={getAllUtilityBills}/>}/>
             </Route>
         </Routes>
     </div>

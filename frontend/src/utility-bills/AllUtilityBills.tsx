@@ -5,12 +5,13 @@ import {UtilityBillModel} from "../model/UtilityBillModel";
 import useDeleteUtilityBill from "../hooks/useDeleteUtilityBill";
 
 type Props = {
-    listOfUtilityBill: UtilityBillModel[];
+    listOfUtilityBills: UtilityBillModel[];
+    getAllUtilityBills: () => void;
 }
 
 function AllUtilityBills(props: Props) {
     const navigate = useNavigate();
-    const {deleteUtilityBill} = useDeleteUtilityBill();
+    const {deleteUtilityBill} = useDeleteUtilityBill(props);
 
     function buttonNewUtilityBill() {
         navigate("/add-utility-bill")
@@ -26,7 +27,7 @@ function AllUtilityBills(props: Props) {
 
     return (
         <div>
-            {props.listOfUtilityBill.length === 0 ?
+            {props.listOfUtilityBills.length === 0 ?
                 <div className="pageContent">
                     <Container>
                         <Row className="pt-5 d-flex justify-content-center">
@@ -64,7 +65,7 @@ function AllUtilityBills(props: Props) {
                             </tr>
                             </thead>
                             <tbody className="table-group-divider">
-                            {props.listOfUtilityBill.map((currentUtilityBill, index) => (
+                            {props.listOfUtilityBills.map((currentUtilityBill, index) => (
                                 <tr key={currentUtilityBill.id}>
                                     <td><strong>{index + 1}</strong></td>
                                     <td>{currentUtilityBill.year}</td>

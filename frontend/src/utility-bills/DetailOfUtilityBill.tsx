@@ -7,13 +7,14 @@ import useDeleteUtilityBill from "../hooks/useDeleteUtilityBill";
 
 type Props = {
     listOfUtilityBills: UtilityBillModel[],
+    getAllUtilityBills: () => void
 }
 
 function DetailOfUtilityBill(props: Props) {
     const params = useParams();
     const id: string | undefined = params.id;
     const navigate = useNavigate();
-    const {deleteUtilityBill} = useDeleteUtilityBill();
+    const {deleteUtilityBill} = useDeleteUtilityBill(props);
 
     let actualUtilityBill: UtilityBillModel | undefined;
     let listOfActualCustomExpenseCategories: CustomExpenseCategoryForBillModel[] | undefined;

@@ -2,11 +2,11 @@ import {useState} from 'react';
 import {UtilityBillModel} from "../model/UtilityBillModel";
 import axios from "axios";
 
-function UseGetAllUtilityBills() {
+function useGetAllUtilityBills() {
     const [listOfUtilityBills, setListOfUtilityBills] = useState<UtilityBillModel[]>([]);
 
     function getAllUtilityBills() {
-        axios.get("api/utilityBill/get-all")
+        axios.get("/api/utilityBill/get-all")
             .then(r => r.data)
             .then(data => {
                 setListOfUtilityBills(data)
@@ -20,4 +20,4 @@ function UseGetAllUtilityBills() {
 
 }
 
-export default UseGetAllUtilityBills;
+export default useGetAllUtilityBills;
