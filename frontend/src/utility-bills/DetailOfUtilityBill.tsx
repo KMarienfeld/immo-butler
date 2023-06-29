@@ -1,7 +1,7 @@
 import React from 'react';
-import {Col, Container, Row, Table} from "react-bootstrap";
+import {Button, Col, Container, Row, Table} from "react-bootstrap";
 import {UtilityBillModel} from "../model/UtilityBillModel";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {CustomExpenseCategoryForBillModel} from "../model/CustomExpenseCategoryForBillModel";
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
 function DetailOfUtilityBill(props: Props) {
     const params = useParams();
     const id: string | undefined = params.id;
+    const navigate = useNavigate();
 
     let actualUtilityBill: UtilityBillModel | undefined;
     let listOfActualCustomExpenseCategories: CustomExpenseCategoryForBillModel[] | undefined;
@@ -19,12 +20,16 @@ function DetailOfUtilityBill(props: Props) {
         listOfActualCustomExpenseCategories = actualUtilityBill?.customExpenseCategoryModel;
     }
 
+    function onClickGoBackToGetAll() {
+        navigate("/all-bills")
+    }
+
     return (
-        <div>
-            <Container className="d-flex justify-content-center mt-3 mb-3">
+        <div className="pageContent">
+            <Container className="pt-5 d-flex justify-content-center">
                 <h1>Nebenkostenabrechnung {actualUtilityBill?.year}</h1>
             </Container>
-            <Container>
+            <Container className="mt-5 mb-5">
                 <Table striped bordered hover size="sm">
                     <thead>
                     <tr>
@@ -73,8 +78,15 @@ function DetailOfUtilityBill(props: Props) {
                         )}
                 </p>
             </Container>
-
-
+            <Container>
+                <Row className="mt-5">
+                    <Col>
+                        <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBackToGetAll}>
+                            zurück
+                        </Button>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 }

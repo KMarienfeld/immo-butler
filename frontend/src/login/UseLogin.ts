@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
@@ -23,7 +23,7 @@ function UseLogin() {
             username = response.data;
             if (username === "anonymousUser" || username === undefined) {
                 nav("/login")
-            } else nav("/all-expense-categories")
+            } else nav("/all-bills")
         }).then(() => {
         })
             .catch(error => {

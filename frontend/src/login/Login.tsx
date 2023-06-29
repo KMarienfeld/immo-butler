@@ -34,7 +34,7 @@ function Login(props:Props) {
                             <Container className="d-flex justify-content-center">
                                 <div className="authenticationCard">
                                     <div className="divLogo">
-                                        <img className="logo" src={logo}/>
+                                        <img alt="logoImmoButler" className="logo" src={logo}/>
                                     </div>
                                     <Form onSubmit={loginOnSubmit}>
                                         <Form.Group className="mb-3" controlId="formBasicEmail">

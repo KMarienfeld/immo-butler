@@ -9,10 +9,10 @@ import AddExpenseCategories from "./expense-categories/AddExpenseCategories";
 import ExpenseCategoriesGallery from "./expense-categories/ExpenseCategoriesGallery";
 import useGetAllExpenseCategories from "./hooks/useGetAllExpenseCategories";
 import EditExpenseCategory from "./expense-categories/EditExpenseCategory";
-import Test123 from "./utility-bills/Test123";
 import AddUtilityBill from "./utility-bills/AddUtilityBill";
 import DetailOfUtilityBill from "./utility-bills/DetailOfUtilityBill";
 import useGetAllUtilityBills from "./hooks/useGetAllUtilityBills";
+import AllUtilityBills from "./utility-bills/AllUtilityBills";
 
 function App() {
     const {login, user, getUsername} = UseLogin()
@@ -20,13 +20,13 @@ function App() {
     const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills(); // eslint-disable-line no-use-before-define
     useEffect(getAllExpanseCategories, [user]) // eslint-disable-line no-use-before-define
     useEffect(() => getUsername, []) // eslint-disable-line no-use-before-define
+    useEffect(getAllUtilityBills, [user])
 
     return (
         <div>
             {user === "" || user === "anonymousUser" ? <> </> : <Header/>}
             <Routes>
                 <Route path={"/login"} element={<Login login={login}/>}/>
-                <Route path={"/all-bills"} element={<Test123/>}/>
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path={"/add-expense-categories"}
                            element={<AddExpenseCategories getAllExpanseCategories={getAllExpanseCategories}/>}/>
@@ -36,7 +36,7 @@ function App() {
                     <Route path={"all-expense-categories/expense-category/:id"}
                            element={<EditExpenseCategory getAllExpenseCategories={getAllExpanseCategories}
                                                          listOfExpenseCategories={listOfExpenseCategories}/>}/>
-
+                    <Route path={"/all-bills"} element={<AllUtilityBills listOfUtilityBill={listOfUtilityBills}/>}/>
                     <Route path={"/add-utility-bill"}
                            element={<AddUtilityBill listOfExpenseCategories={listOfExpenseCategories}
                                                     getAllUtilityBills={getAllUtilityBills}/>}/>
