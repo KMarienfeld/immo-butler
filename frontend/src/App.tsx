@@ -19,17 +19,15 @@ function App() {
     const {getAllExpanseCategories, listOfExpenseCategories} = useGetAllExpenseCategories();
     const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills();
 
-    useEffect(getAllExpanseCategories,
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(getAllExpanseCategories, [user])
 
     useEffect(() => getUsername,
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [])
 
-    useEffect(getAllUtilityBills,
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(getAllUtilityBills, [user])
 
     return (
         <div>
