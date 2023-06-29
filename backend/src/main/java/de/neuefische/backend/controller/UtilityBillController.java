@@ -24,4 +24,8 @@ public class UtilityBillController {
         return utilityBillService.getAllUtilityBills();
     }
 
+    @DeleteMapping("/delete/{id}")
+    public UtilityBillModel deleteUtilityBillbyId(@PathVariable String id) {
+        return utilityBillService.deleteUtilityBillById(id);
+    }
 }
