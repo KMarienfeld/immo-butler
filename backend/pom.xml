@@ -19,17 +19,6 @@
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.coverage.exclusions>src/main/java/de/neuefische/backend/security/**</sonar.coverage.exclusions>
 	</properties>
-	<repository>
-		<id>central</id>
-		<name>Maven Central Repository</name>
-		<url>https://repo.maven.apache.org/maven2</url>
-		<releases>
-			<enabled>true</enabled>
-		</releases>
-		<snapshots>
-			<enabled>false</enabled>
-		</snapshots>
-	</repository>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
