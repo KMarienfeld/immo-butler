@@ -6,12 +6,13 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import de.neuefische.backend.model.CustomExpenseCategoryModel;
 import de.neuefische.backend.model.UtilityBillModel;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-
+@Service
 public class PDFGenerator {
     public byte[] createPdfForUtilityBill(UtilityBillModel utilityBillModel) throws DocumentException, IOException {
         //neues PDF Dokument erstellen
@@ -26,7 +27,7 @@ public class PDFGenerator {
         Font font = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD);
         //Titel hinzufügen
         Paragraph title = new Paragraph("Nebenkostenabrechnung" + utilityBillModel.getYear(), font);
-        document.add(title);
+
         //Tabelle erstellen
         PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(70);
@@ -42,7 +43,7 @@ public class PDFGenerator {
 
         //Tabelle zum Document hinzufügen
         document.add(title);
-
+        document.add(table);
         //Text hinzufügen
         addText(document, utilityBillModel);
         addResult(document, utilityBillModel);
