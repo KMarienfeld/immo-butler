@@ -87,7 +87,6 @@ function DetailOfUtilityBill(props: Props) {
                     </Col>
                 </Row>
             </Container>
-
         </div>
     );
 }
