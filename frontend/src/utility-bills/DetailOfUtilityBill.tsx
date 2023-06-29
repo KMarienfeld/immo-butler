@@ -3,15 +3,18 @@ import {Button, Col, Container, Row, Table} from "react-bootstrap";
 import {UtilityBillModel} from "../model/UtilityBillModel";
 import {useNavigate, useParams} from "react-router-dom";
 import {CustomExpenseCategoryForBillModel} from "../model/CustomExpenseCategoryForBillModel";
+import useDeleteUtilityBill from "../hooks/useDeleteUtilityBill";
 
 type Props = {
     listOfUtilityBills: UtilityBillModel[],
+    getAllUtilityBills: () => void
 }
 
 function DetailOfUtilityBill(props: Props) {
     const params = useParams();
     const id: string | undefined = params.id;
     const navigate = useNavigate();
+    const {deleteUtilityBill} = useDeleteUtilityBill(props);
 
     let actualUtilityBill: UtilityBillModel | undefined;
     let listOfActualCustomExpenseCategories: CustomExpenseCategoryForBillModel[] | undefined;
@@ -22,6 +25,12 @@ function DetailOfUtilityBill(props: Props) {
 
     function onClickGoBackToGetAll() {
         navigate("/all-bills")
+    }
+
+    function onClickDeleteButton(id: string | undefined) {
+        if (id !== undefined) {
+            deleteUtilityBill(id)
+        }
     }
 
     return (
@@ -83,6 +92,12 @@ function DetailOfUtilityBill(props: Props) {
                     <Col>
                         <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBackToGetAll}>
                             zurück
+                        </Button>
+                    </Col>
+                    <Col>
+                        <Button className="buttonDelete" variant="danger"
+                                onClick={() => onClickDeleteButton(actualUtilityBill?.id)}>
+                            löschen
                         </Button>
                     </Col>
                 </Row>

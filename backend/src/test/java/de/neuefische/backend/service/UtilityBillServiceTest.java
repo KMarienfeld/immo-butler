@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static de.neuefische.backend.model.DistributionKey.UNITBASEDKEY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -127,9 +128,34 @@ class UtilityBillServiceTest {
         UtilityBillModel utilityBillModel1 = new UtilityBillModel("1", 2022, 100.0, 1200.0, 800.0, -300.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 300, 100)));
         when(utilityBillRepository.findAll()).thenReturn(List.of(utilityBillModel1));
         //WHEN
-        List<UtilityBillModel> acutal = utilityBillService.getAllUtilityBills();
+        List<UtilityBillModel> actual = utilityBillService.getAllUtilityBills();
         //THEN
         verify(utilityBillRepository).findAll();
-        assertEquals(acutal, List.of(utilityBillModel1));
+        assertEquals(actual, List.of(utilityBillModel1));
+    }
+
+    @Test
+    void deleteUtilityBillById() throws Exception {
+        //GIVEN
+        UtilityBillModel expected = new UtilityBillModel("11", 2023, 50.0, 600.0, 116.67, -483.33, Arrays.asList(new CustomExpenseCategoryModel("22", "Hausmeister", UNITBASEDKEY, 3, 1, 350.0, 116.67)));
+        String testId = "11";
+        when(utilityBillRepository.findById(testId)).thenReturn(Optional.of(expected));
+        //WHEN
+        UtilityBillModel actual = utilityBillService.deleteUtilityBillById(testId);
+        //THEN
+        verify(utilityBillRepository).findById(testId);
+        verify(utilityBillRepository).deleteById(testId);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void when_deleteUtilityBillByIdWithWrongID_then_throwException() {
+        //GIVEN
+        String wrongId = "wrongID";
+        when(utilityBillRepository.findById(wrongId)).thenReturn(Optional.empty());
+        //WHEN & THEN
+        assertThrows(RuntimeException.class, () -> {
+            utilityBillService.deleteUtilityBillById(wrongId);
+        });
     }
 }

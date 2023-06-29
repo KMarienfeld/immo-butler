@@ -2,13 +2,16 @@ import React from 'react';
 import {Button, Container, Row, Table} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {UtilityBillModel} from "../model/UtilityBillModel";
+import useDeleteUtilityBill from "../hooks/useDeleteUtilityBill";
 
 type Props = {
-    listOfUtilityBill: UtilityBillModel[];
+    listOfUtilityBills: UtilityBillModel[];
+    getAllUtilityBills: () => void;
 }
 
 function AllUtilityBills(props: Props) {
     const navigate = useNavigate();
+    const {deleteUtilityBill} = useDeleteUtilityBill(props);
 
     function buttonNewUtilityBill() {
         navigate("/add-utility-bill")
@@ -18,9 +21,13 @@ function AllUtilityBills(props: Props) {
         navigate("/all-bills/utility-bill/" + id)
     }
 
+    function onClickDeleteButton(id: string) {
+        deleteUtilityBill(id)
+    }
+
     return (
         <div>
-            {props.listOfUtilityBill.length === 0 ?
+            {props.listOfUtilityBills.length === 0 ?
                 <div className="pageContent">
                     <Container>
                         <Row className="pt-5 d-flex justify-content-center">
@@ -58,7 +65,7 @@ function AllUtilityBills(props: Props) {
                             </tr>
                             </thead>
                             <tbody className="table-group-divider">
-                            {props.listOfUtilityBill.map((currentUtilityBill, index) => (
+                            {props.listOfUtilityBills.map((currentUtilityBill, index) => (
                                 <tr key={currentUtilityBill.id}>
                                     <td><strong>{index + 1}</strong></td>
                                     <td>{currentUtilityBill.year}</td>
@@ -67,9 +74,14 @@ function AllUtilityBills(props: Props) {
                                     </td>
                                     <td>
                                         <Button className="buttonNewExpenseCategory m-2"
-                                                onClick={() => clickToSeeDetails(currentUtilityBill.id)}>Details</Button>
+                                                onClick={() => clickToSeeDetails(currentUtilityBill.id)}>
+                                            Details
+                                        </Button>
                                         <br className="d-sm-none"/>
-                                        <Button variant="outline-danger" className="m-1">löschen</Button>
+                                        <Button variant="outline-danger" className="m-1"
+                                                onClick={() => onClickDeleteButton(currentUtilityBill.id)}>
+                                            löschen
+                                        </Button>
                                     </td>
                                 </tr>
                             ))}
