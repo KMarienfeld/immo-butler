@@ -15,13 +15,21 @@ import useGetAllUtilityBills from "./hooks/useGetAllUtilityBills";
 import AllUtilityBills from "./utility-bills/AllUtilityBills";
 
 function App() {
-    const {login, user, getUsername} = UseLogin() // eslint-disable-line no-use-before-define
-    const {getAllExpanseCategories, listOfExpenseCategories} = useGetAllExpenseCategories(); // eslint-disable-line no-use-before-define
-    const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills(); // eslint-disable-line no-use-before-define
+    const {login, user, getUsername} = UseLogin()
+    const {getAllExpanseCategories, listOfExpenseCategories} = useGetAllExpenseCategories();
+    const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills();
 
-    useEffect(getAllExpanseCategories, [user]) // eslint-disable-line no-use-before-define
-    useEffect(() => getUsername, []) // eslint-disable-line no-use-before-define
-    useEffect(getAllUtilityBills, [user]) // eslint-disable-line no-use-before-define
+    useEffect(getAllExpanseCategories,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [user])
+
+    useEffect(() => getUsername,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [])
+
+    useEffect(getAllUtilityBills,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [user])
 
     return (
         <div>
