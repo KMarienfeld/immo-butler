@@ -1,11 +1,15 @@
 package de.neuefische.backend.controller;
 
+import com.itextpdf.text.DocumentException;
 import de.neuefische.backend.model.UtilityBillDTOModel;
 import de.neuefische.backend.model.UtilityBillModel;
+import de.neuefische.backend.service.PDFGenerator;
 import de.neuefische.backend.service.UtilityBillService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -13,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UtilityBillController {
     private final UtilityBillService utilityBillService;
+    private final PDFGenerator pdfGenerator;
 
     @PostMapping("/add")
     public UtilityBillModel addUtilityBill(@RequestBody UtilityBillDTOModel utilityBillDTOModel) {
@@ -27,5 +32,17 @@ public class UtilityBillController {
     @DeleteMapping("/delete/{id}")
     public UtilityBillModel deleteUtilityBillbyId(@PathVariable String id) {
         return utilityBillService.deleteUtilityBillById(id);
+    }
+
+    @GetMapping("/getPDF/{id}")
+    public ResponseEntity<byte[]> generatePDF(@PathVariable String id) throws DocumentException, IOException {
+        UtilityBillModel utilityBillModel = utilityBillService.findById(id);
+        PDFGenerator pdfGenerator = new PDFGenerator();
+        byte[] pdfBytes = pdfGenerator.createPdfForUtilityBill(utilityBillModel);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.attachment().filename("utility-bill.pdf").build());
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+
     }
 }
