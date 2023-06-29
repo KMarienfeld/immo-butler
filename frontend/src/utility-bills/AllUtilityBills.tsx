@@ -65,9 +65,11 @@ function AllUtilityBills(props: Props) {
                                     <td style={{color: currentUtilityBill.finalResult < 0 ? 'green' : 'red'}}>
                                         {Math.abs(currentUtilityBill.finalResult)}
                                     </td>
-                                    <td><Button className="m-2 buttonNewExpenseCategory"
-                                                onClick={() => clickToSeeDetails(currentUtilityBill.id)}>Details</Button><br
-                                        className="d-sm-none"/><Button variant="outline-danger">löschen</Button>
+                                    <td>
+                                        <Button className="buttonNewExpenseCategory m-2"
+                                                onClick={() => clickToSeeDetails(currentUtilityBill.id)}>Details</Button>
+                                        <br className="d-sm-none"/>
+                                        <Button variant="outline-danger" className="m-1">löschen</Button>
                                     </td>
                                 </tr>
                             ))}
