@@ -96,4 +96,8 @@ public class UtilityBillService {
         utilityBillRepository.deleteById(id);
         return utilityBillModel;
     }
+
+    public UtilityBillModel findById(String id) {
+        return utilityBillRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+    }
 }

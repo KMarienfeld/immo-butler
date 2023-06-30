@@ -158,4 +158,28 @@ class UtilityBillServiceTest {
             utilityBillService.deleteUtilityBillById(wrongId);
         });
     }
+
+    @Test
+    void when_findByID_then_returnUtilityBillModel() {
+        //GIVEN
+        String testId = "10";
+        UtilityBillModel expected = new UtilityBillModel("10", 2022, 100.0, 1200.0, 800.0, -300.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 300, 100)));
+        when(utilityBillRepository.findById(testId)).thenReturn(Optional.of(expected));
+        //WHEN
+        UtilityBillModel actual = utilityBillService.findById(testId);
+        //THEN
+        verify(utilityBillRepository).findById(testId);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void when_findByIdWithWrongID_then_throwException() {
+        //GIVEN
+        String wrongId = "10";
+        when(utilityBillRepository.findById(wrongId)).thenReturn(Optional.empty());
+        //WHEN & THEN
+        assertThrows(RuntimeException.class, () -> {
+            utilityBillService.findById(wrongId);
+        });
+    }
 }

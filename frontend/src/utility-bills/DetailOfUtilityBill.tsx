@@ -4,6 +4,7 @@ import {UtilityBillModel} from "../model/UtilityBillModel";
 import {useNavigate, useParams} from "react-router-dom";
 import {CustomExpenseCategoryForBillModel} from "../model/CustomExpenseCategoryForBillModel";
 import useDeleteUtilityBill from "../hooks/useDeleteUtilityBill";
+import axios from "axios";
 
 type Props = {
     listOfUtilityBills: UtilityBillModel[],
@@ -30,6 +31,28 @@ function DetailOfUtilityBill(props: Props) {
     function onClickDeleteButton(id: string | undefined) {
         if (id !== undefined) {
             deleteUtilityBill(id)
+        }
+    }
+
+    function onClickPdfExport(id: string | undefined) {
+        if (id !== undefined) {
+            const generatePdf = async () => {
+                const response = await axios.get("/api/utilityBill/getPDF/" + id, {
+                    responseType: 'arraybuffer',
+                });
+                const blob = new Blob([response.data], {type: "application/pdf"});
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = "export-utility-bill.pdf"
+                link.click();
+                window.URL.revokeObjectURL(url);
+            };
+            generatePdf().then(r => {
+                console.log("PDF generated successfully ", r)
+            }).catch(error => {
+                console.log("PDF generation failed ", error)
+            });
         }
     }
 
@@ -90,14 +113,21 @@ function DetailOfUtilityBill(props: Props) {
             <Container>
                 <Row className="mt-5">
                     <Col>
-                        <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBackToGetAll}>
-                            zurück
-                        </Button>
-                    </Col>
-                    <Col>
                         <Button className="buttonDelete" variant="danger"
                                 onClick={() => onClickDeleteButton(actualUtilityBill?.id)}>
                             löschen
+                        </Button>
+                    </Col>
+                    <Col>
+                        <Button className="buttonSubmit" onClick={() => onClickPdfExport(actualUtilityBill?.id)}>
+                            PDF Export
+                        </Button>
+                    </Col>
+                </Row>
+                <Row className="mt-3 mb-5">
+                    <Col>
+                        <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBackToGetAll}>
+                            zurück
                         </Button>
                     </Col>
                 </Row>
