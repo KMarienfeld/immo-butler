@@ -3,6 +3,7 @@ package de.neuefische.backend.service;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import de.neuefische.backend.model.CustomExpenseCategoryModel;
 import de.neuefische.backend.model.UtilityBillModel;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class PDFGenerator {
         Document document = new Document();
         //ByteArrayOutputStream erzeugen (um PDF im Speicher zu halten)
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        //PDFWriter mit dem Document und dem ByteArrayOutputStream erzeugen
+        PdfWriter writer = PdfWriter.getInstance(document, outputStream);
         //Document öffnen
         document.open();
         //Schrift festlegen
@@ -29,11 +32,14 @@ public class PDFGenerator {
         table.setWidthPercentage(70);
         table.setSpacingBefore(10f);
         table.setSpacingBefore(10f);
+
         //Tabellenüberschrift
         addTableHeader(table);
+
         //Tabellenzeilen
         addTableRows(table, utilityBillModel.getCustomExpenseCategoryModel());
         addRowWithTotalCosts(table, utilityBillModel.getTotalCostsOfAllExpenseCategories());
+
         //Tabelle zum Document hinzufügen
         document.add(title);
         document.add(Chunk.NEWLINE);
@@ -42,8 +48,10 @@ public class PDFGenerator {
         //Text hinzufügen
         addText(document, utilityBillModel);
         addResult(document, utilityBillModel);
+
         //Schließe das Document
         document.close();
+
         return outputStream.toByteArray();
     }
 
