@@ -98,7 +98,6 @@ public class UtilityBillService {
     }
 
     public UtilityBillModel findById(String id) {
-        UtilityBillModel utilityBillModel = utilityBillRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
-        return utilityBillModel;
+        return utilityBillRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
     }
 }
