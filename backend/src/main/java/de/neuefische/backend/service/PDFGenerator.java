@@ -9,12 +9,11 @@ import de.neuefische.backend.model.UtilityBillModel;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 @Service
 public class PDFGenerator {
-    public byte[] createPdfForUtilityBill(UtilityBillModel utilityBillModel) throws DocumentException, IOException {
+    public byte[] createPdfForUtilityBill(UtilityBillModel utilityBillModel) throws DocumentException {
         //neues PDF Dokument erstellen
         Document document = new Document();
         //ByteArrayOutputStream erzeugen (um PDF im Speicher zu halten)
@@ -24,10 +23,10 @@ public class PDFGenerator {
         //Document öffnen
         document.open();
         //Schrift festlegen
-        Font font = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD);
+        Font font = FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD);
         //Titel hinzufügen
-        Paragraph title = new Paragraph("Nebenkostenabrechnung" + utilityBillModel.getYear(), font);
-
+        Paragraph title = new Paragraph("Nebenkostenabrechnung " + utilityBillModel.getYear(), font);
+        title.setAlignment(Element.ALIGN_CENTER);
         //Tabelle erstellen
         PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(70);
@@ -43,7 +42,9 @@ public class PDFGenerator {
 
         //Tabelle zum Document hinzufügen
         document.add(title);
+        document.add(Chunk.NEWLINE);
         document.add(table);
+        document.add(Chunk.NEWLINE);
         //Text hinzufügen
         addText(document, utilityBillModel);
         addResult(document, utilityBillModel);
@@ -52,8 +53,6 @@ public class PDFGenerator {
         document.close();
 
         return outputStream.toByteArray();
-
-
     }
 
     private void addResult(Document document, UtilityBillModel utilityBillModel) throws DocumentException {
@@ -61,20 +60,21 @@ public class PDFGenerator {
         if (utilityBillModel.getFinalResult() != 0) {
             double finalResult = utilityBillModel.getFinalResult();
             if (finalResult < 0) {
-                result.add(new Chunk("Rückerstattung in Höhe von " + Math.abs(finalResult) + "€."));
+                result.add(new Chunk("Daraus ergibt sich eine Rückerstattung in Höhe von " + Math.abs(finalResult) + "€ ."));
             } else {
-                result.add(new Chunk("Nachzahlung in Höhe von " + finalResult + "€."));
+                result.add(new Chunk("Daraus ergibt sich eine Nachzahlung in Höhe von " + finalResult + "€ ."));
             }
         }
         document.add(result);
     }
 
-    private void addText(Document document, UtilityBillModel utilityBillModel) {
+    private void addText(Document document, UtilityBillModel utilityBillModel) throws DocumentException {
         Paragraph paragraph = new Paragraph();
         paragraph.add("Die geleistete Vorauszahlung pro Monat betrug ");
-        paragraph.add(new Chunk(String.valueOf(utilityBillModel.getPrepaymentMonthly()) + "€, "));
+        paragraph.add(new Chunk(String.valueOf(utilityBillModel.getPrepaymentMonthly()) + "€ , "));
         paragraph.add("das entspricht einer Jahreszahlung von ");
-        paragraph.add(new Chunk(String.valueOf(utilityBillModel.getPrepaymentYear()) + "€."));
+        paragraph.add(new Chunk(String.valueOf(utilityBillModel.getPrepaymentYear()) + "€ ."));
+        document.add(paragraph);
     }
 
     private void addRowWithTotalCosts(PdfPTable table, double totalCostsOfAllExpenseCategories) {

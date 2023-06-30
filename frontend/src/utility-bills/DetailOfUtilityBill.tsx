@@ -5,6 +5,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import {CustomExpenseCategoryForBillModel} from "../model/CustomExpenseCategoryForBillModel";
 import useDeleteUtilityBill from "../hooks/useDeleteUtilityBill";
 import axios from "axios";
+import {Simulate} from "react-dom/test-utils";
+
 
 type Props = {
     listOfUtilityBills: UtilityBillModel[],
@@ -37,22 +39,22 @@ function DetailOfUtilityBill(props: Props) {
     function onClickPdfExport(id: string | undefined) {
         if (id !== undefined) {
             const generatePdf = async () => {
-                try {
-                    const response = await axios.get("/api/utilityBill/getPDF/" + id, {
-                        responseType: 'arraybuffer',
-                    });
-                    const blob = new Blob([response.data], {type: "application/pdf"});
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement("a");
-                    link.href = url;
-                    link.download = "export.pdf"
-                    link.click();
-                    window.URL.revokeObjectURL(url);
-                } catch (error) {
-                    console.log(error);
-                }
+                const response = await axios.get("/api/utilityBill/getPDF/" + id, {
+                    responseType: 'arraybuffer',
+                });
+                const blob = new Blob([response.data], {type: "application/pdf"});
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = "export-utility-bill.pdf"
+                link.click();
+                window.URL.revokeObjectURL(url);
             };
-            generatePdf();
+            generatePdf().then(r => {
+                console.log("PDF generated successfully ", r)
+            }).catch(error => {
+                console.log("PDF generation failed ", error)
+            });
         }
     }
 
@@ -119,12 +121,12 @@ function DetailOfUtilityBill(props: Props) {
                         </Button>
                     </Col>
                     <Col>
-                        <Button onClick={() => onClickPdfExport(actualUtilityBill?.id)}>
+                        <Button className="buttonSubmit" onClick={() => onClickPdfExport(actualUtilityBill?.id)}>
                             PDF Export
                         </Button>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="mt-3 mb-5">
                     <Col>
                         <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBackToGetAll}>
                             zurück
