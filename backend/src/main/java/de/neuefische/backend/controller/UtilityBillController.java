@@ -34,7 +34,7 @@ public class UtilityBillController {
     }
 
     @GetMapping("/getPDF/{id}")
-    public ResponseEntity<byte[]> generatePDF(@PathVariable String id) throws DocumentException, IOException {
+    public ResponseEntity<byte[]> generatePDFofUtilityBill(@PathVariable String id) throws DocumentException, IOException {
         UtilityBillModel utilityBillModel = utilityBillService.findById(id);
         PDFGenerator pdfGenerator = new PDFGenerator();
         byte[] pdfBytes = pdfGenerator.createPdfForUtilityBill(utilityBillModel);

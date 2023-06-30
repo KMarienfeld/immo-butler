@@ -2,6 +2,7 @@ package de.neuefische.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.backend.model.UtilityBillModel;
+import de.neuefische.backend.service.PDFGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,6 +15,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -117,5 +120,47 @@ class UtilityBillControllerTest {
                         """))
                 .andExpect(jsonPath("$.id").value(utilityBillModel.getId()))
                 .andExpect(jsonPath("$.customExpenseCategoryModel[0].id").value(utilityBillModel.getCustomExpenseCategoryModel().get(0).getId()));
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
+    void when_generatePDFofUtilityBill_then_return_Status200() throws Exception {
+        //String id = "10";
+        // UtilityBillModel utilityBillModel = new UtilityBillModel("10", 2022, 100.0, 1200.0, 800.0, -300.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 300, 100)));
+        MvcResult postResult = mockMvc.perform(post("/api/utilityBill/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"year":2022,
+                                "prepaymentMonthly":100,
+                                "customExpenseCategoryDTO":[{"expenseCategory":"Strom",
+                                                            "distributionKey":"UNITBASEDKEY",
+                                                            "total":3,
+                                                            "portion":1,
+                                                            "totalBill":1000}]
+                                }
+                                """)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String content = postResult.getResponse().getContentAsString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        UtilityBillModel utilityBillModel = objectMapper.readValue(content, UtilityBillModel.class);
+
+        PDFGenerator pdfGenerator = new PDFGenerator();
+        byte[] pdfBytes = pdfGenerator.createPdfForUtilityBill(utilityBillModel);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/utilityBill/getPDF/{id}", utilityBillModel.getId())
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_PDF))
+                .andExpect(mvcResult -> {
+                    byte[] responseBytes = mvcResult.getResponse().getContentAsByteArray();
+                    assertNotNull(responseBytes);
+                    assertTrue(responseBytes.length > 0);
+                });
     }
 }
