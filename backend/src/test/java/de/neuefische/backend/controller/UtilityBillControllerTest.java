@@ -126,8 +126,6 @@ class UtilityBillControllerTest {
     @DirtiesContext
     @WithMockUser(username = "user", password = "123")
     void when_generatePDFofUtilityBill_then_return_Status200() throws Exception {
-        //String id = "10";
-        // UtilityBillModel utilityBillModel = new UtilityBillModel("10", 2022, 100.0, 1200.0, 800.0, -300.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 300, 100)));
         MvcResult postResult = mockMvc.perform(post("/api/utilityBill/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
