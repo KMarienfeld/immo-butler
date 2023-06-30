@@ -5,8 +5,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import {CustomExpenseCategoryForBillModel} from "../model/CustomExpenseCategoryForBillModel";
 import useDeleteUtilityBill from "../hooks/useDeleteUtilityBill";
 import axios from "axios";
-import {Simulate} from "react-dom/test-utils";
-
 
 type Props = {
     listOfUtilityBills: UtilityBillModel[],
