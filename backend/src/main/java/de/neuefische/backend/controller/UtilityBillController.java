@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UtilityBillController {
     private final UtilityBillService utilityBillService;
-    private final PDFGenerator pdfGenerator;
 
     @PostMapping("/add")
     public UtilityBillModel addUtilityBill(@RequestBody UtilityBillDTOModel utilityBillDTOModel) {
