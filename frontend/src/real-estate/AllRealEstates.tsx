@@ -6,7 +6,7 @@ function AllRealEstates() {
     const navigate = useNavigate();
 
     function buttonNewRealEstate() {
-        navigate("/add-utility-bill")
+        navigate("/add-real-estates")
     }
 
     return (
