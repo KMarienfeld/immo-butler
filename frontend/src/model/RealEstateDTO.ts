@@ -1,9 +1,10 @@
 export type RealEstateDto = {
     designationOfRealEstate: string,
-    RoadOfRealEstate: string,
-    houseNumberOfRealEstate: number,
+    roadOfRealEstate: string,
+    houseNumberOfRealEstate: string,
     postCodeOfRealEstate: number,
     locationOfRealEstate: string,
     genderOfTenant: string,
-    nameOfTenant: string
+    firstNameOfTenant: string
+    lastNameOfTenant: string
 }
