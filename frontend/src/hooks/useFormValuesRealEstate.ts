@@ -7,7 +7,7 @@ export default function useFormValuesRealEstate() {
     const [houseNumberOfRealEstateN, setHouseNumberOfRealEstateN] = useState<string>("");
     const [postCodeOfRealEstateN, setPostCodeOfRealEstateN] = useState<number>(0);
     const [locationOfRealEstateN, setLocationOfRealEstateN] = useState<string>("");
-    const [genderOfTenantN, setGenderOfTenantN] = useState<string>("");
+    const [genderOfTenantN, setGenderOfTenantN] = useState<string>("FEMALE");
     const [firstNameOfTenantN, setFirstNameOfTenantN] = useState<string>("");
     const [lastNameOfTenantN, setLastNameOfTenantN] = useState<string>("");
     const navigate = useNavigate();
