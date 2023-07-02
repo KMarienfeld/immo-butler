@@ -10,8 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Document("realEstate")
 public class RealEstateModel {
-    public String id;
-    public String designationOfRealEstate;
+    private String id;
+    private String designationOfRealEstate;
     private String roadOfRealEstate;
     private String houseNumberOfRealEstate;
     private int postCodeOfRealEstate;
