@@ -25,7 +25,7 @@ public class RealEstateController {
         return realEstateService.getAllRealEstates();
     }
 
-    @PutMapping("edit/{id}")
+    @PutMapping("/edit/{id}")
     public RealEstateModel editRealEstate(@PathVariable String id, @RequestBody RealEstateDTO realEstateDTO) {
         return realEstateService.editRealEstate(id, realEstateDTO);
     }
