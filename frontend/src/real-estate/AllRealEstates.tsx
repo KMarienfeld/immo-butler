@@ -24,6 +24,10 @@ function AllRealEstates(props: Props) {
         }
     }
 
+    function onClickEditRealEstate(id: string) {
+        navigate("/all-real-estates/real-estate/" + id)
+    }
+
     return (
         <div className="pageContent">
             {props.listOfRealEstates.length === 0 ?
@@ -55,7 +59,9 @@ function AllRealEstates(props: Props) {
                                     <Accordion.Body>
                                         <p>Anschrift: {currentRealEstate.roadOfRealEstate} {currentRealEstate.houseNumberOfRealEstate} , {currentRealEstate.postCodeOfRealEstate} {currentRealEstate.locationOfRealEstate}</p>
                                         <p>Mieter: {getGenderOfTenantInApp(currentRealEstate.genderOfTenant)} {currentRealEstate.firstNameOfTenant} {currentRealEstate.lastNameOfTenant}</p>
-                                        <Button variant="outline-secondary">Immobilie bearbeiten</Button>
+                                        <Button variant="outline-secondary"
+                                                onClick={() => onClickEditRealEstate(currentRealEstate.id)}>Immobilie
+                                            bearbeiten</Button>
                                     </Accordion.Body>
                                 </Accordion.Item>
                             </Accordion>
