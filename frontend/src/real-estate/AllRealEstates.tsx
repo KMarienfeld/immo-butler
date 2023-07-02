@@ -52,7 +52,7 @@ function AllRealEstates(props: Props) {
                     </Container>
                     {props.listOfRealEstates.map((currentRealEstate, index) => (
                         <Container key={currentRealEstate.id} className=" mb-3">
-                            <Accordion defaultActiveKey="0" flush>
+                            <Accordion defaultActiveKey="0" className="expenseCategoryCard" flush>
                                 <Accordion.Item eventKey={index.toString()}>
                                     <Accordion.Header
                                         className="customHeader">#{index + 1} {currentRealEstate.designationOfRealEstate}</Accordion.Header>
