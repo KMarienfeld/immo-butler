@@ -5,7 +5,11 @@ import {RealEstateDto} from "../model/RealEstateDTO";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-function AddRealEstate() {
+type Props = {
+    getAllRealEstates: () => void;
+}
+
+function AddRealEstate(props: Props) {
     const {
         onChangeHandlerDesignationOfRealEstate,
         designationOfRealEstateN,
@@ -44,6 +48,7 @@ function AddRealEstate() {
             .then(r => {
                 console.log(r.data)
             })
+            .then(props.getAllRealEstates)
             .then(() => navigate("/all-real-estates"))
             .catch(error => console.log(error))
     }

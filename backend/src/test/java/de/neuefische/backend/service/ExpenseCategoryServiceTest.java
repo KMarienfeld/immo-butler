@@ -70,11 +70,11 @@ class ExpenseCategoryServiceTest {
     void when_editExpenseService_withWrongID_then_throwException() {
         //GIVEN
         String wrongId = "wrongID";
-        ExpenseCategory expectedExpenseCategory = new ExpenseCategory("123","Strom", UNITBASEDKEY, 3, 1);
+        DTOExpenseCategory dtoExpenseCategory = new DTOExpenseCategory("Strom", UNITBASEDKEY, 3, 1);
         when(expenseCategoryRepository.findById(wrongId)).thenReturn(Optional.empty());
         //WHEN & THEN
         assertThrows(RuntimeException.class, () ->{
-            expenseCategoryService.deleteExpenseCategory(wrongId);
+            expenseCategoryService.editExpenseCategoryById(wrongId, dtoExpenseCategory);
         });
     }
     @Test
