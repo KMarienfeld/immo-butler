@@ -6,7 +6,7 @@ function UseGetAllRealEstates() {
     const [listOfRealEstates, setListOfRealEstates] = useState<RealEstateModel[]>([]);
 
     function getAllRealEstates() {
-        axios.get("/api/realEstates/get-all")
+        axios.get("/api/realEstate/get-all")
             .then(r => r.data)
             .then(data => {
                 setListOfRealEstates(data);

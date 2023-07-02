@@ -25,13 +25,13 @@ function App() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(getAllExpanseCategories, [user])
-
     useEffect(() => getUsername,
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [])
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(getAllUtilityBills, [user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(getAllRealEstates, [user])
 
     return (
         <div>
@@ -55,7 +55,8 @@ function App() {
                     <Route path={"/all-bills/utility-bill/:id"}
                            element={<DetailOfUtilityBill listOfUtilityBills={listOfUtilityBills}
                                                          getAllUtilityBills={getAllUtilityBills}/>}/>
-                    <Route path={"/all-real-estates"} element={<AllRealEstates/>}/>
+                    <Route path={"/all-real-estates"}
+                           element={<AllRealEstates listOfRealEstates={listOfRealEstates}/>}/>
                     <Route path={"/add-real-estates"} element={<AddRealEstate/>}/>
             </Route>
         </Routes>
