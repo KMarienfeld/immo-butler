@@ -1,5 +1,8 @@
 package de.neuefische.backend.controller;
 
+import de.neuefische.backend.model.RealEstateDTO;
+import de.neuefische.backend.model.RealEstateModel;
+import de.neuefische.backend.service.RealEstateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
