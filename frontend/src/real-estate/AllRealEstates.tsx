@@ -47,8 +47,7 @@ function AllRealEstates(props: Props) {
                         <h3>Hier siehst du alle deine Immobilien: </h3>
                     </Container>
                     {props.listOfRealEstates.map((currentRealEstate, index) => (
-
-                        <Container className="pt-5 mb-3">
+                        <Container key={currentRealEstate.id} className="pt-5 mb-3">
                             <Accordion defaultActiveKey="0" flush>
                                 <Accordion.Item eventKey={index.toString()}>
                                     <Accordion.Header
