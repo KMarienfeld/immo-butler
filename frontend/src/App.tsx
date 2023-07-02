@@ -15,11 +15,13 @@ import useGetAllUtilityBills from "./hooks/useGetAllUtilityBills";
 import AllUtilityBills from "./utility-bills/AllUtilityBills";
 import AllRealEstates from "./real-estate/AllRealEstates";
 import AddRealEstate from "./real-estate/AddRealEstate";
+import useGetAllRealEstates from "./hooks/useGetAllRealEstates";
 
 function App() {
     const {login, user, getUsername} = UseLogin()
     const {getAllExpanseCategories, listOfExpenseCategories} = useGetAllExpenseCategories();
     const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills();
+    const {getAllRealEstates, listOfRealEstates} = useGetAllRealEstates();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(getAllExpanseCategories, [user])
