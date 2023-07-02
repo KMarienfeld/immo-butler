@@ -47,7 +47,7 @@ function AllRealEstates(props: Props) {
                         <h3>Hier siehst du alle deine Immobilien: </h3>
                     </Container>
                     {props.listOfRealEstates.map((currentRealEstate, index) => (
-                        <Container key={currentRealEstate.id} className="pt-5 mb-3">
+                        <Container key={currentRealEstate.id} className=" mb-3">
                             <Accordion defaultActiveKey="0" flush>
                                 <Accordion.Item eventKey={index.toString()}>
                                     <Accordion.Header
@@ -55,6 +55,7 @@ function AllRealEstates(props: Props) {
                                     <Accordion.Body>
                                         <p>Anschrift: {currentRealEstate.roadOfRealEstate} {currentRealEstate.houseNumberOfRealEstate} , {currentRealEstate.postCodeOfRealEstate} {currentRealEstate.locationOfRealEstate}</p>
                                         <p>Mieter: {getGenderOfTenantInApp(currentRealEstate.genderOfTenant)} {currentRealEstate.firstNameOfTenant} {currentRealEstate.lastNameOfTenant}</p>
+                                        <Button variant="outline-secondary">Immobilie bearbeiten</Button>
                                     </Accordion.Body>
                                 </Accordion.Item>
                             </Accordion>
