@@ -16,4 +16,10 @@ public class GenerateIDService {
     public String generateUtilityBillUUID() {
         return "U" + UUID.randomUUID();
     }
+
+    public String generateRealEstateUUID() {
+        return "RE" + UUID.randomUUID();
+    }
+
+
 }
