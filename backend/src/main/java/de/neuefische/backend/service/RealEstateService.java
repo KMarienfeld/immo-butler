@@ -32,4 +32,18 @@ public class RealEstateService {
     public List<RealEstateModel> getAllRealEstates() {
         return realEstateRepository.findAll();
     }
+
+    public RealEstateModel editRealEstate(String id, RealEstateDTO realEstateDTO) {
+        RealEstateModel actualRealEstate = realEstateRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+        actualRealEstate.setDesignationOfRealEstate(realEstateDTO.getDesignationOfRealEstate());
+        actualRealEstate.setRoadOfRealEstate(realEstateDTO.getRoadOfRealEstate());
+        actualRealEstate.setHouseNumberOfRealEstate(realEstateDTO.getHouseNumberOfRealEstate());
+        actualRealEstate.setPostCodeOfRealEstate(realEstateDTO.getPostCodeOfRealEstate());
+        actualRealEstate.setLocationOfRealEstate(realEstateDTO.getLocationOfRealEstate());
+        actualRealEstate.setGenderOfTenant(realEstateDTO.getGenderOfTenant());
+        actualRealEstate.setFirstNameOfTenant(realEstateDTO.getFirstNameOfTenant());
+        actualRealEstate.setLastNameOfTenant(realEstateDTO.getLastNameOfTenant());
+
+        return realEstateRepository.save(actualRealEstate);
+    }
 }
