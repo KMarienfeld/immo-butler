@@ -91,7 +91,7 @@ function AddRealEstate() {
                             <Form.Label>
                                 Anrede:
                             </Form.Label>
-                            <Form.Select defaultValue="" onChange={onChangeHandlerGenderOfTenant}>
+                            <Form.Select defaultValue="FEMALE" onChange={onChangeHandlerGenderOfTenant}>
                                 <option value="FEMALE">Frau</option>
                                 <option value="MALE">Herr</option>
                             </Form.Select>
