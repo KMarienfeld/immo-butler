@@ -88,7 +88,7 @@ function EditRealEstate(props: Props) {
             firstNameOfTenant: firstNameOfTenantN,
             lastNameOfTenant: lastNameOfTenantN
         }
-        axios.put("/api/realEstate/edit" + id, editedRealEstateDto)
+        axios.put("/api/realEstate/edit/" + id, editedRealEstateDto)
             .then(r => {
                 console.log(r.data)
             })
