@@ -25,4 +25,5 @@ public class RealEstateController {
         return realEstateService.getAllRealEstates();
     }
 
+
 }
