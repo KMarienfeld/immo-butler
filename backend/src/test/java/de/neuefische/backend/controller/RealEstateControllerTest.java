@@ -124,4 +124,48 @@ class RealEstateControllerTest {
                                                 
                         """)).andExpect(jsonPath("$.id").value(realEstateModel.getId()));
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user", password = "123")
+    void when_deleteRealEstate_then_returnDeletedRealEstateAndStatus200() throws Exception {
+        MvcResult postResult = mockMvc.perform(post("/api/realEstate/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                    {
+                                        "designationOfRealEstate":"Musterimmobilie",
+                                        "roadOfRealEstate":"Musterstraße",
+                                        "houseNumberOfRealEstate":"1",
+                                        "postCodeOfRealEstate":77749,
+                                        "locationOfRealEstate":"Musterstadt",
+                                        "genderOfTenant":"MALE",
+                                        "firstNameOfTenant":"Max",
+                                        "lastNameOfTenant":"Mustermann"
+                                    }
+                                """)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
+        String content = postResult.getResponse().getContentAsString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        RealEstateModel realEstateModel = objectMapper.readValue(content, RealEstateModel.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/realEstate/delete/" + realEstateModel.getId())
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                                    { 
+                                        "designationOfRealEstate":"Musterimmobilie",
+                                        "roadOfRealEstate":"Musterstraße",
+                                        "houseNumberOfRealEstate":"1",
+                                        "postCodeOfRealEstate":77749,
+                                        "locationOfRealEstate":"Musterstadt",
+                                        "genderOfTenant":"MALE",
+                                        "firstNameOfTenant":"Max",
+                                        "lastNameOfTenant":"Mustermann"
+                                 }
+                                                
+                        """)).andExpect(jsonPath("$.id").value(realEstateModel.getId()));
+    }
 }
