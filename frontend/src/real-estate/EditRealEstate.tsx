@@ -98,7 +98,13 @@ function EditRealEstate(props: Props) {
     }
 
     function onClickDelete() {
-
+        axios.delete("/api/realEstate/delete/" + id)
+            .then(r => {
+                console.log(r.data)
+            })
+            .then(props.getAllRealEstates)
+            .then(() => navigate("/all-real-estates"))
+            .catch(error => console.log(error))
     }
 
     return (
