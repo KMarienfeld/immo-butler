@@ -6,6 +6,8 @@ import de.neuefische.backend.repository.RealEstateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RealEstateService {
@@ -25,5 +27,9 @@ public class RealEstateService {
         newRealEstateModel.setLastNameOfTenant(realEstateDTO.getLastNameOfTenant());
 
         return realEstateRepository.save(newRealEstateModel);
+    }
+
+    public List<RealEstateModel> getAllRealEstates() {
+        return realEstateRepository.findAll();
     }
 }

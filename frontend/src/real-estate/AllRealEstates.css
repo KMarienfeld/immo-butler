@@ -1,0 +1,9 @@
+.accordion-button:not(.collapsed) {
+    background-color: #343a40 !important;
+    color: #adb5bd !important;
+}
+
+.customHeader {
+    background-color: #343a40 !important;
+    color: #adb5bd !important;
+}
