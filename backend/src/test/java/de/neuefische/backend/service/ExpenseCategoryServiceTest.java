@@ -4,14 +4,14 @@ import de.neuefische.backend.model.DTOExpenseCategory;
 import de.neuefische.backend.model.ExpenseCategory;
 import de.neuefische.backend.repository.ExpenseCategoryRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 import java.util.Optional;
 
 import static de.neuefische.backend.model.DistributionKey.UNITBASEDKEY;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -21,7 +21,7 @@ class ExpenseCategoryServiceTest {
     private final ExpenseCategoryService expenseCategoryService = new ExpenseCategoryService(expenseCategoryRepository, generateIDService);
 
     @Test
-    void when_addExpenseCategoryDTO_then_returnReturnNewExpenseCategory() {
+    void when_addExpenseCategoryDTO_then_returnNewExpenseCategory() {
         //GIVEN
         DTOExpenseCategory dtoExpenseCategory = new DTOExpenseCategory("Strom", UNITBASEDKEY, 2, 1);
         String testID = "testID123";

@@ -3,6 +3,7 @@ import {Container, Nav, Navbar} from 'react-bootstrap'
 import logo from "../logo_tuerkis.png"
 import "./Header.css"
 import {Link} from "react-router-dom";
+
 function Header() {
     return (
         <header>
@@ -22,6 +23,7 @@ function Header() {
                             <Nav>
                                 <Link className="menuLink" to="/all-bills">Nebenkostenabrechnung</Link>
                                 <Link className="menuLink" to="/all-expense-categories">Kostenarten</Link>
+                                <Link className="menuLink" to="/all-real-estates">Immobilien</Link>
                             </Nav>
                         </Navbar.Collapse>
                 </Container>

@@ -13,6 +13,8 @@ import AddUtilityBill from "./utility-bills/AddUtilityBill";
 import DetailOfUtilityBill from "./utility-bills/DetailOfUtilityBill";
 import useGetAllUtilityBills from "./hooks/useGetAllUtilityBills";
 import AllUtilityBills from "./utility-bills/AllUtilityBills";
+import AllRealEstates from "./real-estate/AllRealEstates";
+import AddRealEstate from "./real-estate/AddRealEstate";
 
 function App() {
     const {login, user, getUsername} = UseLogin()
@@ -51,6 +53,8 @@ function App() {
                     <Route path={"/all-bills/utility-bill/:id"}
                            element={<DetailOfUtilityBill listOfUtilityBills={listOfUtilityBills}
                                                          getAllUtilityBills={getAllUtilityBills}/>}/>
+                    <Route path={"/all-real-estates"} element={<AllRealEstates/>}/>
+                    <Route path={"/add-real-estates"} element={<AddRealEstate/>}/>
             </Route>
         </Routes>
     </div>
