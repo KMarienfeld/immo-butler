@@ -77,4 +77,31 @@ class RealEstateServiceTest {
             realEstateService.editRealEstate(wrongId, editedRealEstateDTO);
         });
     }
+
+    @Test
+    void when_deleteRealEstate_then_returnDeletedRealEstate() throws Exception {
+        //GIVEN
+        RealEstateModel expectedRealEstateModel = new RealEstateModel("10", "Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann");
+        String testID = "10";
+        when(realEstateRepository.findById(testID)).thenReturn(Optional.of(expectedRealEstateModel));
+        //WHEN
+        RealEstateModel actual = realEstateService.deleteRealEstate(testID);
+        //THEN
+        verify(realEstateRepository).findById(testID);
+        verify(realEstateRepository).deleteById(testID);
+        assertEquals(actual, expectedRealEstateModel);
+    }
+
+    @Test
+    void when_deleteRealEstateWithWrongID_then_throwException() {
+        //GIVEN
+        String wrongId = "10";
+        when(realEstateRepository.findById(wrongId)).thenReturn(Optional.empty());
+        //WHEN & THEN
+        assertThrows(RuntimeException.class, () -> {
+            realEstateService.deleteRealEstate(wrongId);
+        });
+        verify(realEstateRepository).findById(wrongId);
+        verify(realEstateRepository, never()).deleteById(wrongId);
+    }
 }
