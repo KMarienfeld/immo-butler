@@ -8,7 +8,6 @@ import axios from "axios";
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 import "./AddExpenseCategories.css";
 
-
 type Props = {
     listOfExpenseCategories:ExpenseCategoryModel[],
     getAllExpenseCategories: () => void

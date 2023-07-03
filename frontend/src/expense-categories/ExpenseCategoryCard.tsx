@@ -25,7 +25,7 @@ const navigate = useNavigate();
         }
     }
     function clickToExpenseCategoryEdit() {
-        navigate("expense-category/"+ props.expenseCategory.id)
+        navigate("/all-expense-categories/expense-category/" + props.expenseCategory.id)
     }
 
     return (

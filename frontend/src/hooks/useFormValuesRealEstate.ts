@@ -66,7 +66,16 @@ export default function useFormValuesRealEstate() {
         firstNameOfTenantN,
         onChangeHandlerLastNameOfTenant,
         lastNameOfTenantN,
-        onClickGoBack
+        onClickGoBack,
+        setDesignationOfRealEstateN,
+        setRoadOfRealEstateN,
+        setHouseNumberOfRealEstateN,
+        setPostCodeOfRealEstateN,
+        setLocationOfRealEstateN,
+        setGenderOfTenantN,
+        setFirstNameOfTenantN,
+        setLastNameOfTenantN
+
     }
 
 }

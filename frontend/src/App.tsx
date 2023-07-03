@@ -16,6 +16,7 @@ import AllUtilityBills from "./utility-bills/AllUtilityBills";
 import AllRealEstates from "./real-estate/AllRealEstates";
 import AddRealEstate from "./real-estate/AddRealEstate";
 import useGetAllRealEstates from "./hooks/useGetAllRealEstates";
+import EditRealEstate from "./real-estate/EditRealEstate";
 
 function App() {
     const {login, user, getUsername} = UseLogin()
@@ -57,7 +58,10 @@ function App() {
                                                          getAllUtilityBills={getAllUtilityBills}/>}/>
                     <Route path={"/all-real-estates"}
                            element={<AllRealEstates listOfRealEstates={listOfRealEstates}/>}/>
-                    <Route path={"/add-real-estates"} element={<AddRealEstate/>}/>
+                    <Route path={"/add-real-estates"} element={<AddRealEstate getAllRealEstates={getAllRealEstates}/>}/>
+                    <Route path={"/all-real-estates/real-estate/:id"}
+                           element={<EditRealEstate listOfRealEstates={listOfRealEstates}
+                                                    getAllRealEstates={getAllRealEstates}/>}/>
             </Route>
         </Routes>
     </div>

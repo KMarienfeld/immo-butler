@@ -1,9 +1,11 @@
 .accordion-button:not(.collapsed) {
     background-color: #343a40 !important;
     color: #adb5bd !important;
+    border: #006D77 !important;
 }
 
-.customHeader {
-    background-color: #343a40 !important;
-    color: #adb5bd !important;
+.accordion-button:focus {
+    border: #006D77 !important;
 }
+
+
