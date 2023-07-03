@@ -46,4 +46,10 @@ public class RealEstateService {
 
         return realEstateRepository.save(actualRealEstate);
     }
+
+    public RealEstateModel deleteRealEstate(String id) {
+        RealEstateModel actualRealEstate = realEstateRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+        realEstateRepository.deleteById(id);
+        return actualRealEstate;
+    }
 }
