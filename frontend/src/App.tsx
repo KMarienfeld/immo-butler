@@ -39,10 +39,10 @@ function App() {
             <Routes>
                 <Route path={"/login"} element={<Login login={login}/>}/>
                 <Route element={<ProtectedRoutes user={user}/>}>
-                    <Route path={"/all-real-estates/real-estate/expense-category/:id"}
+                    <Route path={"/all-real-estates/real-estate/expense-category/add/:id"}
                            element={<AddExpenseCategories listOfRealEstates={listOfRealEstates}
                                                           getAllRealEstates={getAllRealEstates}/>}/>
-                    <Route path={"all-expense-categories/expense-category/:id"}
+                    <Route path={"/all-real-estates/real-estate/expense-category/edit/:id"}
                            element={<EditExpenseCategory getAllExpenseCategories={getAllExpanseCategories}
                                                          listOfExpenseCategories={listOfExpenseCategories}
                                                          getAllRealEstates={getAllRealEstates}/>}/>

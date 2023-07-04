@@ -25,7 +25,7 @@ const navigate = useNavigate();
         }
     }
     function clickToExpenseCategoryEdit() {
-        navigate("/all-expense-categories/expense-category/" + props.expenseCategory.id)
+        navigate("/all-real-estates/real-estate/expense-category/edit/" + props.expenseCategory.id)
     }
 
     return (

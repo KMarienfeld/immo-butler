@@ -13,7 +13,7 @@ type Props = {
 }
 
 function EditGeneralRealEstate(props: Props) {
-    const {} = useEditRealEstate(props);
+    const {editRealEstate} = useEditRealEstate(props);
     const navigate = useNavigate();
     const {
         onChangeHandlerDesignationOfRealEstate,
@@ -71,7 +71,7 @@ function EditGeneralRealEstate(props: Props) {
         }
     })
 
-    function editRealEstate(e: FormEvent<HTMLFormElement>) {
+    function editGeneralRealEstate(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
         const editedRealEstateDto: RealEstateDto = {
             designationOfRealEstate: designationOfRealEstateN,
@@ -82,15 +82,11 @@ function EditGeneralRealEstate(props: Props) {
             genderOfTenant: genderOfTenantN,
             firstNameOfTenant: firstNameOfTenantN,
             lastNameOfTenant: lastNameOfTenantN,
-            listOfExpenseCategories: []
+            listOfExpenseCategories: props.actualRealEstate?.listOfExpenseCategories ?? []
         }
-        axios.put("/api/realEstate/edit/" + props.actualRealEstate?.id, editedRealEstateDto)
-            .then(r => {
-                console.log(r.data)
-            })
-            .then(props.getAllRealEstates)
-            .then(() => navigate("/all-real-estates"))
-            .catch(error => console.log(error))
+        if (props.actualRealEstate?.id !== undefined) {
+            editRealEstate(props.actualRealEstate?.id, editedRealEstateDto)
+        }
     }
 
     function onClickDelete() {
@@ -105,7 +101,7 @@ function EditGeneralRealEstate(props: Props) {
 
     return (
         <div>
-            <Form onSubmit={editRealEstate}>
+            <Form onSubmit={editGeneralRealEstate}>
                 <Form.Group className="mb-3" controlId="formGridExpenseCategory">
                     <Form.Label>Immobilienbezeichnung:</Form.Label>
                     <Form.Control placeholder={props.actualRealEstate?.designationOfRealEstate}

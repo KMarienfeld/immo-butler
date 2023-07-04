@@ -28,8 +28,8 @@ function AllRealEstates(props: Props) {
         navigate("/all-real-estates/real-estate/" + id)
     }
 
-    function onClickEditExpenseCategory(id: string) {
-        navigate("/all-real-estates/real-estate/expense-category/" + id)
+    function onClickAddExpenseCategory(id: string) {
+        navigate("/all-real-estates/real-estate/expense-category/add/" + id)
     }
 
     return (
@@ -67,7 +67,7 @@ function AllRealEstates(props: Props) {
                                                 onClick={() => onClickEditRealEstate(currentRealEstate.id)}>
                                             Immobilie bearbeiten</Button>
                                         <Button variant="outline-secondary"
-                                                onClick={() => onClickEditExpenseCategory(currentRealEstate.id)}>
+                                                onClick={() => onClickAddExpenseCategory(currentRealEstate.id)}>
                                             neue Kostenart anlegen</Button>
                                     </Accordion.Body>
                                 </Accordion.Item>

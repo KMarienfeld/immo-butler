@@ -40,7 +40,7 @@ function EditRealEstate(props: Props) {
                 {activeTab === "generalRealEstate" && <EditGeneralRealEstate actualRealEstate={actualRealEstate}
                                                                              getAllRealEstates={props.getAllRealEstates}/>}
                 {activeTab === "expenseRealEstate" &&
-                    <ExpenseCategoriesGallery listOfExpenseCategories={actualRealEstate?.listOfExpenseCategories}/>}
+                    <ExpenseCategoriesGallery actualRealEstate={actualRealEstate}/>}
 
 
             </Container>
