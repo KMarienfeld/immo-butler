@@ -69,9 +69,12 @@ function AddUtilityBill(props: Props) {
     }
 
     function onChangeHandlerExpenseCategory(e: ChangeEvent<HTMLSelectElement>, index: number) {
-        const updatedFormCard = [...customExpenseCategoryFormCards];
-        updatedFormCard[index].idOfExpenseCategory = e.target.value;
-        setCustomExpenseCategoryFormCards(updatedFormCard)
+        setCustomExpenseCategoryFormCards(customExpenseCategoryFormCards.map((card, i) => {
+            return i === index ? {
+                ...card,
+                idOfExpenseCategory: e.target.value
+            } : card
+        }))
     }
 
     function onChangeHandlerTotalBill(e: ChangeEvent<HTMLInputElement>, index: number) {
@@ -135,7 +138,9 @@ function AddUtilityBill(props: Props) {
                                             <Form.Label>
                                                 Kostenart:
                                                 </Form.Label>
+                                            {customExpenseCategoryFormCards.length > 0 &&
                                                 <Form.Select defaultValue="Wähle hier eine Kostenart aus..."
+                                                             value={customExpenseCategoryFormCards[index].idOfExpenseCategory}
                                                              onChange={(e: ChangeEvent<HTMLSelectElement>) => onChangeHandlerExpenseCategory(e, index)}>
                                                     <option disabled>Wähle hier eine Kostenart aus...</option>
                                                     {props.listOfExpenseCategories.map(expenseCategory => (
@@ -143,7 +148,7 @@ function AddUtilityBill(props: Props) {
                                                             {expenseCategory.expenseCategory}
                                                         </option>
                                                     ))}
-                                                </Form.Select>
+                                                </Form.Select>}
                                             </Form.Group>
                                         </Col>
                                         <Col md={6}>
