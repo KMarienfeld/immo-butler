@@ -8,4 +8,8 @@ export type UtilityBillModel = {
     totalCostsOfAllExpenseCategories: number;
     finalResult: number,
     customExpenseCategoryModel: CustomExpenseCategoryForBillModel[];
+    designationOfRealEstate: string,
+    genderOfTenant: string,
+    firstNameOfTenant: string,
+    lastNameOfTenant: string,
 }
