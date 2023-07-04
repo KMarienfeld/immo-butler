@@ -1,15 +1,15 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import "./AddUtilityBill.css";
 import {HouseAddFill, HouseDash, QuestionCircleFill} from "react-bootstrap-icons";
 import {useNavigate} from "react-router-dom";
 import {UtilityBillDTOModel} from "../model/UtilityBillDTOModel";
 import {CustomExpenseCategoryForBillDTO} from "../model/CustomExpenseCategoryForBillDTO";
 import axios from "axios";
+import {RealEstateModel} from "../model/RealEstateModel";
 
 type Props = {
-    listOfExpenseCategories: ExpenseCategoryModel[],
+    listOfRealEstates: RealEstateModel[],
     getAllUtilityBills: () => void
 }
 
@@ -45,6 +45,7 @@ function AddUtilityBill(props: Props) {
             year: year,
             prepaymentMonthly: prepaymentMonthly,
             customExpenseCategoryDTO: newCustomExpenseCategories,
+
         }
         console.log(newUtilityBillDTO)
         let navigateId = "";
@@ -98,23 +99,34 @@ function AddUtilityBill(props: Props) {
 
     return (
         <div>
-            <Row className="mt-5">
+            <Row className="mt-3">
                 <Container className="d-flex justify-content-center">
                     <h3 className="text-center">Lege hier eine neue Nebenkostenabrechnung an:</h3>
                 </Container>
             </Row>
             <Container className="mt-5">
                 <Form onSubmit={addNewUtilityBill}>
-                    <Row className="mb-3">
-                        <Col md={6}>
-                            <Form.Group as={Col} controlId="formGridTotal" className="mb-3">
-                                <Form.Label>Jahr der Abrechnung:</Form.Label>
-                                <Form.Control className="formControlTotal"
-                                              placeholder="Trage hier das Jahr der Abrechnung ein, z.B. 2022"
-                                              onChange={onChangeHandlerYear} pattern="[0-9]{4}"
-                                              title="Nur ganze Zahlen im Format YYYY eintragen"/>
-                            </Form.Group>
-                        </Col>
+                    <Row>
+                        <Form.Select defaultValue="Wähle hier eine Immobilie aus..."
+
+                                     onChange={(e: ChangeEvent<HTMLSelectElement>) => onChangeHandlerExpenseCategory(e, index)}>
+                            {props.listOfRealEstates.map(realEstates => (
+                                <option disabled>Wähle hier eine Kostenart aus...</option>
+                                <option>{realEstates} </option>
+                        ))}
+
+                    </Form.Select>
+                </Row>
+                <Row className="mb-3">
+                    <Col md={6}>
+                        <Form.Group as={Col} controlId="formGridTotal" className="mb-3">
+                            <Form.Label>Jahr der Abrechnung:</Form.Label>
+                            <Form.Control className="formControlTotal"
+                                          placeholder="Trage hier das Jahr der Abrechnung ein, z.B. 2022"
+                                          onChange={onChangeHandlerYear} pattern="[0-9]{4}"
+                                          title="Nur ganze Zahlen im Format YYYY eintragen"/>
+                        </Form.Group>
+                    </Col>
                         <Col md={6}>
                             <Form.Group as={Col} controlId="formGridPortion">
                                 <Form.Label>monatliche Vorauszahlung:</Form.Label>
