@@ -42,7 +42,8 @@ function AddRealEstate(props: Props) {
             locationOfRealEstate: locationOfRealEstateN,
             genderOfTenant: genderOfTenantN,
             firstNameOfTenant: firstNameOfTenantN,
-            lastNameOfTenant: lastNameOfTenantN
+            lastNameOfTenant: lastNameOfTenantN,
+            listOfExpenseCategories: []
         }
         axios.post("/api/realEstate/add", newRealEstate)
             .then(r => {

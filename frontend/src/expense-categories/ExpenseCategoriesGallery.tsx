@@ -6,8 +6,7 @@ import "./ExpenseCategoryCard.css"
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 
 type Props = {
-    listOfExpenseCategories:ExpenseCategoryModel[],
-    getAllExpenseCategories: () => void
+    listOfExpenseCategories: ExpenseCategoryModel[] | undefined,
 }
 function ExpenseCategoriesGallery(props:Props) {
 
@@ -19,20 +18,20 @@ function ExpenseCategoriesGallery(props:Props) {
 
     return (
         <div>
-            {props.listOfExpenseCategories.length === 0 ?
-                <div className="pageContent">
-                    <Container className="pt-5 d-flex justify-content-center">
+            {props.listOfExpenseCategories?.length === 0 ?
+                <div>
+                    <Container className="pt-5 pb-5 d-flex justify-content-center">
                         <h4 className="text-center">
                             du hast bisher noch nichts angelegt, starte direkt mit deiner ersten Kostenart!
                         </h4>
                     </Container>
                     <Container className="d-flex justify-content-center mt-5">
-                        <Button className="buttonNewExpenseCategory" onClick={buttonNewExpenseCategory} >
+                        <Button className="buttonNewExpenseCategory" onClick={buttonNewExpenseCategory}>
                             neue Kostenart anlegen
                         </Button>
                     </Container>
                 </div> :
-                <div className="pageContent">
+                <div>
                     <Container className="pt-5 d-flex justify-content-center">
                         <h3 className="text-center">
                             Hier siehst du alle deine angelegten Kostenarten
@@ -40,9 +39,9 @@ function ExpenseCategoriesGallery(props:Props) {
                     </Container>
                     <Container className="mt-4 mb-4">
                         <Row>
-                            {props.listOfExpenseCategories.map(currentExpenseCategory => (
+                            {props.listOfExpenseCategories?.map(currentExpenseCategory => (
                                 <Col md={4} key={currentExpenseCategory.id}>
-                                        <ExpenseCategoryCard  expenseCategory={currentExpenseCategory}/>
+                                    <ExpenseCategoryCard expenseCategory={currentExpenseCategory}/>
                                 </Col>
                             ))}
                         </Row>

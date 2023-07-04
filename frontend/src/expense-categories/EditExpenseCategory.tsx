@@ -7,12 +7,15 @@ import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 import "./AddExpenseCategories.css";
+import useEditRealEstate from "../hooks/useEditRealEstate";
 
 type Props = {
     listOfExpenseCategories:ExpenseCategoryModel[],
     getAllExpenseCategories: () => void
+    getAllRealEstates: () => void
 }
 function EditExpenseCategory(props:Props) {
+    const {editRealEstate} = useEditRealEstate(props);
     const params = useParams();
     const navigate = useNavigate();
     const id:string|undefined = params.id
@@ -49,13 +52,7 @@ function EditExpenseCategory(props:Props) {
             distributionKey:distributionKeyN,
             total:totalN, portion:portionN
         }
-        axios.put("/api/expenseCategory/edit/" + id, editedExpenseCategoryDTO)
-            .then(r => {
-                console.log(r.data)
-            })
-            .then(props.getAllExpenseCategories)
-            .then(() => navigate("/all-expense-categories"))
-            .catch(error => console.log(error))
+        //editRealEstate()
     }
 
     function onClickDelete() {

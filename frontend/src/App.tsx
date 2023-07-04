@@ -6,7 +6,6 @@ import UseLogin from "./login/UseLogin";
 import Header from "./header/Header";
 import ProtectedRoutes from "./login/ProtectedRoutes";
 import AddExpenseCategories from "./expense-categories/AddExpenseCategories";
-import ExpenseCategoriesGallery from "./expense-categories/ExpenseCategoriesGallery";
 import useGetAllExpenseCategories from "./hooks/useGetAllExpenseCategories";
 import EditExpenseCategory from "./expense-categories/EditExpenseCategory";
 import AddUtilityBill from "./utility-bills/AddUtilityBill";
@@ -40,15 +39,13 @@ function App() {
             <Routes>
                 <Route path={"/login"} element={<Login login={login}/>}/>
                 <Route element={<ProtectedRoutes user={user}/>}>
-                    <Route path={"/add-expense-categories"}
-                           element={<AddExpenseCategories getAllExpanseCategories={getAllExpanseCategories}
-                                                          listOfRealEstates={listOfRealEstates}/>}/>
-                    <Route path={"/all-expense-categories"}
-                           element={<ExpenseCategoriesGallery getAllExpenseCategories={getAllExpanseCategories}
-                                                              listOfExpenseCategories={listOfExpenseCategories}/>}/>
+                    <Route path={"/all-real-estates/real-estate/expense-category/:id"}
+                           element={<AddExpenseCategories listOfRealEstates={listOfRealEstates}
+                                                          getAllRealEstates={getAllRealEstates}/>}/>
                     <Route path={"all-expense-categories/expense-category/:id"}
                            element={<EditExpenseCategory getAllExpenseCategories={getAllExpanseCategories}
-                                                         listOfExpenseCategories={listOfExpenseCategories}/>}/>
+                                                         listOfExpenseCategories={listOfExpenseCategories}
+                                                         getAllRealEstates={getAllRealEstates}/>}/>
                     <Route path={"/all-bills"} element={<AllUtilityBills listOfUtilityBills={listOfUtilityBills}
                                                                          getAllUtilityBills={getAllUtilityBills}/>}/>
                     <Route path={"/add-utility-bill"}
