@@ -29,4 +29,9 @@ public class RealEstateController {
     public RealEstateModel editRealEstate(@PathVariable String id, @RequestBody RealEstateDTO realEstateDTO) {
         return realEstateService.editRealEstate(id, realEstateDTO);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public RealEstateModel deleteRealEstate(@PathVariable String id) {
+        return realEstateService.deleteRealEstate(id);
+    }
 }
