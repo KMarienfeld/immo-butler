@@ -21,5 +21,5 @@ public class RealEstateModel {
     private GenderOfTenant genderOfTenant;
     private String firstNameOfTenant;
     private String lastNameOfTenant;
-    private List<ExpenseCategory> listOfExpanseCategories;
+    private List<ExpenseCategory> listOfExpenseCategories;
 }
