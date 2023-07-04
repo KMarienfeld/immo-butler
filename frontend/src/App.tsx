@@ -36,12 +36,13 @@ function App() {
 
     return (
         <div>
-            {user === "" || user === "anonymousUser" ? <> </> : <Header/>}
+            {!user || user === "anonymousUser" ? <> </> : <Header/>}
             <Routes>
                 <Route path={"/login"} element={<Login login={login}/>}/>
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path={"/add-expense-categories"}
-                           element={<AddExpenseCategories getAllExpanseCategories={getAllExpanseCategories}/>}/>
+                           element={<AddExpenseCategories getAllExpanseCategories={getAllExpanseCategories}
+                                                          listOfRealEstates={listOfRealEstates}/>}/>
                     <Route path={"/all-expense-categories"}
                            element={<ExpenseCategoriesGallery getAllExpenseCategories={getAllExpanseCategories}
                                                               listOfExpenseCategories={listOfExpenseCategories}/>}/>

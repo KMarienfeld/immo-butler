@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 function UseLogin() {
 
-    const [user, setUser] = useState<string>()
+    const [user, setUser] = useState<string>("")
     const nav = useNavigate()
     function login(username:string, password:string) {
         return axios.post("/user/login", undefined, {auth: {username, password}})
