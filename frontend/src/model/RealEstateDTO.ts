@@ -1,3 +1,5 @@
+import {ExpenseCategoryModel} from "./ExpenseCategoryModel";
+
 export type RealEstateDto = {
     designationOfRealEstate: string,
     roadOfRealEstate: string,
@@ -5,6 +7,7 @@ export type RealEstateDto = {
     postCodeOfRealEstate: number,
     locationOfRealEstate: string,
     genderOfTenant: string,
-    firstNameOfTenant: string
-    lastNameOfTenant: string
+    firstNameOfTenant: string,
+    lastNameOfTenant: string,
+    listOfExpenseCategories: ExpenseCategoryModel[]
 }

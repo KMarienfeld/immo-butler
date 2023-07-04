@@ -1,3 +1,5 @@
+import {ExpenseCategoryModel} from "./ExpenseCategoryModel";
+
 export type RealEstateModel = {
     id: string,
     designationOfRealEstate: string,
@@ -6,6 +8,7 @@ export type RealEstateModel = {
     postCodeOfRealEstate: number,
     locationOfRealEstate: string,
     genderOfTenant: string,
-    firstNameOfTenant: string
-    lastNameOfTenant: string
+    firstNameOfTenant: string,
+    lastNameOfTenant: string,
+    listOfExpenseCategories: ExpenseCategoryModel[]
 }
