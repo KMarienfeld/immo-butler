@@ -25,7 +25,7 @@ public class RealEstateService {
         newRealEstateModel.setGenderOfTenant(realEstateDTO.getGenderOfTenant());
         newRealEstateModel.setFirstNameOfTenant(realEstateDTO.getFirstNameOfTenant());
         newRealEstateModel.setLastNameOfTenant(realEstateDTO.getLastNameOfTenant());
-        newRealEstateModel.setListOfExpenseCategories(realEstateDTO.getListOfExpanseCategories());
+        newRealEstateModel.setListOfExpenseCategories(realEstateDTO.getListOfExpenseCategories());
 
         return realEstateRepository.save(newRealEstateModel);
     }
@@ -44,7 +44,7 @@ public class RealEstateService {
         actualRealEstate.setGenderOfTenant(realEstateDTO.getGenderOfTenant());
         actualRealEstate.setFirstNameOfTenant(realEstateDTO.getFirstNameOfTenant());
         actualRealEstate.setLastNameOfTenant(realEstateDTO.getLastNameOfTenant());
-        actualRealEstate.setListOfExpenseCategories(realEstateDTO.getListOfExpanseCategories());
+        actualRealEstate.setListOfExpenseCategories(realEstateDTO.getListOfExpenseCategories());
 
         return realEstateRepository.save(actualRealEstate);
     }
