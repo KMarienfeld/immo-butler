@@ -25,7 +25,7 @@ function DetailOfUtilityBill(props: Props) {
     }
 
     function onClickGoBackToGetAll() {
-        navigate("/all-bills")
+        navigate("/all-utility-bills")
     }
 
     function onClickDeleteButton(id: string | undefined) {

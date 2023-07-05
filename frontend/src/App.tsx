@@ -48,7 +48,7 @@ function App() {
                     <Route path={"/all-real-estates/real-estate/:realEstateID/expense-category/edit/:expenseCategoryID"}
                            element={<EditExpenseCategory getAllRealEstates={getAllRealEstates}
                                                          listOfRealEstates={listOfRealEstates}/>}/>
-                    <Route path={"/all-bills"}
+                    <Route path={"/all-utility-bills"}
                            element={<AllUtilityBills listOfUtilityBills={listOfUtilityBills}
                                                      getAllUtilityBills={getAllUtilityBills}/>}/>
                     <Route path={"/add-utility-bill"}
