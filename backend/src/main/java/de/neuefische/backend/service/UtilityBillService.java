@@ -54,9 +54,11 @@ public class UtilityBillService {
     }
 
     public double calculateTotalCostsExpenseCategories(List<CustomExpenseCategoryModel> customExpenseCategoryModelList) {
-        return customExpenseCategoryModelList.stream()
+        double sum = customExpenseCategoryModelList.stream()
                 .mapToDouble(customExpenseCategoryModel -> customExpenseCategoryModel.getProportionalBill())
                 .sum();
+        double roundedSum = Math.round(sum * 100.0) / 100.0;
+        return roundedSum;
     }
 
     public double calculateFinalResult(double prepaymentYear, double totalCostsExpenseCategories) {
