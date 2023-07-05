@@ -4,6 +4,7 @@ import {Container, Nav} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import EditGeneralRealEstate from "./EditGeneralRealEstate";
 import ExpenseCategoriesGallery from "../expense-categories/ExpenseCategoriesGallery";
+import "./EditRealEstate.css";
 
 type Props = {
     listOfRealEstates: RealEstateModel[]
@@ -27,13 +28,13 @@ function EditRealEstate(props: Props) {
 
     return (
         <div>
-            <Container className="pt-5">
+            <Container className="pt-5 test">
                 <Nav variant="tabs" activeKey={activeTab} onSelect={handleTabSelect} className="mb-5">
                     <Nav.Item>
-                        <Nav.Link eventKey="generalRealEstate">Allgemeines</Nav.Link>
+                        <Nav.Link className="custom-nav-link" eventKey="generalRealEstate">Allgemeines</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="expenseRealEstate">Kostenarten</Nav.Link>
+                        <Nav.Link className="custom-nav-link" eventKey="expenseRealEstate">Kostenarten</Nav.Link>
                     </Nav.Item>
                 </Nav>
 
