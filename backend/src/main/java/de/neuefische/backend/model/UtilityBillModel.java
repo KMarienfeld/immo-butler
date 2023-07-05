@@ -19,4 +19,8 @@ public class UtilityBillModel {
     private double totalCostsOfAllExpenseCategories;
     private double finalResult;
     private List<CustomExpenseCategoryModel> customExpenseCategoryModel;
+    private String designationOfRealEstate;
+    private String genderOfTenant;
+    private String firstNameOfTenant;
+    private String lastNameOfTenant;
 }

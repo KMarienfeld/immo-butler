@@ -13,4 +13,8 @@ public class UtilityBillDTOModel {
     private int year;
     private double prepaymentMonthly;
     private List<CustomExpenseCategoryDTO> customExpenseCategoryDTO;
+    private String designationOfRealEstate;
+    private String genderOfTenant;
+    private String firstNameOfTenant;
+    private String lastNameOfTenant;
 }
