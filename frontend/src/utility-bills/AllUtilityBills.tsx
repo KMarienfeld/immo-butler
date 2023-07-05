@@ -72,7 +72,7 @@ function AllUtilityBills(props: Props) {
                                     <td>{currentUtilityBill.year}</td>
                                     <td>{currentUtilityBill.designationOfRealEstate}</td>
                                     <td style={{color: currentUtilityBill.finalResult < 0 ? 'green' : 'red'}}>
-                                        {Math.abs(currentUtilityBill.finalResult)}
+                                        {Math.abs(currentUtilityBill.finalResult)}€
                                     </td>
                                     <td>
                                         <Button className="buttonNewExpenseCategory m-2"
