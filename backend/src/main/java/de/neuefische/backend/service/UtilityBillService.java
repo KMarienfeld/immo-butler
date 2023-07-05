@@ -80,6 +80,10 @@ public class UtilityBillService {
         newUtilityBillModel.setPrepaymentMonthly(utilityBillDTOModel.getPrepaymentMonthly());
         newUtilityBillModel.setPrepaymentYear(calculatedPrepaymentYear);
         newUtilityBillModel.setCustomExpenseCategoryModel(listOfCustomExpenseCategoryModel);
+        newUtilityBillModel.setDesignationOfRealEstate(utilityBillDTOModel.getDesignationOfRealEstate());
+        newUtilityBillModel.setGenderOfTenant(utilityBillDTOModel.getGenderOfTenant());
+        newUtilityBillModel.setFirstNameOfTenant(utilityBillDTOModel.getFirstNameOfTenant());
+        newUtilityBillModel.setLastNameOfTenant(utilityBillDTOModel.getLastNameOfTenant());
         double totalCostsOfAllExpenseCategories = calculateTotalCostsExpenseCategories(newUtilityBillModel.getCustomExpenseCategoryModel());
         newUtilityBillModel.setTotalCostsOfAllExpenseCategories(totalCostsOfAllExpenseCategories);
         double finalResult = calculateFinalResult(newUtilityBillModel.getPrepaymentYear(), totalCostsOfAllExpenseCategories);
