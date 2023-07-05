@@ -13,7 +13,7 @@ function ExpenseCategoriesGallery(props:Props) {
     const navigate = useNavigate();
 
     function buttonNewExpenseCategory() {
-        navigate("/all-real-estates/real-estate/expense-category/add/" + props.actualRealEstate?.id)
+        navigate("/all-real-estates/real-estate/" + props.actualRealEstate?.id + "/expense-category/add")
     }
 const realEstateId = props.actualRealEstate?.id
     return (
@@ -27,7 +27,7 @@ const realEstateId = props.actualRealEstate?.id
                     </Container>
                     <Container className="d-flex justify-content-center mt-5">
                         <Button className="buttonNewExpenseCategory" onClick={buttonNewExpenseCategory}>
-                            neue Kostenart anlegen
+                            erste Kostenart anlegen
                         </Button>
                     </Container>
                 </div> :

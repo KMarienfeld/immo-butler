@@ -3,40 +3,56 @@ import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import {useNavigate, useParams} from "react-router-dom";
 import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
-import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
 import axios from "axios";
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 import "./AddExpenseCategories.css";
 import useEditRealEstate from "../hooks/useEditRealEstate";
+import {RealEstateModel} from "../model/RealEstateModel";
 
 type Props = {
-    listOfExpenseCategories:ExpenseCategoryModel[],
-    getAllExpenseCategories: () => void
+    listOfRealEstates: RealEstateModel[],
     getAllRealEstates: () => void
 }
 function EditExpenseCategory(props:Props) {
+    const {realEstateID, expenseCategoryID} = useParams();
     const {editRealEstate} = useEditRealEstate(props);
-    const params = useParams();
     const navigate = useNavigate();
-    const id:string|undefined = params.id
-    const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
-    const {expenseCategoryN, setExpenseCategoryN, distributionKeyN, setDistributionKeyN, totalN, setTotalN, portionN, setPortionN, distributionKeyIsCONSUMPTIONBASEDKEY,
-        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion} = useFormValuesExpenseCategory();
+    const infoContent = (
+        <Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die
+            Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
+    const {
+        expenseCategoryN,
+        setExpenseCategoryN,
+        distributionKeyN,
+        setDistributionKeyN,
+        totalN,
+        setTotalN,
+        portionN,
+        setPortionN,
+        distributionKeyIsCONSUMPTIONBASEDKEY,
+        onClickGoBack,
+        onChangeHandlerExpenseCategory,
+        onChangeHandlerDistributionKey,
+        onChangeHandlerTotal,
+        onChangeHandlerPortion
+    } = useFormValuesExpenseCategory();
 
-    let actualExpenseCategory: ExpenseCategoryModel| undefined = undefined;
+    let actualRealEstate: RealEstateModel | undefined;
+    let actualExpenseCategory: ExpenseCategoryModel | undefined;
 
-    if (props.listOfExpenseCategories.length > 0) {
-         actualExpenseCategory = props.listOfExpenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === id);
+    if (props.listOfRealEstates.length > 0) {
+        actualRealEstate = props.listOfRealEstates.find(currentRealEstate => currentRealEstate.id === realEstateID);
+        actualExpenseCategory = actualRealEstate?.listOfExpenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === expenseCategoryID);
     }
 
-    useEffect( () => {
-            if (expenseCategoryN === "") {
-                setExpenseCategoryN(actualExpenseCategory?.expenseCategory ?? "");
-            }
-            if (distributionKeyN === "") {
-                setDistributionKeyN(actualExpenseCategory?.distributionKey ?? "");
-            }
-            if (totalN === 0) {
+    useEffect(() => {
+        if (expenseCategoryN === "") {
+            setExpenseCategoryN(actualExpenseCategory?.expenseCategory ?? "");
+        }
+        if (distributionKeyN === "") {
+            setDistributionKeyN(actualExpenseCategory?.distributionKey ?? "");
+        }
+        if (totalN === 0) {
                 setTotalN(actualExpenseCategory?.total ?? 0);
             }
             if (portionN === 0) {
@@ -47,20 +63,44 @@ function EditExpenseCategory(props:Props) {
 
     function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const editedExpenseCategoryDTO: ExpenseCategoryDTOModel = {
-            expenseCategory: expenseCategoryN,
-            distributionKey:distributionKeyN,
-            total:totalN, portion:portionN
+        if (expenseCategoryID !== undefined) {
+            const id = expenseCategoryID;
         }
-        //editRealEstate()
+        const id = "";
+        const editedExpenseCategory: ExpenseCategoryModel = {
+            id: id,
+            expenseCategory: expenseCategoryN,
+            distributionKey: distributionKeyN,
+            total: totalN, portion: portionN
+        }
+        const updatedExpenseCategoriesList: ExpenseCategoryModel[] | undefined = actualRealEstate?.listOfExpenseCategories.map(currentExpenseCategory => {
+            if (currentExpenseCategory.id === id) {
+                return editedExpenseCategory
+            }
+            return currentExpenseCategory;
+        })
+        const updatedRealEstate: RealEstateModel = {
+            id: actualRealEstate?.id,
+            designationOfRealEstate: actualRealEstate?.designationOfRealEstate,
+            roadOfRealEstate: actualRealEstate?.roadOfRealEstate,
+            houseNumberOfRealEstate: actualRealEstate?.houseNumberOfRealEstate,
+            postCodeOfRealEstate: actualRealEstate?.postCodeOfRealEstate,
+            locationOfRealEstate: actualRealEstate?.locationOfRealEstate,
+            genderOfTenant: actualRealEstate?.genderOfTenant,
+            firstNameOfTenant: actualRealEstate?.firstNameOfTenant,
+            lastNameOfTenant: actualRealEstate?.firstNameOfTenant,
+            listOfExpenseCategories: updatedExpenseCategoriesList
+        }
+
+        editRealEstate(realEstateID, updatedRealEstate)
     }
 
     function onClickDelete() {
-        axios.delete("/api/expenseCategory/delete/" + id)
+        axios.delete("/api/realEstate/delete/" + realEstateID + "/expenseCategory/" + expenseCategoryID)
             .then(r => {
                 console.log(r.data)
             })
-            .then(props.getAllExpenseCategories)
+            .then(props.getAllRealEstates)
             .then(()=> navigate("/all-expense-categories"))
             .catch(error => console.log(error))
     }

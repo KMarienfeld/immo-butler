@@ -43,16 +43,16 @@ function AddUtilityBill(props: Props) {
                 totalBill: customExpenseCategoryFormCards[index].totalBill,
             }
         })
+        const selectedRealEstate: RealEstateModel | undefined = props.listOfRealEstates.find(x => x.id === selectedRealEstateId);
         const newUtilityBillDTO: UtilityBillDTOModel = {
             year: year,
             prepaymentMonthly: prepaymentMonthly,
             customExpenseCategoryDTO: newCustomExpenseCategories,
-            designationOfRealEstate: "",
-            genderOfTenant: "",
-            firstNameOfTenant: "",
-            lastNameOfTenant: ""
+            designationOfRealEstate: selectedRealEstate?.designationOfRealEstate ?? "",
+            genderOfTenant: selectedRealEstate?.genderOfTenant ?? "",
+            firstNameOfTenant: selectedRealEstate?.firstNameOfTenant ?? "",
+            lastNameOfTenant: selectedRealEstate?.lastNameOfTenant ?? ""
         }
-        console.log(newUtilityBillDTO)
         let navigateId = "";
         axios.post('api/utilityBill/add', newUtilityBillDTO)
             .then(response => response.data)
@@ -112,10 +112,6 @@ function AddUtilityBill(props: Props) {
 
             <div>
                 <Container className="mt-5 expenseCategoryForBillFormCard">
-                    <OverlayTrigger trigger={['hover', 'click']}
-                                    overlay={infoContentExpenseCategoryForBillFormCard}>
-                        <div><QuestionCircleFill className="question-icon"/></div>
-                    </OverlayTrigger>
                     <Row className="mb-3">
                         <Col md={6}>
                             <Form.Group as={Col} className="mb-3" controlId="formGridSelectExpenseCategory">
@@ -126,7 +122,6 @@ function AddUtilityBill(props: Props) {
                                     <Form.Select defaultValue="Wähle hier eine Kostenart aus..."
                                                  value={selectedRealEstateId}
                                                  onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedRealEstateId(e.target.value)}>
-
                                         {props.listOfRealEstates.map(realEstate => (
                                             <option key={realEstate.id} value={realEstate.id}>
                                                 {realEstate.designationOfRealEstate}
@@ -138,10 +133,7 @@ function AddUtilityBill(props: Props) {
 
                     </Row>
                 </Container>
-
             </div>
-
-
             <Container className="mt-5">
                 <Row className="mb-3">
                     <Col md={6}>

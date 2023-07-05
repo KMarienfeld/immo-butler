@@ -29,7 +29,7 @@ function AllRealEstates(props: Props) {
     }
 
     function onClickAddExpenseCategory(id: string) {
-        navigate("/all-real-estates/real-estate/expense-category/add/" + id)
+        navigate("/all-real-estates/real-estate/" + id + "/expense-category/add")
     }
 
     return (

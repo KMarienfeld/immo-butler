@@ -17,8 +17,6 @@ type Props = {
 }
 
 function AddExpenseCategories(props: Props) {
-    const {realEstateID, expenseCategoryID} = useParams();
-    console.log(realEstateID, expenseCategoryID)
     const {editRealEstate} = useEditRealEstate(props);
     const infoContent = (
         <Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die
@@ -38,11 +36,12 @@ function AddExpenseCategories(props: Props) {
 
     const params = useParams();
     const id: string | undefined = params.id;
+    console.log(params)
     let actualRealEstate: RealEstateModel | undefined;
+
 
     if (props.listOfRealEstates.length > 0) {
         actualRealEstate = props.listOfRealEstates.find(currentRealEstate => currentRealEstate.id === id);
-
     }
 
     function addNewExpenseCategory(e: FormEvent<HTMLFormElement>) {
@@ -81,7 +80,7 @@ function AddExpenseCategories(props: Props) {
                 <Form onSubmit={addNewExpenseCategory}>
                     <Form.Group className="mb-3">
                         <Form.Label>Immobilie:</Form.Label>
-                        <FormControl placeholder={actualRealEstate?.designationOfRealEstate} disabled/>
+                        <FormControl disabled placeholder={actualRealEstate?.designationOfRealEstate}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formGridExpenseCategory">
                         <Form.Label>Kostenart</Form.Label>
