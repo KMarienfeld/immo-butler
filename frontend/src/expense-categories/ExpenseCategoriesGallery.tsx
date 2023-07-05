@@ -15,7 +15,7 @@ function ExpenseCategoriesGallery(props:Props) {
     function buttonNewExpenseCategory() {
         navigate("/all-real-estates/real-estate/expense-category/add/" + props.actualRealEstate?.id)
     }
-
+const realEstateId = props.actualRealEstate?.id
     return (
         <div>
             {props.actualRealEstate?.listOfExpenseCategories.length === 0 ?
@@ -38,13 +38,16 @@ function ExpenseCategoriesGallery(props:Props) {
                         </h3>
                     </Container>
                     <Container className="mt-4 mb-4">
-                        <Row>
-                            {props.actualRealEstate?.listOfExpenseCategories.map(currentExpenseCategory => (
-                                <Col md={4} key={currentExpenseCategory.id}>
-                                    <ExpenseCategoryCard expenseCategory={currentExpenseCategory}/>
-                                </Col>
-                            ))}
-                        </Row>
+                        {realEstateId &&
+                            <Row>
+                                {props.actualRealEstate?.listOfExpenseCategories.map(currentExpenseCategory => (
+                                    <Col md={4} key={currentExpenseCategory.id}>
+                                        <ExpenseCategoryCard expenseCategory={currentExpenseCategory}
+                                                             realEstateID={realEstateId}/>
+                                    </Col>
+                                ))}
+                            </Row>
+                        }
                     </Container>
                     <Container className="d-flex pb-5 justify-content-center mt-5">
                         <Button className="buttonNewExpenseCategory" onClick={buttonNewExpenseCategory}>

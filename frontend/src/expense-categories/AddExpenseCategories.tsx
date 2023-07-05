@@ -8,6 +8,8 @@ import {RealEstateModel} from "../model/RealEstateModel";
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import {RealEstateDto} from "../model/RealEstateDTO";
 import useEditRealEstate from "../hooks/useEditRealEstate";
+import {v4} from "uuid";
+
 
 type Props = {
     getAllRealEstates: () => void,
@@ -15,6 +17,8 @@ type Props = {
 }
 
 function AddExpenseCategories(props: Props) {
+    const {realEstateID, expenseCategoryID} = useParams();
+    console.log(realEstateID, expenseCategoryID)
     const {editRealEstate} = useEditRealEstate(props);
     const infoContent = (
         <Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die
@@ -47,7 +51,7 @@ function AddExpenseCategories(props: Props) {
             expenseCategory: expenseCategoryN,
             distributionKey: distributionKeyN,
             total: totalN, portion: portionN,
-            id: "1"
+            id: v4()
         }
         if (actualRealEstate) {
             const updatedListOfExpenseCategories = [...actualRealEstate.listOfExpenseCategories || [], newExpenseCategory];

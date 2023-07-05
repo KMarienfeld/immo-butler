@@ -43,8 +43,9 @@ function App() {
                     <Route path={"/all-real-estates/real-estate/expense-category/add/:id"}
                            element={<AddExpenseCategories listOfRealEstates={listOfRealEstates}
                                                           getAllRealEstates={getAllRealEstates}/>}/>
-                    <Route path={"/all-real-estates/real-estate/expense-category/edit/:id"}
-                    />
+                    <Route path={"/all-real-estates/real-estate/:realEstateID/expense-category/edit/:expenseCategoryID"}
+                           element={<AddExpenseCategories getAllRealEstates={getAllRealEstates}
+                                                          listOfRealEstates={listOfRealEstates}/>}/>
                     <Route path={"/all-bills"} element={<AllUtilityBills listOfUtilityBills={listOfUtilityBills}
                                                                          getAllUtilityBills={getAllUtilityBills}/>}/>
                     <Route path={"/add-utility-bill"}
@@ -53,7 +54,7 @@ function App() {
                     <Route path={"/all-bills/utility-bill/:id"}
                            element={<DetailOfUtilityBill listOfUtilityBills={listOfUtilityBills}
                                                          getAllUtilityBills={getAllUtilityBills}/>}/>
-            </Route>
+                </Route>
         </Routes>
     </div>
   );

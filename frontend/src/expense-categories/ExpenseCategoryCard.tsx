@@ -5,7 +5,8 @@ import {useNavigate} from "react-router-dom";
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 
 type Props = {
-    expenseCategory: ExpenseCategoryModel
+    expenseCategory: ExpenseCategoryModel,
+    realEstateID: string
 }
 function ExpenseCategoryCard(props:Props) {
 const navigate = useNavigate();
@@ -25,7 +26,7 @@ const navigate = useNavigate();
         }
     }
     function clickToExpenseCategoryEdit() {
-        navigate("/all-real-estates/real-estate/expense-category/edit/" + props.expenseCategory.id)
+        navigate("/all-real-estates/real-estate/" + props.realEstateID + "/expense-category/edit/" + props.expenseCategory.id)
     }
 
     return (
