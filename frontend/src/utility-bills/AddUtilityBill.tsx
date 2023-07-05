@@ -105,7 +105,7 @@ function AddUtilityBill(props: Props) {
     return (
         <div>
             <Row className="mt-3">
-                <Container className="d-flex justify-content-center">
+                <Container className="pt-5 d-flex justify-content-center">
                     <h3 className="text-center">Lege hier eine neue Nebenkostenabrechnung an:</h3>
                 </Container>
             </Row>
