@@ -54,7 +54,7 @@ function AddUtilityBill(props: Props) {
             lastNameOfTenant: selectedRealEstate?.lastNameOfTenant ?? ""
         }
         let navigateId = "";
-        axios.post('api/utilityBill/add', newUtilityBillDTO)
+        axios.post('/api/utilityBill/add', newUtilityBillDTO)
             .then(response => response.data)
             .then(data => {
                 navigateId = data.id;
@@ -109,16 +109,17 @@ function AddUtilityBill(props: Props) {
                     <h3 className="text-center">Lege hier eine neue Nebenkostenabrechnung an:</h3>
                 </Container>
             </Row>
+            <Form>
+                <div>
+                    <Container className="mt-5 expenseCategoryForBillFormCard">
 
-            <div>
-                <Container className="mt-5 expenseCategoryForBillFormCard">
-                    <Row className="mb-3">
-                        <Col md={6}>
-                            <Form.Group as={Col} className="mb-3" controlId="formGridSelectExpenseCategory">
-                                <Form.Label>
-                                    Immobilie:
-                                </Form.Label>
-                                {props.listOfRealEstates.length > 0 &&
+                        <Row className="mb-3">
+                            <Col md={6}>
+                                <Form.Group as={Col} className="mb-3" controlId="formGridSelectExpenseCategory">
+                                    <Form.Label>
+                                        Immobilie:
+                                    </Form.Label>
+                                    {props.listOfRealEstates.length > 0 &&
                                     <Form.Select defaultValue="Wähle hier eine Kostenart aus..."
                                                  value={selectedRealEstateId}
                                                  onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedRealEstateId(e.target.value)}>
@@ -223,7 +224,9 @@ function AddUtilityBill(props: Props) {
                             </Button>
                         </Col>
                     </Row>
+
             </Container>
+            </Form>
         </div>
     );
 }
