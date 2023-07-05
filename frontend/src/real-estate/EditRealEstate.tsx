@@ -28,7 +28,7 @@ function EditRealEstate(props: Props) {
 
     return (
         <div>
-            <Container className="pt-5 test">
+            <Container className="pt-5">
                 <Nav variant="tabs" activeKey={activeTab} onSelect={handleTabSelect} className="mb-5">
                     <Nav.Item>
                         <Nav.Link className="custom-nav-link" eventKey="generalRealEstate">Allgemeines</Nav.Link>
