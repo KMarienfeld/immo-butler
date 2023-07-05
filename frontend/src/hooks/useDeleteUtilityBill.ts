@@ -12,7 +12,7 @@ function useDeleteUtilityBill(props: Props) {
         axios.delete("/api/utilityBill/delete/" + id)
             .then(r => r.data)
             .then(props.getAllUtilityBills)
-            .then(() => navigate("/all-bills"))
+            .then(() => navigate("/all-utility-bills"))
             .catch(error => console.log(error))
     }
 
