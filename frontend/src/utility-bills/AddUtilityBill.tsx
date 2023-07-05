@@ -109,7 +109,7 @@ function AddUtilityBill(props: Props) {
                     <h3 className="text-center">Lege hier eine neue Nebenkostenabrechnung an:</h3>
                 </Container>
             </Row>
-            <Form>
+            <Form onSubmit={addNewUtilityBill}>
                 <div>
                     <Container className="mt-5 expenseCategoryForBillFormCard">
 

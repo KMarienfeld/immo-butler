@@ -1,8 +1,6 @@
 package de.neuefische.backend.service;
 
-import de.neuefische.backend.model.DTOExpenseCategory;
 import de.neuefische.backend.model.ExpenseCategory;
-import de.neuefische.backend.repository.ExpenseCategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
