@@ -1,6 +1,6 @@
 import React, {FormEvent, useEffect} from 'react';
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {Button, Col, Container, Form, FormControl, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
@@ -15,7 +15,6 @@ type Props = {
 function EditExpenseCategory(props:Props) {
     const {realEstateID, expenseCategoryID} = useParams();
     const {editRealEstate} = useEditRealEstate(props);
-    const navigate = useNavigate();
     const infoContent = (
         <Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die
             Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
