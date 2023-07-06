@@ -20,7 +20,7 @@ public class UtilityBillModel {
     private double finalResult;
     private List<CustomExpenseCategoryModel> customExpenseCategoryModel;
     private String designationOfRealEstate;
-    private String genderOfTenant;
+    private GenderOfTenant genderOfTenant;
     private String firstNameOfTenant;
     private String lastNameOfTenant;
 }

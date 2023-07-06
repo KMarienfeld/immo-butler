@@ -1,9 +1,8 @@
 import React, {FormEvent, useEffect} from 'react';
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import {useNavigate, useParams} from "react-router-dom";
-import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {Button, Col, Container, Form, FormControl, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
-import axios from "axios";
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 import "./AddExpenseCategories.css";
 import useEditRealEstate from "../hooks/useEditRealEstate";
@@ -63,46 +62,49 @@ function EditExpenseCategory(props:Props) {
 
     function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        if (expenseCategoryID !== undefined) {
-            const id = expenseCategoryID;
+        if (!expenseCategoryID) {
+            return;
         }
-        const id = "";
         const editedExpenseCategory: ExpenseCategoryModel = {
-            id: id,
+            id: expenseCategoryID,
             expenseCategory: expenseCategoryN,
             distributionKey: distributionKeyN,
             total: totalN, portion: portionN
         }
-        const updatedExpenseCategoriesList: ExpenseCategoryModel[] | undefined = actualRealEstate?.listOfExpenseCategories.map(currentExpenseCategory => {
-            if (currentExpenseCategory.id === id) {
-                return editedExpenseCategory
-            }
-            return currentExpenseCategory;
-        })
-        const updatedRealEstate: RealEstateModel = {
-            id: actualRealEstate?.id,
-            designationOfRealEstate: actualRealEstate?.designationOfRealEstate,
-            roadOfRealEstate: actualRealEstate?.roadOfRealEstate,
-            houseNumberOfRealEstate: actualRealEstate?.houseNumberOfRealEstate,
-            postCodeOfRealEstate: actualRealEstate?.postCodeOfRealEstate,
-            locationOfRealEstate: actualRealEstate?.locationOfRealEstate,
-            genderOfTenant: actualRealEstate?.genderOfTenant,
-            firstNameOfTenant: actualRealEstate?.firstNameOfTenant,
-            lastNameOfTenant: actualRealEstate?.firstNameOfTenant,
-            listOfExpenseCategories: updatedExpenseCategoriesList
+        if (!actualRealEstate) {
+            return
         }
 
-        editRealEstate(realEstateID, updatedRealEstate)
+        const updatedRealEstate: RealEstateModel = {
+            ...actualRealEstate,
+            listOfExpenseCategories: actualRealEstate?.listOfExpenseCategories.map(currentExpenseCategory => {
+                if (currentExpenseCategory.id === expenseCategoryID) {
+                    return editedExpenseCategory
+                }
+                return currentExpenseCategory;
+            }) || []
+        }
+
+        editRealEstate(actualRealEstate.id, updatedRealEstate)
     }
 
     function onClickDelete() {
-        axios.delete("/api/realEstate/delete/" + realEstateID + "/expenseCategory/" + expenseCategoryID)
-            .then(r => {
-                console.log(r.data)
-            })
-            .then(props.getAllRealEstates)
-            .then(()=> navigate("/all-expense-categories"))
-            .catch(error => console.log(error))
+        if (!actualRealEstate) {
+            return
+        }
+
+        if (!expenseCategoryID) {
+            return;
+        }
+
+
+        const updatedRealEstate: RealEstateModel = {
+            ...actualRealEstate,
+            listOfExpenseCategories: actualRealEstate?.listOfExpenseCategories
+                .filter(currentExpenseCategory => currentExpenseCategory.id !== expenseCategoryID)
+        }
+
+        editRealEstate(actualRealEstate.id, updatedRealEstate)
     }
 
     return (
@@ -114,15 +116,23 @@ function EditExpenseCategory(props:Props) {
             </Row>
             <Container className="mt-5">
                 <Form onSubmit={editExpenseCategoryById}>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Immobilie:</Form.Label>
+                        <FormControl disabled placeholder={actualRealEstate?.designationOfRealEstate}/>
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="formGridExpenseCategory">
                         <Form.Label>Kostenart</Form.Label>
-                        <Form.Control placeholder={actualExpenseCategory?.expenseCategory} onChange={onChangeHandlerExpenseCategory}/>
+                        <Form.Control placeholder={actualExpenseCategory?.expenseCategory}
+                                      onChange={onChangeHandlerExpenseCategory}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formGridDistributionKey">
                         <Form.Label>Umlageschlüssel
-                            <OverlayTrigger trigger={['hover', 'click']} overlay={infoContent}><div><QuestionCircleFill className="question-icon"/></div></OverlayTrigger>
+                            <OverlayTrigger trigger={['hover', 'click']} overlay={infoContent}>
+                                <div><QuestionCircleFill className="question-icon"/></div>
+                            </OverlayTrigger>
                         </Form.Label>
-                        <Form.Select defaultValue={actualExpenseCategory?.distributionKey} onChange={onChangeHandlerDistributionKey}>
+                        <Form.Select defaultValue={actualExpenseCategory?.distributionKey}
+                                     onChange={onChangeHandlerDistributionKey}>
                             <option disabled>Wähle hier einen Umlageschlüssel aus...</option>
                             <option value="AREABASEDKEY">Wohnfläche</option>
                             <option value="PERSONBASEDKEY">Personenzahl</option>
