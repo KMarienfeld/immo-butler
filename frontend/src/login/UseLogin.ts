@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 function UseLogin() {
 
-    const [user, setUser] = useState<string>()
+    const [user, setUser] = useState<string>("")
     const nav = useNavigate()
     function login(username:string, password:string) {
         return axios.post("/user/login", undefined, {auth: {username, password}})
@@ -23,7 +23,7 @@ function UseLogin() {
             username = response.data;
             if (username === "anonymousUser" || username === undefined) {
                 nav("/login")
-            } else nav("/all-bills")
+            } else nav("/all-utility-bills")
         }).then(() => {
         })
             .catch(error => {

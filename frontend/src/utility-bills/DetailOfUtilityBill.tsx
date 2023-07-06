@@ -25,7 +25,7 @@ function DetailOfUtilityBill(props: Props) {
     }
 
     function onClickGoBackToGetAll() {
-        navigate("/all-bills")
+        navigate("/all-utility-bills")
     }
 
     function onClickDeleteButton(id: string | undefined) {
@@ -60,6 +60,9 @@ function DetailOfUtilityBill(props: Props) {
         <div className="pageContent">
             <Container className="pt-5 d-flex justify-content-center">
                 <h1>Nebenkostenabrechnung {actualUtilityBill?.year}</h1>
+            </Container>
+            <Container className="d-flex justify-content-center">
+                <h2> für {actualUtilityBill?.designationOfRealEstate}</h2>
             </Container>
             <Container className="mt-5 mb-5">
                 <Table striped bordered hover size="sm">

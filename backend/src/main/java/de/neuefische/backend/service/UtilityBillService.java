@@ -54,9 +54,10 @@ public class UtilityBillService {
     }
 
     public double calculateTotalCostsExpenseCategories(List<CustomExpenseCategoryModel> customExpenseCategoryModelList) {
-        return customExpenseCategoryModelList.stream()
+        double sum = customExpenseCategoryModelList.stream()
                 .mapToDouble(customExpenseCategoryModel -> customExpenseCategoryModel.getProportionalBill())
                 .sum();
+        return Math.round(sum * 100.0) / 100.0;
     }
 
     public double calculateFinalResult(double prepaymentYear, double totalCostsExpenseCategories) {
@@ -80,6 +81,10 @@ public class UtilityBillService {
         newUtilityBillModel.setPrepaymentMonthly(utilityBillDTOModel.getPrepaymentMonthly());
         newUtilityBillModel.setPrepaymentYear(calculatedPrepaymentYear);
         newUtilityBillModel.setCustomExpenseCategoryModel(listOfCustomExpenseCategoryModel);
+        newUtilityBillModel.setDesignationOfRealEstate(utilityBillDTOModel.getDesignationOfRealEstate());
+        newUtilityBillModel.setGenderOfTenant(utilityBillDTOModel.getGenderOfTenant());
+        newUtilityBillModel.setFirstNameOfTenant(utilityBillDTOModel.getFirstNameOfTenant());
+        newUtilityBillModel.setLastNameOfTenant(utilityBillDTOModel.getLastNameOfTenant());
         double totalCostsOfAllExpenseCategories = calculateTotalCostsExpenseCategories(newUtilityBillModel.getCustomExpenseCategoryModel());
         newUtilityBillModel.setTotalCostsOfAllExpenseCategories(totalCostsOfAllExpenseCategories);
         double finalResult = calculateFinalResult(newUtilityBillModel.getPrepaymentYear(), totalCostsOfAllExpenseCategories);

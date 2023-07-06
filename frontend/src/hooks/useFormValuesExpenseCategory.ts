@@ -10,7 +10,7 @@ export default function useFormValuesExpenseCategory() {
     const [distributionKeyIsCONSUMPTIONBASEDKEY, setDistributionKeyIsCONSUMPTIONBASEDKEY] = useState<boolean>(false)
 
     function onClickGoBack() {
-        navigate("/all-expense-categories")
+        navigate("/all-real-estates")
     }
 
     function onChangeHandlerExpenseCategory(e: ChangeEvent<HTMLInputElement>) {

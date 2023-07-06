@@ -1,36 +1,74 @@
 import React, {FormEvent} from 'react';
-import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {Button, Col, Container, Form, FormControl, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import "./AddExpenseCategories.css"
-import {useNavigate} from "react-router-dom";
-import {ExpenseCategoryDTOModel} from "../model/ExpenseCategoryDTOModel";
-import axios from "axios";
+import {useParams} from "react-router-dom";
 import {QuestionCircleFill} from 'react-bootstrap-icons'
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
+import {RealEstateModel} from "../model/RealEstateModel";
+import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
+import {RealEstateDto} from "../model/RealEstateDTO";
+import useEditRealEstate from "../hooks/useEditRealEstate";
+import {v4} from "uuid";
+
 
 type Props = {
-    getAllExpanseCategories: () => void
+    getAllRealEstates: () => void,
+    listOfRealEstates: RealEstateModel[]
 }
-function AddExpenseCategories(props:Props) {
-    const navigate = useNavigate();
-    const infoContent = (<Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
-    const {expenseCategoryN, distributionKeyN, totalN, portionN, distributionKeyIsCONSUMPTIONBASEDKEY,
-        onClickGoBack,onChangeHandlerExpenseCategory,onChangeHandlerDistributionKey, onChangeHandlerTotal, onChangeHandlerPortion } = useFormValuesExpenseCategory();
 
-    function addNewExpenseCategory(e:FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        const newExpenseCategory:ExpenseCategoryDTOModel = {
-            expenseCategory:expenseCategoryN,
-            distributionKey:distributionKeyN,
-            total:totalN, portion:portionN
-        }
-        axios.post('api/expenseCategory/add', newExpenseCategory)
-            .then(response => {
-                console.log(response.data)
-            })
-            .then(props.getAllExpanseCategories)
-            .then(()=> navigate("/all-expense-categories"))
-            .catch(error => console.log(error))
+function AddExpenseCategories(props: Props) {
+    const {editRealEstate} = useEditRealEstate(props);
+    const infoContent = (
+        <Tooltip id="tooltip">Da beim Umlageschlüssel 'Direktzuordnung' keine Berechnung benötigt wird, müssen die
+            Felder 'Gesamt' und 'Anteil' nicht befüllt werden. </Tooltip>);
+    const {
+        expenseCategoryN,
+        distributionKeyN,
+        totalN,
+        portionN,
+        distributionKeyIsCONSUMPTIONBASEDKEY,
+        onClickGoBack,
+        onChangeHandlerExpenseCategory,
+        onChangeHandlerDistributionKey,
+        onChangeHandlerTotal,
+        onChangeHandlerPortion
+    } = useFormValuesExpenseCategory();
+
+    const params = useParams();
+    const id: string | undefined = params.id;
+    console.log(params)
+    let actualRealEstate: RealEstateModel | undefined;
+
+
+    if (props.listOfRealEstates.length > 0) {
+        actualRealEstate = props.listOfRealEstates.find(currentRealEstate => currentRealEstate.id === id);
     }
+
+    function addNewExpenseCategory(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const newExpenseCategory: ExpenseCategoryModel = {
+            expenseCategory: expenseCategoryN,
+            distributionKey: distributionKeyN,
+            total: totalN, portion: portionN,
+            id: v4()
+        }
+        if (actualRealEstate) {
+            const updatedListOfExpenseCategories = [...actualRealEstate.listOfExpenseCategories || [], newExpenseCategory];
+            const editedRealEstate: RealEstateDto = {
+                designationOfRealEstate: actualRealEstate.designationOfRealEstate,
+                roadOfRealEstate: actualRealEstate.roadOfRealEstate,
+                houseNumberOfRealEstate: actualRealEstate.houseNumberOfRealEstate,
+                postCodeOfRealEstate: actualRealEstate.postCodeOfRealEstate,
+                locationOfRealEstate: actualRealEstate.locationOfRealEstate,
+                genderOfTenant: actualRealEstate.genderOfTenant,
+                firstNameOfTenant: actualRealEstate.firstNameOfTenant,
+                lastNameOfTenant: actualRealEstate.lastNameOfTenant,
+                listOfExpenseCategories: updatedListOfExpenseCategories
+            }
+            editRealEstate(actualRealEstate.id, editedRealEstate);
+        }
+    }
+
     return (
         <div>
             <Row className="mt-5">
@@ -40,15 +78,23 @@ function AddExpenseCategories(props:Props) {
             </Row>
             <Container className="mt-5">
                 <Form onSubmit={addNewExpenseCategory}>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Immobilie:</Form.Label>
+                        <FormControl disabled placeholder={actualRealEstate?.designationOfRealEstate}/>
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="formGridExpenseCategory">
                         <Form.Label>Kostenart</Form.Label>
-                        <Form.Control placeholder="Trage hier die Kostenart ein" onChange={onChangeHandlerExpenseCategory}/>
+                        <Form.Control placeholder="Trage hier die Kostenart ein"
+                                      onChange={onChangeHandlerExpenseCategory}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formGridDistributionKey">
                         <Form.Label>Umlageschlüssel
-                            <OverlayTrigger trigger={['hover', 'click']} overlay={infoContent}><div><QuestionCircleFill className="question-icon"/></div></OverlayTrigger>
+                            <OverlayTrigger trigger={['hover', 'click']} overlay={infoContent}>
+                                <div><QuestionCircleFill className="question-icon"/></div>
+                            </OverlayTrigger>
                         </Form.Label>
-                        <Form.Select defaultValue="Wähle hier einen Umlageschlüssel aus..." onChange={onChangeHandlerDistributionKey}>
+                        <Form.Select defaultValue="Wähle hier einen Umlageschlüssel aus..."
+                                     onChange={onChangeHandlerDistributionKey}>
                             <option disabled>Wähle hier einen Umlageschlüssel aus...</option>
                             <option value="AREABASEDKEY">Wohnfläche</option>
                             <option value="PERSONBASEDKEY">Personenzahl</option>

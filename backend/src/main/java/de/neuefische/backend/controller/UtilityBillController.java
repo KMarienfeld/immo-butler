@@ -28,7 +28,7 @@ public class UtilityBillController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public UtilityBillModel deleteUtilityBillbyId(@PathVariable String id) {
+    public UtilityBillModel deleteUtilityBillById(@PathVariable String id) {
         return utilityBillService.deleteUtilityBillById(id);
     }
 
