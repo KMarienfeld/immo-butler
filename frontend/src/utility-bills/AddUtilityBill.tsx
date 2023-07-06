@@ -81,6 +81,7 @@ function AddUtilityBill(props: Props) {
                 idOfExpenseCategory: e.target.value
             } : card
         }))
+        console.log(e.target.value)
     }
 
     function onChangeHandlerTotalBill(e: ChangeEvent<HTMLInputElement>, index: number) {
@@ -170,16 +171,23 @@ function AddUtilityBill(props: Props) {
                                                 Kostenart:
                                                 </Form.Label>
                                             {customExpenseCategoryFormCards.length > 0 &&
-                                                <Form.Select defaultValue="Wähle hier eine Kostenart aus..."
-                                                             value={customExpenseCategoryFormCards[index].idOfExpenseCategory}
-                                                             onChange={(e: ChangeEvent<HTMLSelectElement>) => onChangeHandlerExpenseCategory(e, index)}>
-                                                    <option disabled>Wähle hier eine Kostenart aus...</option>
+                                                <Form.Select
+                                                    value={customExpenseCategoryFormCards[index].idOfExpenseCategory || ''} // Wenn der Wert null oder undefined ist, wird ein leerer String verwendet
+                                                    onChange={(e: ChangeEvent<HTMLSelectElement>) => onChangeHandlerExpenseCategory(e, index)}>
+                                                    <option disabled value="">
+                                                        Wähle hier eine Kostenart aus...
+                                                    </option>
                                                     {props.listOfRealEstates.find(x => x.id === selectedRealEstateId)?.listOfExpenseCategories.map(expenseCategory => (
-                                                        <option key={expenseCategory.id} value={expenseCategory.id}>
+                                                        <option
+                                                            key={expenseCategory.id}
+                                                            value={expenseCategory.id}
+                                                        >
                                                             {expenseCategory.expenseCategory}
                                                         </option>
                                                     ))}
-                                                </Form.Select>}
+                                                </Form.Select>
+
+                                            }
                                             </Form.Group>
                                         </Col>
                                         <Col md={6}>
