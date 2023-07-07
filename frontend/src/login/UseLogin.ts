@@ -33,7 +33,16 @@ function UseLogin() {
             })
     }
 
-    return {login, getUsername, user}
+    function logout() {
+        return axios.post("user/logout")
+            .then(() => {
+                setUser("");
+                toast.success("Du bist jetzt ausgeloggt");
+                nav("/login");
+            })
+    }
+
+    return {login, getUsername, user, logout}
 }
 
 export default UseLogin;
