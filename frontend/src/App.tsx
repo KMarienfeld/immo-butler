@@ -20,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
-    const {login, user, getUsername} = UseLogin()
+    const {login, user, getUsername, logout} = UseLogin()
     const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills();
     const {getAllRealEstates, listOfRealEstates} = useGetAllRealEstates();
 
@@ -34,7 +34,7 @@ function App() {
 
     return (
         <div>
-            {!user || user === "anonymousUser" ? <> </> : <Header/>}
+            {!user || user === "anonymousUser" ? <> </> : <Header logout={logout}/>}
             <ToastContainer/>
             <Routes>
                 <Route path={"/login"} element={<Login login={login}/>}/>
