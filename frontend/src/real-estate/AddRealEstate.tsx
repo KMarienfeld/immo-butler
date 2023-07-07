@@ -1,5 +1,5 @@
-import React, {FormEvent} from 'react';
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Button, Col, Container, Form, Modal, Row} from "react-bootstrap";
 import useFormValuesRealEstate from "../hooks/useFormValuesRealEstate";
 import {RealEstateDto} from "../model/RealEstateDTO";
 import axios from "axios";
@@ -31,9 +31,16 @@ function AddRealEstate(props: Props) {
     }
         = useFormValuesRealEstate();
     const navigate = useNavigate();
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-    function addNewRealEstate(e: FormEvent<HTMLFormElement>) {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        handleShow();
+    }
+
+    function addNewRealEstate() {
         const newRealEstate: RealEstateDto = {
             designationOfRealEstate: designationOfRealEstateN,
             roadOfRealEstate: roadOfRealEstateN,
@@ -62,7 +69,7 @@ function AddRealEstate(props: Props) {
                 </Container>
             </Row>
             <Container className="mt-5">
-                <Form onSubmit={addNewRealEstate}>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formGridExpenseCategory">
                         <Form.Label>Immobilienbezeichnung:</Form.Label>
                         <Form.Control placeholder="Trage hier eine Bezeichnung ein"
@@ -127,6 +134,26 @@ function AddRealEstate(props: Props) {
                     </Row>
                 </Form>
             </Container>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Neue Immobilie anlegen</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Sicher, dass du diese Immobilie anlegen möchtest?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleClose} className="goBackButtonModal">
+                        zurück
+                    </Button>
+                    <Button variant="primary" onClick={addNewRealEstate}
+                            className="submitButtonModal">ja</Button>
+                </Modal.Footer>
+            </Modal>
 
         </div>
     );
