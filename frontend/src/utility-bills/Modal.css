@@ -1,0 +1,15 @@
+.submitButtonModal {
+    background-color: #006D77 !important;
+}
+
+.submitButtonModal:hover {
+    background-color: #83C5BE !important;
+}
+
+.goBackButtonModal {
+    color: #006D77 !important;
+}
+
+.goBackButtonModal:hover {
+    background-color: #83C5BE !important;
+}

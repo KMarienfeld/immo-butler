@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, Col, Container, Row, Table} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
 import {UtilityBillModel} from "../model/UtilityBillModel";
 import {useNavigate, useParams} from "react-router-dom";
 import {CustomExpenseCategoryForBillModel} from "../model/CustomExpenseCategoryForBillModel";
@@ -16,12 +16,19 @@ function DetailOfUtilityBill(props: Props) {
     const id: string | undefined = params.id;
     const navigate = useNavigate();
     const {deleteUtilityBill} = useDeleteUtilityBill(props);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     let actualUtilityBill: UtilityBillModel | undefined;
     let listOfActualCustomExpenseCategories: CustomExpenseCategoryForBillModel[] | undefined;
     if (props.listOfUtilityBills.length > 0) {
         actualUtilityBill = props.listOfUtilityBills.find(currentUtilityBill => currentUtilityBill.id === id);
         listOfActualCustomExpenseCategories = actualUtilityBill?.customExpenseCategoryModel;
+    }
+
+    function handleDelete() {
+        handleShow();
     }
 
     function onClickGoBackToGetAll() {
@@ -117,7 +124,7 @@ function DetailOfUtilityBill(props: Props) {
                 <Row className="mt-5">
                     <Col>
                         <Button className="buttonDelete" variant="danger"
-                                onClick={() => onClickDeleteButton(actualUtilityBill?.id)}>
+                                onClick={handleDelete}>
                             löschen
                         </Button>
                     </Col>
@@ -135,6 +142,26 @@ function DetailOfUtilityBill(props: Props) {
                     </Col>
                 </Row>
             </Container>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Nebekostenabrechnung löschen</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Sicher, dass du diese Nebenkostenabrechnung löschen möchtest?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleClose} className="goBackButtonModal">
+                        zurück
+                    </Button>
+                    <Button variant="primary" onClick={() => onClickDeleteButton(actualUtilityBill?.id)}
+                            className="submitButtonModal">ja</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

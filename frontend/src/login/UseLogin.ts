@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 function UseLogin() {
 
@@ -9,11 +10,12 @@ function UseLogin() {
     function login(username:string, password:string) {
         return axios.post("/user/login", undefined, {auth: {username, password}})
             .then((response) => {
-                getUsername()
+                getUsername();
+                toast.success("Login war erfolgreich!")
             }).catch((error) => {
-                console.log(error)
+                console.log(error);
+                toast.error("Zugangsdaten sind leider falsch")
             })
-
     }
 
     function getUsername() {

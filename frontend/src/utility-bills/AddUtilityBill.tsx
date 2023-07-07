@@ -1,5 +1,5 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
-import {Button, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import React, {ChangeEvent, useState} from 'react';
+import {Button, Col, Container, Form, Modal, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import "./AddUtilityBill.css";
 import {HouseAddFill, HouseDash, QuestionCircleFill} from "react-bootstrap-icons";
 import {useNavigate} from "react-router-dom";
@@ -7,6 +7,7 @@ import {UtilityBillDTOModel} from "../model/UtilityBillDTOModel";
 import {CustomExpenseCategoryForBillDTO} from "../model/CustomExpenseCategoryForBillDTO";
 import axios from "axios";
 import {RealEstateModel} from "../model/RealEstateModel";
+import "./Modal.css"
 
 type Props = {
     listOfRealEstates: RealEstateModel[],
@@ -25,14 +26,20 @@ function AddUtilityBill(props: Props) {
         totalBill: 0,
     },]);
     const [selectedRealEstateId, setSelectedRealEstateId] = useState(props.listOfRealEstates.length === 0 ? "" : props.listOfRealEstates[0].id)
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        handleShow();
+    }
 
     function onClickGoBack() {
         navigate("/all-utility-bills")
     }
 
-    function addNewUtilityBill(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault();
+    function addNewUtilityBill() {
         const newCustomExpenseCategories: CustomExpenseCategoryForBillDTO[] = customExpenseCategoryFormCards.map((formCard, index: number) => {
             const selectedExpenseCategory = props.listOfRealEstates.find(x => x.id === selectedRealEstateId)?.listOfExpenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === formCard.idOfExpenseCategory);
             return {
@@ -110,7 +117,7 @@ function AddUtilityBill(props: Props) {
                     <h3 className="text-center">Lege hier eine neue Nebenkostenabrechnung an:</h3>
                 </Container>
             </Row>
-            <Form onSubmit={addNewUtilityBill}>
+            <Form onSubmit={handleSubmit}>
                 <div>
                     <Container className="mt-5 expenseCategoryForBillFormCard">
 
@@ -202,7 +209,6 @@ function AddUtilityBill(props: Props) {
                                         </Col>
                                     </Row>
                                 </Container>
-
                             </div>
                         )
                     )}
@@ -232,9 +238,27 @@ function AddUtilityBill(props: Props) {
                             </Button>
                         </Col>
                     </Row>
-
             </Container>
             </Form>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Neue Nebekostenabrechnung erstellen</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Sicher, dass du eine neue Nebenkostenabrechnung erstellen möchtest?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleClose} className="goBackButtonModal">
+                        zurück
+                    </Button>
+                    <Button variant="primary" onClick={addNewUtilityBill} className="submitButtonModal">ja</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

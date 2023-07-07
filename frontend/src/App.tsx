@@ -15,6 +15,9 @@ import AddRealEstate from "./real-estate/AddRealEstate";
 import useGetAllRealEstates from "./hooks/useGetAllRealEstates";
 import EditRealEstate from "./real-estate/EditRealEstate";
 import EditExpenseCategory from "./expense-categories/EditExpenseCategory";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
     const {login, user, getUsername} = UseLogin()
@@ -32,6 +35,7 @@ function App() {
     return (
         <div>
             {!user || user === "anonymousUser" ? <> </> : <Header/>}
+            <ToastContainer/>
             <Routes>
                 <Route path={"/login"} element={<Login login={login}/>}/>
                 <Route element={<ProtectedRoutes user={user}/>}>

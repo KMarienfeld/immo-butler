@@ -1,7 +1,7 @@
-import React, {FormEvent, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ExpenseCategoryModel} from "../model/ExpenseCategoryModel";
 import {useParams} from "react-router-dom";
-import {Button, Col, Container, Form, FormControl, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {Button, Col, Container, Form, FormControl, Modal, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {QuestionCircleFill} from "react-bootstrap-icons";
 import useFormValuesExpenseCategory from "../hooks/useFormValuesExpenseCategory";
 import "./AddExpenseCategories.css";
@@ -42,6 +42,17 @@ function EditExpenseCategory(props:Props) {
         actualRealEstate = props.listOfRealEstates.find(currentRealEstate => currentRealEstate.id === realEstateID);
         actualExpenseCategory = actualRealEstate?.listOfExpenseCategories.find(currentExpenseCategory => currentExpenseCategory.id === expenseCategoryID);
     }
+    const [showEdit, setShowEdit] = useState(false);
+    const handleCloseEdit = () => setShowEdit(false);
+    const handleShowEdit = () => setShowEdit(true);
+    const [showDelete, setShowDelete] = useState(false);
+    const handleCloseDelete = () => setShowDelete(false);
+    const handleShowDelete = () => setShowDelete(true);
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        handleShowEdit();
+    }
 
     useEffect(() => {
         if (expenseCategoryN === "") {
@@ -51,7 +62,7 @@ function EditExpenseCategory(props:Props) {
             setDistributionKeyN(actualExpenseCategory?.distributionKey ?? "");
         }
         if (totalN === 0) {
-                setTotalN(actualExpenseCategory?.total ?? 0);
+            setTotalN(actualExpenseCategory?.total ?? 0);
             }
             if (portionN === 0) {
                 setPortionN(actualExpenseCategory?.portion ?? 0);
@@ -59,8 +70,7 @@ function EditExpenseCategory(props:Props) {
         }
     )
 
-    function editExpenseCategoryById(e:FormEvent<HTMLFormElement>) {
-        e.preventDefault()
+    function editExpenseCategoryById() {
         if (!expenseCategoryID) {
             return;
         }
@@ -114,7 +124,7 @@ function EditExpenseCategory(props:Props) {
                 </Container>
             </Row>
             <Container className="mt-5">
-                <Form onSubmit={editExpenseCategoryById}>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
                         <Form.Label>Immobilie:</Form.Label>
                         <FormControl disabled placeholder={actualRealEstate?.designationOfRealEstate}/>
@@ -153,7 +163,7 @@ function EditExpenseCategory(props:Props) {
                     </Row>
                     <Row className="mt-5">
                         <Col>
-                            <Button className="buttonDelete" variant="danger" onClick={onClickDelete}>
+                            <Button className="buttonDelete" variant="danger" onClick={handleShowDelete}>
                                 löschen
                             </Button>
                         </Col>
@@ -164,12 +174,53 @@ function EditExpenseCategory(props:Props) {
                         </Col>
                     </Row>
                     <Row className="mt-3 mb-5">
-                    <Col>
-                        <Button className="buttonBack" variant="outline-dark" onClick={onClickGoBack} >zurück</Button>
-                    </Col>
+                        <Col>
+                            <Button className="buttonBack" variant="outline-dark"
+                                    onClick={onClickGoBack}>zurück</Button>
+                        </Col>
                     </Row>
                 </Form>
             </Container>
+            <Modal
+                show={showEdit}
+                onHide={handleCloseEdit}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Kostenart ändern</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Sicher, dass du die Kostenart ändern möchtest?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleCloseEdit} className="goBackButtonModal">
+                        zurück
+                    </Button>
+                    <Button variant="primary" onClick={editExpenseCategoryById}
+                            className="submitButtonModal">ja</Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal
+                show={showDelete}
+                onHide={handleCloseDelete}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Kostenart löschen</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Sicher, dass du diese Kostenart löschen möchtest?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleCloseDelete} className="goBackButtonModal">
+                        zurück
+                    </Button>
+                    <Button variant="primary" onClick={onClickDelete}
+                            className="submitButtonModal">ja</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

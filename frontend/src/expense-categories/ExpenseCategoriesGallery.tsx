@@ -34,7 +34,7 @@ const realEstateId = props.actualRealEstate?.id
                 <div>
                     <Container className="pt-2 d-flex justify-content-center">
                         <h3 className="text-center">
-                            Hier siehst du alle deine angelegten Kostenarten
+                            Hier siehst du alle deine angelegten Kostenarten:
                         </h3>
                     </Container>
                     <Container className="mt-4 mb-4">
