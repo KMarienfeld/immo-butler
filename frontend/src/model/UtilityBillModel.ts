@@ -12,4 +12,8 @@ export type UtilityBillModel = {
     genderOfTenant: string,
     firstNameOfTenant: string,
     lastNameOfTenant: string,
+    roadOfRealEstate: string,
+    houseNumberOfRealEstate: string,
+    postCodeOfRealEstate: number,
+    locationOfRealEstate: string
 }
