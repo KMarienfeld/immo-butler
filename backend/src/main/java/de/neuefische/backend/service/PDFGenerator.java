@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+import static de.neuefische.backend.model.GenderOfTenant.MALE;
+
 @Service
 public class PDFGenerator {
     public byte[] createPdfForUtilityBill(UtilityBillModel utilityBillModel) throws DocumentException {
@@ -43,6 +45,8 @@ public class PDFGenerator {
         //Tabelle zum Document hinzufügen
         document.add(title);
         document.add(Chunk.NEWLINE);
+        addTenantAndAddress(document, utilityBillModel);
+        document.add(Chunk.NEWLINE);
         document.add(table);
         document.add(Chunk.NEWLINE);
         //Text hinzufügen
@@ -53,6 +57,17 @@ public class PDFGenerator {
         document.close();
 
         return outputStream.toByteArray();
+    }
+
+    private void addTenantAndAddress(Document document, UtilityBillModel utilityBillModel) throws DocumentException {
+        Paragraph paragraph = new Paragraph();
+        if (utilityBillModel.getGenderOfTenant() == MALE) {
+            paragraph.add("Herr" + utilityBillModel.getFirstNameOfTenant() + utilityBillModel.getLastNameOfTenant());
+        } else {
+            paragraph.add("Frau" + utilityBillModel.getFirstNameOfTenant() + utilityBillModel.getLastNameOfTenant());
+        }
+        paragraph.add(utilityBillModel.getRoadOfRealEstate() + utilityBillModel.getHouseNumberOfRealEstate() + "/n" + utilityBillModel.getPostCodeOfRealEstate() + utilityBillModel.getLocationOfRealEstate());
+        document.add(paragraph);
     }
 
     private void addResult(Document document, UtilityBillModel utilityBillModel) throws DocumentException {
