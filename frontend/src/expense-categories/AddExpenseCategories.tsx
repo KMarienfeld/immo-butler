@@ -1,5 +1,5 @@
-import React, {FormEvent} from 'react';
-import {Button, Col, Container, Form, FormControl, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Button, Col, Container, Form, FormControl, Modal, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import "./AddExpenseCategories.css"
 import {useParams} from "react-router-dom";
 import {QuestionCircleFill} from 'react-bootstrap-icons'
@@ -36,7 +36,15 @@ function AddExpenseCategories(props: Props) {
 
     const params = useParams();
     const id: string | undefined = params.id;
-    console.log(params)
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        handleShow();
+    }
+
     let actualRealEstate: RealEstateModel | undefined;
 
 
@@ -44,8 +52,7 @@ function AddExpenseCategories(props: Props) {
         actualRealEstate = props.listOfRealEstates.find(currentRealEstate => currentRealEstate.id === id);
     }
 
-    function addNewExpenseCategory(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault()
+    function addNewExpenseCategory() {
         const newExpenseCategory: ExpenseCategoryModel = {
             expenseCategory: expenseCategoryN,
             distributionKey: distributionKeyN,
@@ -77,7 +84,7 @@ function AddExpenseCategories(props: Props) {
                 </Container>
             </Row>
             <Container className="mt-5">
-                <Form onSubmit={addNewExpenseCategory}>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
                         <Form.Label>Immobilie:</Form.Label>
                         <FormControl disabled placeholder={actualRealEstate?.designationOfRealEstate}/>
@@ -128,6 +135,25 @@ function AddExpenseCategories(props: Props) {
                     </Row>
                 </Form>
             </Container>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Neue Kostenart anlegen</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Sicher, dass du die Kostenart anlegen möchtest?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleClose} className="goBackButtonModal">
+                        zurück
+                    </Button>
+                    <Button variant="primary" onClick={addNewExpenseCategory} className="submitButtonModal">ja</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
