@@ -9,13 +9,14 @@ import de.neuefische.backend.model.UtilityBillModel;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import static de.neuefische.backend.model.GenderOfTenant.MALE;
 
 @Service
 public class PDFGenerator {
-    public byte[] createPdfForUtilityBill(UtilityBillModel utilityBillModel) throws DocumentException {
+    public byte[] createPdfForUtilityBill(UtilityBillModel utilityBillModel) throws DocumentException, IOException {
         //neues PDF Dokument erstellen
         Document document = new Document();
         //ByteArrayOutputStream erzeugen (um PDF im Speicher zu halten)
@@ -25,7 +26,8 @@ public class PDFGenerator {
         //Document öffnen
         document.open();
         //Schrift festlegen
-        Font font = FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD);
+        Font font = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD);
+
         //Titel hinzufügen
         Paragraph title = new Paragraph("Nebenkostenabrechnung " + utilityBillModel.getYear(), font);
         title.setAlignment(Element.ALIGN_CENTER);
@@ -37,18 +39,20 @@ public class PDFGenerator {
 
         //Tabellenüberschrift
         addTableHeader(table);
-
         //Tabellenzeilen
         addTableRows(table, utilityBillModel.getCustomExpenseCategoryModel());
         addRowWithTotalCosts(table, utilityBillModel.getTotalCostsOfAllExpenseCategories());
 
         //Tabelle zum Document hinzufügen
-        document.add(title);
-        document.add(Chunk.NEWLINE);
+        addLogoToPDF(document);
         addTenantAndAddress(document, utilityBillModel);
+        document.add(Chunk.NEWLINE);
+        document.add(Chunk.NEWLINE);
+        document.add(title);
         document.add(Chunk.NEWLINE);
         document.add(table);
         document.add(Chunk.NEWLINE);
+
         //Text hinzufügen
         addText(document, utilityBillModel);
         addResult(document, utilityBillModel);
@@ -62,11 +66,14 @@ public class PDFGenerator {
     private void addTenantAndAddress(Document document, UtilityBillModel utilityBillModel) throws DocumentException {
         Paragraph paragraph = new Paragraph();
         if (utilityBillModel.getGenderOfTenant() == MALE) {
-            paragraph.add("Herr" + utilityBillModel.getFirstNameOfTenant() + utilityBillModel.getLastNameOfTenant());
+            paragraph.add("Herr " + utilityBillModel.getFirstNameOfTenant() + " " + utilityBillModel.getLastNameOfTenant());
         } else {
-            paragraph.add("Frau" + utilityBillModel.getFirstNameOfTenant() + utilityBillModel.getLastNameOfTenant());
+            paragraph.add("Frau " + utilityBillModel.getFirstNameOfTenant() + " " + utilityBillModel.getLastNameOfTenant());
         }
-        paragraph.add(utilityBillModel.getRoadOfRealEstate() + utilityBillModel.getHouseNumberOfRealEstate() + "/n" + utilityBillModel.getPostCodeOfRealEstate() + utilityBillModel.getLocationOfRealEstate());
+        paragraph.add(Chunk.NEWLINE);
+        paragraph.add(utilityBillModel.getRoadOfRealEstate() + " " + utilityBillModel.getHouseNumberOfRealEstate());
+        paragraph.add(Chunk.NEWLINE);
+        paragraph.add(utilityBillModel.getPostCodeOfRealEstate() + " " + utilityBillModel.getLocationOfRealEstate());
         document.add(paragraph);
     }
 
@@ -114,6 +121,13 @@ public class PDFGenerator {
         table.addCell("Kostenart");
         table.addCell("Gesamtkosten");
         table.addCell("anteilige Kosten");
+    }
+
+    private void addLogoToPDF(Document document) throws DocumentException, IOException {
+        Image logo = Image.getInstance("frontend/src/logo_tuerkis.png");
+        logo.scaleToFit(200, 200);
+        logo.setAlignment(Element.ALIGN_RIGHT);
+        document.add(logo);
     }
 }
 
