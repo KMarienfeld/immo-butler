@@ -4,7 +4,18 @@
     color: #6c757d;
     text-decoration: none;
 }
+
 .menuLink:focus,
 .menuLink:hover {
-     color: #006D77 !important;
- }
+    color: #006D77 !important;
+}
+
+.buttonLogout {
+    background: transparent !important;
+    border: none !important;
+    color: #6c757d !important;
+}
+
+.buttonLogout:hover {
+    color: #006D77 !important;
+}
