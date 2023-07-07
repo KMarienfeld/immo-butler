@@ -58,7 +58,11 @@ function AddUtilityBill(props: Props) {
             designationOfRealEstate: selectedRealEstate?.designationOfRealEstate ?? "",
             genderOfTenant: selectedRealEstate?.genderOfTenant ?? "",
             firstNameOfTenant: selectedRealEstate?.firstNameOfTenant ?? "",
-            lastNameOfTenant: selectedRealEstate?.lastNameOfTenant ?? ""
+            lastNameOfTenant: selectedRealEstate?.lastNameOfTenant ?? "",
+            roadOfRealEstate: selectedRealEstate?.roadOfRealEstate ?? "",
+            houseNumberOfRealEstate: selectedRealEstate?.houseNumberOfRealEstate ?? "",
+            postCodeOfRealEstate: selectedRealEstate?.postCodeOfRealEstate ?? 0,
+            locationOfRealEstate: selectedRealEstate?.locationOfRealEstate ?? ""
         }
         let navigateId = "";
         axios.post('/api/utilityBill/add', newUtilityBillDTO)
