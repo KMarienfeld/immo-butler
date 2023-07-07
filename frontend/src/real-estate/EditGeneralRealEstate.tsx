@@ -82,10 +82,6 @@ function EditGeneralRealEstate(props: Props) {
         handleShowEdit();
     }
 
-    function handleDelete(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        handleShowDelete();
-    }
 
     function editGeneralRealEstate() {
         const editedRealEstateDto: RealEstateDto = {
