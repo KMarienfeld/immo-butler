@@ -1,5 +1,5 @@
-import React, {FormEvent, useEffect} from 'react';
-import {Button, Col, Form, Row} from "react-bootstrap";
+import React, {useEffect, useState} from 'react';
+import {Button, Col, Form, Modal, Row} from "react-bootstrap";
 import useFormValuesRealEstate from "../hooks/useFormValuesRealEstate";
 import {RealEstateModel} from "../model/RealEstateModel";
 import {RealEstateDto} from "../model/RealEstateDTO";
@@ -70,9 +70,24 @@ function EditGeneralRealEstate(props: Props) {
             setLastNameOfTenantN(props.actualRealEstate?.lastNameOfTenant ?? "")
         }
     })
+    const [showEdit, setShowEdit] = useState(false);
+    const handleCloseEdit = () => setShowEdit(false);
+    const handleShowEdit = () => setShowEdit(true);
+    const [showDelete, setShowDelete] = useState(false);
+    const handleCloseDelete = () => setShowDelete(false);
+    const handleShowDelete = () => setShowDelete(true);
 
-    function editGeneralRealEstate(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault()
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        handleShowEdit();
+    }
+
+    function handleDelete(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        handleShowDelete();
+    }
+
+    function editGeneralRealEstate() {
         const editedRealEstateDto: RealEstateDto = {
             designationOfRealEstate: designationOfRealEstateN,
             roadOfRealEstate: roadOfRealEstateN,
@@ -101,7 +116,7 @@ function EditGeneralRealEstate(props: Props) {
 
     return (
         <div>
-            <Form onSubmit={editGeneralRealEstate}>
+            <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formGridExpenseCategory">
                     <Form.Label>Immobilienbezeichnung:</Form.Label>
                     <Form.Control placeholder={props.actualRealEstate?.designationOfRealEstate}
@@ -156,7 +171,7 @@ function EditGeneralRealEstate(props: Props) {
                 </Row>
                 <Row className="mt-5">
                     <Col>
-                        <Button className="buttonDelete" variant="danger" onClick={onClickDelete}>
+                        <Button className="buttonDelete" variant="danger" onClick={handleShowDelete}>
                             löschen
                         </Button>
                     </Col>
@@ -173,6 +188,47 @@ function EditGeneralRealEstate(props: Props) {
                     </Col>
                 </Row>
             </Form>
+            <Modal
+                show={showEdit}
+                onHide={handleCloseEdit}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Immobiliendaten ändern</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Sicher, dass du die Immobiliendaten ändern möchtest?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleCloseEdit} className="goBackButtonModal">
+                        zurück
+                    </Button>
+                    <Button variant="primary" onClick={editGeneralRealEstate}
+                            className="submitButtonModal">ja</Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal
+                show={showDelete}
+                onHide={handleCloseDelete}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Immobilie löschen</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Sicher, dass du diese Immobilie löschen möchtest?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleCloseDelete} className="goBackButtonModal">
+                        zurück
+                    </Button>
+                    <Button variant="primary" onClick={onClickDelete}
+                            className="submitButtonModal">ja</Button>
+                </Modal.Footer>
+            </Modal>
+
         </div>
     );
 }
