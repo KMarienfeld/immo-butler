@@ -24,14 +24,14 @@ public class PDFGenerator {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         //PDFWriter mit dem Document und dem ByteArrayOutputStream erzeugen
         PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+        //Schriftart importieren
         String fontPath = "backend/src/main/resources/static/Arial.ttf";
         BaseFont baseFontArial = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font arialFont = new Font(baseFontArial, 11);
         Font arialFontBold = new Font(baseFontArial, 12, Font.BOLD);
         //Document öffnen
         document.open();
-        //Schrift festlegen
-        //Titel hinzufügen
+        //Titel erstellen
         Paragraph title = new Paragraph("Nebenkostenabrechnung " + utilityBillModel.getYear(), arialFontBold);
         //Header als Tabelle erstellen
         PdfPTable headerTable = new PdfPTable(2);
@@ -39,7 +39,7 @@ public class PDFGenerator {
         headerTable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
         addTenantAndAddress(headerTable, utilityBillModel, arialFont);
         addLogoToPDF(headerTable);
-        //Tabelle erstellen
+        //Result-Tabelle erstellen
         PdfPTable resultTable = new PdfPTable(4);
         resultTable.setWidthPercentage(90);
         resultTable.setSpacingBefore(10f);
@@ -47,12 +47,10 @@ public class PDFGenerator {
         BaseColor lightGray = new BaseColor(220, 220, 220);
         resultTable.getDefaultCell().setBorderColor(lightGray);
         resultTable.getDefaultCell().setBorderWidth(0.5f);
-        //Tabellenüberschrift
         addTableHeader(resultTable, arialFontBold);
-        //Tabellenzeilen
         addTableRows(resultTable, utilityBillModel.getCustomExpenseCategoryModel(), arialFont);
         addRowWithTotalCosts(resultTable, utilityBillModel.getTotalCostsOfAllExpenseCategories(), arialFontBold);
-        //Tabelle zum Document hinzufügen
+        //document befüllen
         document.add(headerTable);
         document.add(Chunk.NEWLINE);
         document.add(Chunk.NEWLINE);
@@ -62,7 +60,6 @@ public class PDFGenerator {
         document.add(Chunk.NEWLINE);
         document.add(resultTable);
         document.add(Chunk.NEWLINE);
-        //Text hinzufügen
         addPrepayment(document, utilityBillModel, arialFont);
         addResult(document, utilityBillModel, arialFont);
         document.add(Chunk.NEWLINE);
