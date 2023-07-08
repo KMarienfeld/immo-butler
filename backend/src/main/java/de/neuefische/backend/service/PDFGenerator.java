@@ -180,13 +180,13 @@ public class PDFGenerator {
         if (utilityBillModel.getFinalResult() != 0) {
             double finalResult = utilityBillModel.getFinalResult();
             if (finalResult < 0) {
-                paragraph.add("Der Rückzahlungsbetrag wird Ihnen zeitnah auf Ihr Konto überwiesen.");
+                paragraph.add("Der genannte Betrag wird Ihnen zeitnah auf Ihr Konto überwiesen.");
             } else {
                 paragraph.add("Ich bitte um eine zeitnahe Überweisung der ausstehenden Nachzahlung. ");
             }
         }
         paragraph.add(Chunk.NEWLINE);
-        paragraph.add("Ich stehe Ihnen gerne zur Verfügung, falls Sie Fragen haben oder weitere Informationen benötigen.");
+        paragraph.add("Falls Sie Fragen haben oder weitere Informationen benötigen, stehe ich Ihnen gerne zur Verfügung.");
         document.add(paragraph);
     }
 
