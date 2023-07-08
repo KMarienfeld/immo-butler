@@ -1,6 +1,7 @@
 package de.neuefische.backend.service;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -23,48 +24,53 @@ public class PDFGenerator {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         //PDFWriter mit dem Document und dem ByteArrayOutputStream erzeugen
         PdfWriter writer = PdfWriter.getInstance(document, outputStream);
-        Font font = FontFactory.getFont(FontFactory.Arial, 12);
+        String fontPath = "backend/src/main/resources/static/Arial.ttf";
+        BaseFont baseFontArial = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        Font arialFont = new Font(baseFontArial, 11);
+        Font arialFontBold = new Font(baseFontArial, 12, Font.BOLD);
         //Document öffnen
         document.open();
         //Schrift festlegen
-        Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.BOLD);
         //Titel hinzufügen
-        Paragraph title = new Paragraph("Nebenkostenabrechnung " + utilityBillModel.getYear(), fontTitle);
+        Paragraph title = new Paragraph("Nebenkostenabrechnung " + utilityBillModel.getYear(), arialFontBold);
         //Header als Tabelle erstellen
         PdfPTable headerTable = new PdfPTable(2);
         headerTable.setWidthPercentage(100);
         headerTable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-        addTenantAndAddress(headerTable, utilityBillModel);
+        addTenantAndAddress(headerTable, utilityBillModel, arialFont);
         addLogoToPDF(headerTable);
         //Tabelle erstellen
         PdfPTable resultTable = new PdfPTable(4);
-        resultTable.setWidthPercentage(70);
+        resultTable.setWidthPercentage(90);
         resultTable.setSpacingBefore(10f);
         resultTable.setSpacingBefore(10f);
+        BaseColor lightGray = new BaseColor(220, 220, 220);
+        resultTable.getDefaultCell().setBorderColor(lightGray);
+        resultTable.getDefaultCell().setBorderWidth(0.5f);
         //Tabellenüberschrift
-        addTableHeader(resultTable);
+        addTableHeader(resultTable, arialFontBold);
         //Tabellenzeilen
-        addTableRows(resultTable, utilityBillModel.getCustomExpenseCategoryModel());
-        addRowWithTotalCosts(resultTable, utilityBillModel.getTotalCostsOfAllExpenseCategories());
+        addTableRows(resultTable, utilityBillModel.getCustomExpenseCategoryModel(), arialFont);
+        addRowWithTotalCosts(resultTable, utilityBillModel.getTotalCostsOfAllExpenseCategories(), arialFontBold);
         //Tabelle zum Document hinzufügen
         document.add(headerTable);
         document.add(Chunk.NEWLINE);
         document.add(Chunk.NEWLINE);
         document.add(title);
         document.add(Chunk.NEWLINE);
-        addOpeningWords(document, utilityBillModel);
+        addOpeningWords(document, utilityBillModel, arialFont);
         document.add(Chunk.NEWLINE);
         document.add(resultTable);
         document.add(Chunk.NEWLINE);
         //Text hinzufügen
-        addPrepayment(document, utilityBillModel);
-        addResult(document, utilityBillModel, font);
+        addPrepayment(document, utilityBillModel, arialFont);
+        addResult(document, utilityBillModel, arialFont);
         document.add(Chunk.NEWLINE);
-        addClosingWords(document, utilityBillModel);
+        addClosingWords(document, utilityBillModel, arialFont);
         document.add(Chunk.NEWLINE);
         document.add(Chunk.NEWLINE);
         document.add(Chunk.NEWLINE);
-        addSignature(document);
+        addSignature(document, arialFont);
         //Schließe das Document
         document.close();
 
@@ -85,52 +91,9 @@ public class PDFGenerator {
         document.add(result);
     }
 
-    private void addPrepayment(Document document, UtilityBillModel utilityBillModel) throws DocumentException {
+    private void addTenantAndAddress(PdfPTable table, UtilityBillModel utilityBillModel, Font font) throws DocumentException {
         Paragraph paragraph = new Paragraph();
-        paragraph.add("Die monatliche Vorauszahlung in Höhe von ");
-        paragraph.add(new Chunk(String.valueOf(utilityBillModel.getPrepaymentMonthly()) + "€ , "));
-        paragraph.add("summiert sich zu einer jährlichen Zahlung von ");
-        paragraph.add(new Chunk(String.valueOf(utilityBillModel.getPrepaymentYear()) + "€ ."));
-        document.add(paragraph);
-    }
-
-    private void addRowWithTotalCosts(PdfPTable table, double totalCostsOfAllExpenseCategories) {
-        PdfPCell cell = new PdfPCell(new Phrase("Gesamtbetrag", FontFactory.getFont(FontFactory.HELVETICA_BOLD)));
-        cell.setColspan(3);
-        table.addCell(cell);
-        table.addCell(String.valueOf(totalCostsOfAllExpenseCategories));
-    }
-
-    private void addTableRows(PdfPTable table, List<CustomExpenseCategoryModel> listOfExpenseCategories) {
-        for (int i = 0; i < listOfExpenseCategories.size(); i++) {
-            CustomExpenseCategoryModel currentModel = listOfExpenseCategories.get(i);
-            table.addCell(String.valueOf(i + 1));
-            table.addCell(currentModel.getExpenseCategory());
-            table.addCell(String.valueOf(currentModel.getTotalBill()));
-            table.addCell(String.valueOf(currentModel.getProportionalBill()));
-        }
-    }
-
-    private void addTableHeader(PdfPTable table) {
-        table.addCell("#");
-        table.addCell("Kostenart");
-        table.addCell("Gesamtkosten");
-        table.addCell("anteilige Kosten");
-    }
-
-    private void addLogoToPDF(PdfPTable table) throws DocumentException, IOException {
-        Image logo = Image.getInstance("frontend/src/logo_tuerkis.png");
-        logo.setAlignment(Element.ALIGN_RIGHT);
-        PdfPCell cell = new PdfPCell(logo);
-        cell.setBorder(Rectangle.NO_BORDER);
-        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-        cell.setFixedHeight(100);
-        table.addCell(cell);
-    }
-
-    private void addTenantAndAddress(PdfPTable table, UtilityBillModel utilityBillModel) throws DocumentException {
-        Paragraph paragraph = new Paragraph();
+        paragraph.setFont(font);
         if (utilityBillModel.getGenderOfTenant() == MALE) {
             paragraph.add("Herr " + utilityBillModel.getFirstNameOfTenant() + " " + utilityBillModel.getLastNameOfTenant());
         } else {
@@ -146,8 +109,20 @@ public class PDFGenerator {
         table.addCell(cell);
     }
 
-    private void addOpeningWords(Document document, UtilityBillModel utilityBillModel) throws DocumentException {
+    private void addLogoToPDF(PdfPTable table) throws DocumentException, IOException {
+        Image logo = Image.getInstance("frontend/src/logo_tuerkis.png");
+        logo.setAlignment(Element.ALIGN_RIGHT);
+        PdfPCell cell = new PdfPCell(logo);
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cell.setFixedHeight(100);
+        table.addCell(cell);
+    }
+
+    private void addOpeningWords(Document document, UtilityBillModel utilityBillModel, Font font) throws DocumentException {
         Paragraph paragraph = new Paragraph();
+        paragraph.setFont(font);
         if (utilityBillModel.getGenderOfTenant() == MALE) {
             paragraph.add("Sehr geehrter Herr " + utilityBillModel.getLastNameOfTenant() + ",");
         } else {
@@ -160,8 +135,51 @@ public class PDFGenerator {
         document.add(paragraph);
     }
 
-    private void addClosingWords(Document document, UtilityBillModel utilityBillModel) throws DocumentException {
+    private void addTableHeader(PdfPTable table, Font font) {
+        BaseColor lightGray = new BaseColor(240, 240, 240);
+        table.getDefaultCell().setBackgroundColor(lightGray);
+        table.addCell(new Phrase("#", font));
+        table.addCell(new Phrase("Kostenart", font));
+        table.addCell(new Phrase("Gesamtkosten", font));
+        table.addCell(new Phrase("anteilige Kosten", font));
+        table.getDefaultCell().setBackgroundColor(null);
+    }
+
+    private void addTableRows(PdfPTable table, List<CustomExpenseCategoryModel> listOfExpenseCategories, Font font) {
+        for (int i = 0; i < listOfExpenseCategories.size(); i++) {
+            CustomExpenseCategoryModel currentModel = listOfExpenseCategories.get(i);
+            table.addCell(new Phrase(String.valueOf(i + 1), font));
+            table.addCell(new Phrase(currentModel.getExpenseCategory(), font));
+            table.addCell(new Phrase(String.valueOf(currentModel.getTotalBill()) + " €", font));
+            table.addCell(new Phrase(String.valueOf(currentModel.getProportionalBill()) + " €", font));
+        }
+    }
+
+    private void addRowWithTotalCosts(PdfPTable table, double totalCostsOfAllExpenseCategories, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase("Gesamtbetrag", font));
+        BaseColor lightGray = new BaseColor(240, 240, 240);
+        cell.setColspan(3);
+        cell.setBackgroundColor(lightGray);
+        cell.setBorderColor(lightGray);
+        table.getDefaultCell().setBackgroundColor(lightGray);
+        table.addCell(cell);
+        table.addCell(String.valueOf(totalCostsOfAllExpenseCategories) + " €");
+        table.getDefaultCell().setBackgroundColor(null);
+    }
+
+    private void addPrepayment(Document document, UtilityBillModel utilityBillModel, Font font) throws DocumentException {
         Paragraph paragraph = new Paragraph();
+        paragraph.setFont(font);
+        paragraph.add("Die monatliche Vorauszahlung in Höhe von ");
+        paragraph.add(new Chunk(String.valueOf(utilityBillModel.getPrepaymentMonthly()) + " € , "));
+        paragraph.add("summiert sich zu einer jährlichen Zahlung von ");
+        paragraph.add(new Chunk(String.valueOf(utilityBillModel.getPrepaymentYear()) + " € ."));
+        document.add(paragraph);
+    }
+
+    private void addClosingWords(Document document, UtilityBillModel utilityBillModel, Font font) throws DocumentException {
+        Paragraph paragraph = new Paragraph();
+        paragraph.setFont(font);
         if (utilityBillModel.getFinalResult() != 0) {
             double finalResult = utilityBillModel.getFinalResult();
             if (finalResult < 0) {
@@ -175,8 +193,9 @@ public class PDFGenerator {
         document.add(paragraph);
     }
 
-    public void addSignature(Document document) throws DocumentException {
+    public void addSignature(Document document, Font font) throws DocumentException {
         Paragraph paragraph = new Paragraph();
+        paragraph.setFont(font);
         paragraph.add("Mit freundlichen Grüßen");
         document.add(paragraph);
     }
