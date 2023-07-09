@@ -107,9 +107,9 @@ class UtilityBillServiceTest {
     void addUtilityBill() {
         //GIVEN
         UtilityBillDTOModel utilityBillDTOModel = new UtilityBillDTOModel(
-                2022, 100, Arrays.asList(new CustomExpenseCategoryDTO("Strom", UNITBASEDKEY, 3, 1, 300)), "Musterimmobilie", MALE, "Max", "Mustermann");
+                2022, 100, Arrays.asList(new CustomExpenseCategoryDTO("Strom", UNITBASEDKEY, 3, 1, 300)), "Musterimmobilie", MALE, "Max", "Mustermann", "Teststr", "32", 77765, "Musterstadt");
         UtilityBillModel expected = new UtilityBillModel(
-                "1", 2022, 100.0, 1200.0, 300, -900.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 1000.0, 333.33)), "Musterimmobilie", MALE, "Max", "Mustermann");
+                "1", 2022, 100.0, 1200.0, 300, -900.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 1000.0, 333.33)), "Musterimmobilie", MALE, "Max", "Mustermann", "Teststr", "32", 77765, "Musterstadt");
         String IdForUtilityBillModel = "1";
         String IdForCustomExpenseCategoryModel = "10";
         when(generateIDService.generateCustomExpenseCategoryUUID()).thenReturn(IdForCustomExpenseCategoryModel);
@@ -126,7 +126,7 @@ class UtilityBillServiceTest {
     @Test
     void getAllUtilityBills() throws Exception {
         //GIVEN
-        UtilityBillModel utilityBillModel1 = new UtilityBillModel("1", 2022, 100.0, 1200.0, 800.0, -300.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 300, 100)), "Musterimmobilie", MALE, "Max", "Mustermann");
+        UtilityBillModel utilityBillModel1 = new UtilityBillModel("1", 2022, 100.0, 1200.0, 800.0, -300.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 300, 100)), "Musterimmobilie", MALE, "Max", "Mustermann", "Teststr", "32", 77765, "Musterstadt");
         when(utilityBillRepository.findAll()).thenReturn(List.of(utilityBillModel1));
         //WHEN
         List<UtilityBillModel> actual = utilityBillService.getAllUtilityBills();
@@ -138,7 +138,7 @@ class UtilityBillServiceTest {
     @Test
     void deleteUtilityBillById() throws Exception {
         //GIVEN
-        UtilityBillModel expected = new UtilityBillModel("11", 2023, 50.0, 600.0, 116.67, -483.33, Arrays.asList(new CustomExpenseCategoryModel("22", "Hausmeister", UNITBASEDKEY, 3, 1, 350.0, 116.67)), "Musterimmobilie", MALE, "Max", "Mustermann");
+        UtilityBillModel expected = new UtilityBillModel("11", 2023, 50.0, 600.0, 116.67, -483.33, Arrays.asList(new CustomExpenseCategoryModel("22", "Hausmeister", UNITBASEDKEY, 3, 1, 350.0, 116.67)), "Musterimmobilie", MALE, "Max", "Mustermann", "Teststr", "32", 77765, "Musterstadt");
         String testId = "11";
         when(utilityBillRepository.findById(testId)).thenReturn(Optional.of(expected));
         //WHEN
@@ -164,7 +164,7 @@ class UtilityBillServiceTest {
     void when_findByID_then_returnUtilityBillModel() {
         //GIVEN
         String testId = "10";
-        UtilityBillModel expected = new UtilityBillModel("10", 2022, 100.0, 1200.0, 800.0, -300.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 300, 100)), "Musterimmobilie", MALE, "Max", "Mustermann");
+        UtilityBillModel expected = new UtilityBillModel("10", 2022, 100.0, 1200.0, 800.0, -300.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 300, 100)), "Musterimmobilie", MALE, "Max", "Mustermann", "Teststr", "32", 77765, "Musterstadt");
         when(utilityBillRepository.findById(testId)).thenReturn(Optional.of(expected));
         //WHEN
         UtilityBillModel actual = utilityBillService.findById(testId);
