@@ -32,8 +32,6 @@ public class PDFGenerator {
         PdfWriter writer = PdfWriter.getInstance(document, outputStream);
         //Schriftart importieren
         String path = resourceLoader.getResource("classpath:Arial.ttf").getFile().getPath();
-        //String fontPath = "backend/src/main/resources/Arial.ttf";
-        //String fontPath = resource.getURL().getPath();
         BaseFont baseFontArial = BaseFont.createFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font arialFont = new Font(baseFontArial, 11);
         Font arialFontBold = new Font(baseFontArial, 12, Font.BOLD);
