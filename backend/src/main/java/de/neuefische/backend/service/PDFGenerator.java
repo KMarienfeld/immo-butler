@@ -7,6 +7,8 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import de.neuefische.backend.model.CustomExpenseCategoryModel;
 import de.neuefische.backend.model.UtilityBillModel;
+import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -16,7 +18,11 @@ import java.util.List;
 import static de.neuefische.backend.model.GenderOfTenant.MALE;
 
 @Service
+@RequiredArgsConstructor
 public class PDFGenerator {
+
+    private final ResourceLoader resourceLoader;
+
     public byte[] createPdfForUtilityBill(UtilityBillModel utilityBillModel) throws DocumentException, IOException {
         //neues PDF Dokument erstellen
         Document document = new Document();
@@ -25,8 +31,10 @@ public class PDFGenerator {
         //PDFWriter mit dem Document und dem ByteArrayOutputStream erzeugen
         PdfWriter writer = PdfWriter.getInstance(document, outputStream);
         //Schriftart importieren
-        String fontPath = "backend/src/main/resources/static/Arial.ttf";
-        BaseFont baseFontArial = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        String path = resourceLoader.getResource("classpath:Arial.ttf").getFile().getPath();
+        //String fontPath = "backend/src/main/resources/Arial.ttf";
+        //String fontPath = resource.getURL().getPath();
+        BaseFont baseFontArial = BaseFont.createFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font arialFont = new Font(baseFontArial, 11);
         Font arialFontBold = new Font(baseFontArial, 12, Font.BOLD);
         //Document öffnen
@@ -107,7 +115,8 @@ public class PDFGenerator {
     }
 
     private void addLogoToPDF(PdfPTable table) throws DocumentException, IOException {
-        Image logo = Image.getInstance("frontend/src/logo_tuerkis.png");
+        String path = resourceLoader.getResource("classpath:logo_tuerkis.png").getFile().getPath();
+        Image logo = Image.getInstance(path);
         logo.setAlignment(Element.ALIGN_RIGHT);
         PdfPCell cell = new PdfPCell(logo);
         cell.setBorder(Rectangle.NO_BORDER);
