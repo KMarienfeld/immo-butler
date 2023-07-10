@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UtilityBillController {
     private final UtilityBillService utilityBillService;
-
+    private final PDFGenerator pdfGenerator;
     @PostMapping("/add")
     public UtilityBillModel addUtilityBill(@RequestBody UtilityBillDTOModel utilityBillDTOModel) {
         return utilityBillService.addUtilityBill(utilityBillDTOModel);
@@ -33,9 +34,8 @@ public class UtilityBillController {
     }
 
     @GetMapping("/getPDF/{id}")
-    public ResponseEntity<byte[]> generatePDFofUtilityBill(@PathVariable String id) throws DocumentException {
+    public ResponseEntity<byte[]> generatePDFofUtilityBill(@PathVariable String id) throws DocumentException, IOException {
         UtilityBillModel utilityBillModel = utilityBillService.findById(id);
-        PDFGenerator pdfGenerator = new PDFGenerator();
         byte[] pdfBytes = pdfGenerator.createPdfForUtilityBill(utilityBillModel);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);

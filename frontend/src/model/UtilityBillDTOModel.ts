@@ -8,4 +8,8 @@ export type UtilityBillDTOModel = {
     genderOfTenant: string,
     firstNameOfTenant: string,
     lastNameOfTenant: string,
+    roadOfRealEstate: string,
+    houseNumberOfRealEstate: string,
+    postCodeOfRealEstate: number,
+    locationOfRealEstate: string
 }

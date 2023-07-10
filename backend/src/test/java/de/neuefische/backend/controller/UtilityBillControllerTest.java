@@ -26,7 +26,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class UtilityBillControllerTest {
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
+
+    @Autowired
+    private PDFGenerator pdfGenerator;
 
     @Test
     @DirtiesContext
@@ -147,7 +150,6 @@ class UtilityBillControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         UtilityBillModel utilityBillModel = objectMapper.readValue(content, UtilityBillModel.class);
 
-        PDFGenerator pdfGenerator = new PDFGenerator();
         byte[] pdfBytes = pdfGenerator.createPdfForUtilityBill(utilityBillModel);
 
 
