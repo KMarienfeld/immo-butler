@@ -2,6 +2,7 @@ import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import "./Login.css"
 import logo from "../logo_tuerkis.png";
+import {Link} from "react-router-dom";
 
 type Props = {
     login: (username:string, password:string) => Promise<void>
@@ -40,14 +41,14 @@ function Login(props:Props) {
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label>E-Mail Adresse</Form.Label>
                                             <Form.Control type="email" onChange={onChangeHandlerUsername} placeholder="E-Mail Adresse" />
-                                            <Form.Text className="text-muted">
-                                                Deine E-Mail Adresse wird nicht an Dritte weitergegeben.
-                                            </Form.Text>
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="formBasicPassword">
                                             <Form.Label>Passwort</Form.Label>
-                                            <Form.Control type="password" onChange={onChangeHandlerPassword} placeholder="Passwort" />
+                                            <Form.Control type="password" onChange={onChangeHandlerPassword}
+                                                          placeholder="Passwort"/>
                                         </Form.Group>
+                                        <Form.Text>Du hast noch keinen Account? Dann registriere dich <Link
+                                            to="/sign-up">hier</Link>!</Form.Text>
                                         <Button className="loginButton" type="submit">
                                             Login
                                         </Button>
