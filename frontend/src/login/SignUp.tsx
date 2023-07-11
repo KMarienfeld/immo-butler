@@ -3,7 +3,7 @@ import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import logo from "../logo_tuerkis.png";
 import {UserDTO} from "./UserDTO";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {Eye, EyeSlash} from "react-bootstrap-icons";
 
@@ -88,6 +88,8 @@ function SignUp() {
                                                 </Button>
                                             </div>
                                         </Form.Group>
+                                        <Form.Text>Du hast bereits einen Account? Hier gehts zum <Link
+                                            to="/login">Login</Link>!</Form.Text>
                                         <Button className="loginButton" type="submit">
                                             Jetzt registrieren
                                         </Button>
