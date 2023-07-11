@@ -5,6 +5,7 @@ import {UserDTO} from "./UserDTO";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import {Eye, EyeSlash} from "react-bootstrap-icons";
 
 function SignUp() {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ function SignUp() {
         email: "",
         password: ""
     })
+    const [showPassword, setShowPassword] = useState(false);
 
     function onSubmitRegister(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -40,6 +42,10 @@ function SignUp() {
         setUserDTORequest(newUser => ({...newUser, [name]: value}));
     }
 
+    function toggleShowPassword() {
+        setShowPassword(!showPassword)
+    }
+
     return (
         <div>
             <div className="pageContent d-flex align-items-center">
@@ -53,27 +59,34 @@ function SignUp() {
                                     </div>
                                     <Form onSubmit={onSubmitRegister}>
                                         <Form.Group className="mb-3" controlId="formFirstName">
-                                            <Form.Label htmlFor="formFirstName">Vorname</Form.Label>
+                                            <Form.Label>Vorname</Form.Label>
                                             <Form.Control onChange={onChangeHandler} placeholder="Vorname"
-                                                          value={userDTORequest.firstname}/>
+                                                          value={userDTORequest.firstname} name="firstname"/>
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="formLastName">
-                                            <Form.Label htmlFor="formLastName">Nachname</Form.Label>
+                                            <Form.Label>Nachname</Form.Label>
                                             <Form.Control onChange={onChangeHandler} placeholder="Nachname"
-                                                          value={userDTORequest.lastname}/>
+                                                          value={userDTORequest.lastname} name="lastname"/>
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="formEmail">
-                                            <Form.Label htmlFor="formEmail">E-Mail Adresse</Form.Label>
+                                            <Form.Label>E-Mail Adresse</Form.Label>
                                             <Form.Control type="email" onChange={onChangeHandler}
-                                                          placeholder="E-Mail Adresse" value={userDTORequest.email}/>
+                                                          placeholder="E-Mail Adresse" value={userDTORequest.email}
+                                                          name="email"/>
                                             <Form.Text className="text-muted">
                                                 Deine E-Mail Adresse wird nicht an Dritte weitergegeben.
                                             </Form.Text>
                                         </Form.Group>
-                                        <Form.Group className="mb-3" controlId="formPassword">
-                                            <Form.Label htmlFor="formPassword">Passwort</Form.Label>
-                                            <Form.Control type="password" onChange={onChangeHandler}
-                                                          placeholder="Passwort" value={userDTORequest.password}/>
+                                        <Form.Group className="mb-3">
+                                            <Form.Label>Passwort</Form.Label>
+                                            <div className="input-group">
+                                                <Form.Control type={showPassword ? "text" : "password"}
+                                                              onChange={onChangeHandler} placeholder="Passwort"
+                                                              value={userDTORequest.password} name="password"/>
+                                                <Button variant="outline-secondary" onClick={toggleShowPassword}>
+                                                    {showPassword ? <Eye></Eye> : <EyeSlash></EyeSlash>}
+                                                </Button>
+                                            </div>
                                         </Form.Group>
                                         <Button className="loginButton" type="submit">
                                             Jetzt registrieren
