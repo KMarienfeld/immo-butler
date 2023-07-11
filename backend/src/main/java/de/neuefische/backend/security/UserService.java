@@ -33,8 +33,8 @@ public class UserService implements UserDetailsService {
         userModel.setId(generateIDService.generateUserUUID());
         userModel.setFirstname(userDTO.getFirstname());
         userModel.setLastname(userDTO.getLastname());
-        userModel.setEmail(userModel.getEmail());
-        String hashedPassword = passwordEncoder.encode(userModel.getPassword());
+        userModel.setEmail(userDTO.getEmail());
+        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
         userModel.setPassword(hashedPassword);
         userRepo.save(userModel);
         return userDTO;
