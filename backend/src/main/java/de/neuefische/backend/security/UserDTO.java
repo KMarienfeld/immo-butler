@@ -15,7 +15,7 @@ public class UserDTO {
 
     @NotEmpty
     @Pattern(regexp = "/^[a-zA-Z]+$/")
-    private String username;
+    private String firstname;
     @NotEmpty
     @Pattern(regexp = "/^[a-zA-Z]+$/")
     private String lastname;
