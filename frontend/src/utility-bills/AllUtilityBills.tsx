@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, Container, Row, Table} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Button, Container, Modal, Row, Table} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {UtilityBillModel} from "../model/UtilityBillModel";
 import useDeleteUtilityBill from "../hooks/useDeleteUtilityBill";
@@ -12,6 +12,9 @@ type Props = {
 function AllUtilityBills(props: Props) {
     const navigate = useNavigate();
     const {deleteUtilityBill} = useDeleteUtilityBill(props);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     function buttonNewUtilityBill() {
         navigate("/add-utility-bill")
@@ -23,6 +26,11 @@ function AllUtilityBills(props: Props) {
 
     function onClickDeleteButton(id: string) {
         deleteUtilityBill(id)
+        handleClose()
+    }
+
+    function handleDelete() {
+        handleShow();
     }
 
     return (
@@ -67,25 +75,48 @@ function AllUtilityBills(props: Props) {
                             </thead>
                             <tbody className="table-group-divider">
                             {props.listOfUtilityBills.map((currentUtilityBill, index) => (
-                                <tr key={currentUtilityBill.id}>
-                                    <td><strong>{index + 1}</strong></td>
-                                    <td>{currentUtilityBill.year}</td>
-                                    <td>{currentUtilityBill.designationOfRealEstate}</td>
-                                    <td style={{color: currentUtilityBill.finalResult < 0 ? 'green' : 'red'}}>
-                                        {Math.abs(currentUtilityBill.finalResult)}€
-                                    </td>
-                                    <td>
-                                        <Button className="buttonNewExpenseCategory m-2"
-                                                onClick={() => clickToSeeDetails(currentUtilityBill.id)}>
-                                            Details
-                                        </Button>
-                                        <br className="d-sm-none"/>
-                                        <Button variant="outline-danger" className="m-1"
-                                                onClick={() => onClickDeleteButton(currentUtilityBill.id)}>
-                                            löschen
-                                        </Button>
-                                    </td>
-                                </tr>
+                                <>
+                                    <tr key={currentUtilityBill.id}>
+                                        <td><strong>{index + 1}</strong></td>
+                                        <td>{currentUtilityBill.year}</td>
+                                        <td>{currentUtilityBill.designationOfRealEstate}</td>
+                                        <td style={{color: currentUtilityBill.finalResult < 0 ? 'green' : 'red'}}>
+                                            {Math.abs(currentUtilityBill.finalResult)}€
+                                        </td>
+                                        <td>
+                                            <Button className="buttonNewExpenseCategory m-2"
+                                                    onClick={() => clickToSeeDetails(currentUtilityBill.id)}>
+                                                Details
+                                            </Button>
+                                            <br className="d-sm-none"/>
+                                            <Button variant="outline-danger" className="m-1"
+                                                    onClick={handleDelete}>
+                                                löschen
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                    <Modal
+                                        show={show}
+                                        onHide={handleClose}
+                                        backdrop="static"
+                                        keyboard={false}
+                                    >
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Nebekostenabrechnung löschen</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            Sicher, dass du diese Nebenkostenabrechnung löschen möchtest?
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="outline-dark" onClick={handleClose}
+                                                    className="goBackButtonModal">
+                                                zurück
+                                            </Button>
+                                            <Button variant="primary"
+                                                    onClick={() => onClickDeleteButton(currentUtilityBill.id)}
+                                                    className="submitButtonModal">ja</Button>
+                                        </Modal.Footer>
+                                    </Modal></>
                             ))}
                             </tbody>
                         </Table>
@@ -96,9 +127,8 @@ function AllUtilityBills(props: Props) {
                         </Container>
                     </Container>
                 </div>
-
-
             }
+
         </div>
     );
 }
