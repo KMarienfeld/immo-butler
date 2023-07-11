@@ -17,6 +17,7 @@ import EditRealEstate from "./real-estate/EditRealEstate";
 import EditExpenseCategory from "./expense-categories/EditExpenseCategory";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import SignUp from "./login/SignUp";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <ToastContainer/>
             <Routes>
                 <Route path={"/login"} element={<Login login={login}/>}/>
+                <Route path={"/sign-up"} element={<SignUp/>}/>
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path={"/all-real-estates"}
                            element={<AllRealEstates listOfRealEstates={listOfRealEstates}/>}/>
