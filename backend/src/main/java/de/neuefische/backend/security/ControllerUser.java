@@ -1,6 +1,7 @@
 package de.neuefische.backend.security;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class ControllerUser {
     }
 
     @PostMapping("/signUp")
-    public UserDTO addNewUser(@RequestBody UserDTO userDTO) {
+    public UserDTO addNewUser(@Valid @RequestBody UserDTO userDTO) {
         return userService.addNewUser(userDTO);
     }
 
