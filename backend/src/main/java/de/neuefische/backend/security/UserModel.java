@@ -1,4 +1,4 @@
-package de.neuefische.backend.model;
+package de.neuefische.backend.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserModel {
 
     private String id;
-    private String username;
+    private String firstname;
+    private String lastname;
+    private String email;
     private String password;
 
 
