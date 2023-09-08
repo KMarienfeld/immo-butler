@@ -26,4 +26,3 @@ public class UserDTO {
     @Size(min = 8)
     private String password;
 }
-
