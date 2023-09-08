@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
 
     @NotEmpty
-    @Pattern(regexp = "/^[a-zA-Z]+$/")
+    @Pattern(regexp = "^[a-zA-Z]+$")
     private String firstname;
     @NotEmpty
-    @Pattern(regexp = "/^[a-zA-Z]+$/")
+    @Pattern(regexp = "^[a-zA-Z]+$")
     private String lastname;
     @NotEmpty
     @Email
