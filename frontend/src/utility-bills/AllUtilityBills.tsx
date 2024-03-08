@@ -47,8 +47,8 @@ function AllUtilityBills(props: Props) {
                     </Container>
                     <Container className="mt-4 mb-4">
                         <Row className="text-center">
-                            <p>Denke aber daran zuerst die Kostenarten anzulegen, auf die angelegten Kostenarten kannst
-                                du dann bei allen zukünftigen Nebenkostenabrechnungen zugreifen.
+                            <p>Denke aber daran, zuerst die Immobilie und dann die Kostenarten anzulegen. Auf die angelegten Kostenarten kannst
+                                du dann bei allen zukünftigen Nebenkostenabrechnungen für diese Immobilie zugreifen.
                                 Das spart dir ab der 2. Abrechnung eine Menge Zeit.</p>
                         </Row>
                     </Container>

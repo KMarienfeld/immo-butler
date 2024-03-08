@@ -65,7 +65,7 @@ function AllRealEstates(props: Props) {
                                         <p>Mieter: {getGenderOfTenantInApp(currentRealEstate.genderOfTenant)} {currentRealEstate.firstNameOfTenant} {currentRealEstate.lastNameOfTenant}</p>
                                         <Button variant="outline-secondary" className="m-3"
                                                 onClick={() => onClickEditRealEstate(currentRealEstate.id)}>
-                                            Immobilie bearbeiten</Button>
+                                            Gesamtübersicht</Button>
                                         <Button variant="outline-secondary"
                                                 onClick={() => onClickAddExpenseCategory(currentRealEstate.id)}>
                                             neue Kostenart anlegen</Button>
