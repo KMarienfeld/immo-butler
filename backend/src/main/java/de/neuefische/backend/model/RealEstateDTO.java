@@ -19,4 +19,5 @@ public class RealEstateDTO {
     private String firstNameOfTenant;
     private String lastNameOfTenant;
     private List<ExpenseCategory> listOfExpenseCategories;
+    private List<String> utilityBills;
 }

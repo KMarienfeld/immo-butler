@@ -2,6 +2,7 @@ package de.neuefische.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.backend.model.UtilityBillModel;
+import de.neuefische.backend.repository.RealEstateRepository;
 import de.neuefische.backend.service.PDFGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ class UtilityBillControllerTest {
         mockMvc.perform(post("/api/utilityBill/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"year":2022,
+                                {
+                                "year":2022,
                                 "prepaymentMonthly":100,
                                 "customExpenseCategoryDTO":[{"expenseCategory":"Strom",
                                                             "distributionKey":"UNITBASEDKEY",

@@ -10,5 +10,6 @@ export type RealEstateModel = {
     genderOfTenant: string,
     firstNameOfTenant: string,
     lastNameOfTenant: string,
-    listOfExpenseCategories: ExpenseCategoryModel[]
+    listOfExpenseCategories: ExpenseCategoryModel[],
+    utilityBills: String[]
 }

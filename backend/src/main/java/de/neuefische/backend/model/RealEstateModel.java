@@ -22,4 +22,5 @@ public class RealEstateModel {
     private String firstNameOfTenant;
     private String lastNameOfTenant;
     private List<ExpenseCategory> listOfExpenseCategories;
+    private List<String> utilityBills;
 }

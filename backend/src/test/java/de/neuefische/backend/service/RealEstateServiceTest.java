@@ -28,10 +28,10 @@ class RealEstateServiceTest {
     @Test
     void when_addNewRealEstateDTO_then_ReturnNewRealEstateModel() {
         //GIVEN
-        RealEstateDTO realEstateDTO = new RealEstateDTO("Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>());
+        RealEstateDTO realEstateDTO = new RealEstateDTO("Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>(), new ArrayList<>());
         String testID = "10";
         when(generateIDService.generateRealEstateUUID()).thenReturn(testID);
-        RealEstateModel expected = new RealEstateModel("10", "Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>());
+        RealEstateModel expected = new RealEstateModel("10", "Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>(), new ArrayList<>());
         when(realEstateRepository.save(any())).thenReturn(expected);
         //WHEN
         RealEstateModel actual = realEstateService.addNewRealEstate(realEstateDTO);
@@ -44,7 +44,7 @@ class RealEstateServiceTest {
     @Test
     void when_getAllRealEstate_then_returnAllRealEstate() throws Exception {
         //GIVEN
-        RealEstateModel realEstateModel = new RealEstateModel("10", "Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>());
+        RealEstateModel realEstateModel = new RealEstateModel("10", "Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>(), new ArrayList<>());
         when(realEstateRepository.findAll()).thenReturn(List.of(realEstateModel));
         //WHEN
         List<RealEstateModel> actual = realEstateService.getAllRealEstates();
@@ -56,10 +56,10 @@ class RealEstateServiceTest {
     @Test
     void when_editRealEstate_then_returnEditedRealEstate() throws Exception {
         //GIVEN
-        RealEstateDTO editedRealEstateDTO = new RealEstateDTO("Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", Arrays.asList(new ExpenseCategory("3", "TestKostenart", UNITBASEDKEY, 3, 1)));
-        RealEstateModel expectedRealEstateModel = new RealEstateModel("10", "Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", Arrays.asList(new ExpenseCategory("3", "TestKostenart", UNITBASEDKEY, 3, 1)));
+        RealEstateDTO editedRealEstateDTO = new RealEstateDTO("Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", Arrays.asList(new ExpenseCategory("3", "TestKostenart", UNITBASEDKEY, 3, 1)), new ArrayList<>());
+        RealEstateModel expectedRealEstateModel = new RealEstateModel("10", "Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", Arrays.asList(new ExpenseCategory("3", "TestKostenart", UNITBASEDKEY, 3, 1)), new ArrayList<>());
         String testID = "10";
-        RealEstateModel oldRealEstateModel = new RealEstateModel("10", "Musterimmobilie2", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>());
+        RealEstateModel oldRealEstateModel = new RealEstateModel("10", "Musterimmobilie2", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>(), new ArrayList<>());
         when(realEstateRepository.findById(testID)).thenReturn(Optional.of(oldRealEstateModel));
         when(realEstateRepository.save(expectedRealEstateModel)).thenReturn(expectedRealEstateModel);
         //WHEN
@@ -74,7 +74,7 @@ class RealEstateServiceTest {
     void when_editRealEstateWithWrongId_then_throwExeption() {
         //GIVEN
         String wrongId = "10";
-        RealEstateDTO editedRealEstateDTO = new RealEstateDTO("Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>());
+        RealEstateDTO editedRealEstateDTO = new RealEstateDTO("Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>(), new ArrayList<>());
         when(realEstateRepository.findById(wrongId)).thenReturn(Optional.empty());
         //WHEN & THEN
         assertThrows(RuntimeException.class, () -> {
@@ -85,7 +85,7 @@ class RealEstateServiceTest {
     @Test
     void when_deleteRealEstate_then_returnDeletedRealEstate() throws Exception {
         //GIVEN
-        RealEstateModel expectedRealEstateModel = new RealEstateModel("10", "Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>());
+        RealEstateModel expectedRealEstateModel = new RealEstateModel("10", "Musterimmobilie", "Musterstraße", "1", 77749, "Musterstadt", MALE, "Max", "Mustermann", new ArrayList<>(), new ArrayList<>());
         String testID = "10";
         when(realEstateRepository.findById(testID)).thenReturn(Optional.of(expectedRealEstateModel));
         //WHEN

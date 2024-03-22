@@ -4,6 +4,7 @@ import de.neuefische.backend.model.CustomExpenseCategoryDTO;
 import de.neuefische.backend.model.CustomExpenseCategoryModel;
 import de.neuefische.backend.model.UtilityBillDTOModel;
 import de.neuefische.backend.model.UtilityBillModel;
+import de.neuefische.backend.repository.RealEstateRepository;
 import de.neuefische.backend.repository.UtilityBillRepository;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,8 @@ class UtilityBillServiceTest {
 
     private final UtilityBillRepository utilityBillRepository = mock(UtilityBillRepository.class);
     private final GenerateIDService generateIDService = mock(GenerateIDService.class);
-    private final UtilityBillService utilityBillService = new UtilityBillService(utilityBillRepository, generateIDService);
+    private final RealEstateRepository realEstateRepository = mock(RealEstateRepository.class);
+    private final UtilityBillService utilityBillService = new UtilityBillService(utilityBillRepository, generateIDService, realEstateRepository);
 
     @Test
     void calculateProportionalBill_and_returnCustomExpenseCategoryModel() {
@@ -107,7 +109,7 @@ class UtilityBillServiceTest {
     void addUtilityBill() {
         //GIVEN
         UtilityBillDTOModel utilityBillDTOModel = new UtilityBillDTOModel(
-                2022, 100, Arrays.asList(new CustomExpenseCategoryDTO("Strom", UNITBASEDKEY, 3, 1, 300)), "Musterimmobilie", MALE, "Max", "Mustermann", "Teststr", "32", 77765, "Musterstadt");
+                2022, 100, Arrays.asList(new CustomExpenseCategoryDTO("Strom", UNITBASEDKEY, 3, 1, 300)), "Musterimmobilie", MALE, "Max", "Mustermann", "Teststr", "32", 77765, "Musterstadt", "Musterimmobilie");
         UtilityBillModel expected = new UtilityBillModel(
                 "1", 2022, 100.0, 1200.0, 300, -900.0, Arrays.asList(new CustomExpenseCategoryModel("10", "Strom", UNITBASEDKEY, 3, 1, 1000.0, 333.33)), "Musterimmobilie", MALE, "Max", "Mustermann", "Teststr", "32", 77765, "Musterstadt");
         String IdForUtilityBillModel = "1";

@@ -4,6 +4,7 @@ import de.neuefische.backend.model.CustomExpenseCategoryDTO;
 import de.neuefische.backend.model.CustomExpenseCategoryModel;
 import de.neuefische.backend.model.UtilityBillDTOModel;
 import de.neuefische.backend.model.UtilityBillModel;
+import de.neuefische.backend.repository.RealEstateRepository;
 import de.neuefische.backend.repository.UtilityBillRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.List;
 public class UtilityBillService {
     private final UtilityBillRepository utilityBillRepository;
     private final GenerateIDService generateIDService;
+    private final RealEstateRepository realEstateRepository;
 
     public CustomExpenseCategoryModel calculateProportionalBillAndCreateModel(CustomExpenseCategoryDTO customExpenseCategoryDTO) {
         BigDecimal total = new BigDecimal(customExpenseCategoryDTO.getTotal());
@@ -93,6 +95,7 @@ public class UtilityBillService {
         newUtilityBillModel.setTotalCostsOfAllExpenseCategories(totalCostsOfAllExpenseCategories);
         double finalResult = calculateFinalResult(newUtilityBillModel.getPrepaymentYear(), totalCostsOfAllExpenseCategories);
         newUtilityBillModel.setFinalResult(finalResult);
+        realEstateRepository.addUtilityBill(utilityBillDTOModel.getAssociatedRealEstate(), newUtilityBillModel.getId());
         return utilityBillRepository.save(newUtilityBillModel);
     }
 
