@@ -89,11 +89,11 @@ class RealEstateServiceTest {
         String testID = "10";
         when(realEstateRepository.findById(testID)).thenReturn(Optional.of(expectedRealEstateModel));
         //WHEN
-        RealEstateModel actual = realEstateService.deleteRealEstate(testID);
+        String actual = realEstateService.deleteRealEstate(testID);
         //THEN
         verify(realEstateRepository).findById(testID);
         verify(realEstateRepository).deleteById(testID);
-        assertEquals(actual, expectedRealEstateModel);
+        assertEquals(actual, testID);
     }
 
     @Test
