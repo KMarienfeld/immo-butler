@@ -72,6 +72,7 @@ public class UtilityBillService {
         newUtilityBillModel.setLocationOfRealEstate(utilityBillDTOModel.getLocationOfRealEstate());
         newUtilityBillModel.setTotalCostsOfAllExpenseCategories(totalCostsOfAllExpenseCategories);
         newUtilityBillModel.setFinalResult(finalResult);
+        newUtilityBillModel.setAssociatedRealEstate(utilityBillDTOModel.getAssociatedRealEstate());
         return newUtilityBillModel;
     }
     private double calculateFinalResult(double prepaymentYear, double totalCostsExpenseCategories) {
