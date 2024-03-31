@@ -27,4 +27,5 @@ public class UtilityBillModel {
     private String houseNumberOfRealEstate;
     private int postCodeOfRealEstate;
     private String locationOfRealEstate;
+    private String associatedRealEstate;
 }

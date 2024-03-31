@@ -15,8 +15,28 @@ public class RealEstateService {
     private final GenerateIDService generateIDService;
 
     public RealEstateModel addNewRealEstate(RealEstateDTO realEstateDTO) {
+        return saveNewRealEstate(createRealEstateModel(generateIDService.generateRealEstateUUID(), realEstateDTO));
+    }
+    public List<RealEstateModel> getAllRealEstates() {
+        return realEstateRepository.findAll();
+    }
+
+    public RealEstateModel editRealEstate(String id, RealEstateDTO realEstateDTO) {
+        findRealEstateById(id);
+        return saveNewRealEstate(createRealEstateModel(id, realEstateDTO));
+    }
+    public String deleteRealEstate(String id) {
+        findRealEstateById(id);
+        realEstateRepository.deleteById(id);
+        return id;
+    }
+    private RealEstateModel saveNewRealEstate(RealEstateModel realEstateModel) {
+        return realEstateRepository.save(realEstateModel);
+    }
+
+    private RealEstateModel createRealEstateModel( String id, RealEstateDTO realEstateDTO) {
         RealEstateModel newRealEstateModel = new RealEstateModel();
-        newRealEstateModel.setId(generateIDService.generateRealEstateUUID());
+        newRealEstateModel.setId(id);
         newRealEstateModel.setDesignationOfRealEstate(realEstateDTO.getDesignationOfRealEstate());
         newRealEstateModel.setRoadOfRealEstate(realEstateDTO.getRoadOfRealEstate());
         newRealEstateModel.setHouseNumberOfRealEstate(realEstateDTO.getHouseNumberOfRealEstate());
@@ -26,32 +46,11 @@ public class RealEstateService {
         newRealEstateModel.setFirstNameOfTenant(realEstateDTO.getFirstNameOfTenant());
         newRealEstateModel.setLastNameOfTenant(realEstateDTO.getLastNameOfTenant());
         newRealEstateModel.setListOfExpenseCategories(realEstateDTO.getListOfExpenseCategories());
-
-        return realEstateRepository.save(newRealEstateModel);
+        newRealEstateModel.setUtilityBills(realEstateDTO.getUtilityBills());
+        return newRealEstateModel;
     }
 
-    public List<RealEstateModel> getAllRealEstates() {
-        return realEstateRepository.findAll();
-    }
-
-    public RealEstateModel editRealEstate(String id, RealEstateDTO realEstateDTO) {
-        RealEstateModel actualRealEstate = realEstateRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
-        actualRealEstate.setDesignationOfRealEstate(realEstateDTO.getDesignationOfRealEstate());
-        actualRealEstate.setRoadOfRealEstate(realEstateDTO.getRoadOfRealEstate());
-        actualRealEstate.setHouseNumberOfRealEstate(realEstateDTO.getHouseNumberOfRealEstate());
-        actualRealEstate.setPostCodeOfRealEstate(realEstateDTO.getPostCodeOfRealEstate());
-        actualRealEstate.setLocationOfRealEstate(realEstateDTO.getLocationOfRealEstate());
-        actualRealEstate.setGenderOfTenant(realEstateDTO.getGenderOfTenant());
-        actualRealEstate.setFirstNameOfTenant(realEstateDTO.getFirstNameOfTenant());
-        actualRealEstate.setLastNameOfTenant(realEstateDTO.getLastNameOfTenant());
-        actualRealEstate.setListOfExpenseCategories(realEstateDTO.getListOfExpenseCategories());
-
-        return realEstateRepository.save(actualRealEstate);
-    }
-
-    public RealEstateModel deleteRealEstate(String id) {
-        RealEstateModel actualRealEstate = realEstateRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
-        realEstateRepository.deleteById(id);
-        return actualRealEstate;
+    private RealEstateModel findRealEstateById(String id) {
+        return realEstateRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
     }
 }

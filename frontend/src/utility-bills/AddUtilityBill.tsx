@@ -62,7 +62,8 @@ function AddUtilityBill(props: Props) {
             roadOfRealEstate: selectedRealEstate?.roadOfRealEstate ?? "",
             houseNumberOfRealEstate: selectedRealEstate?.houseNumberOfRealEstate ?? "",
             postCodeOfRealEstate: selectedRealEstate?.postCodeOfRealEstate ?? 0,
-            locationOfRealEstate: selectedRealEstate?.locationOfRealEstate ?? ""
+            locationOfRealEstate: selectedRealEstate?.locationOfRealEstate ?? "",
+            associatedRealEstate: selectedRealEstateId
         }
         let navigateId = "";
         axios.post('/api/utilityBill/add', newUtilityBillDTO)

@@ -1,8 +1,12 @@
 package de.neuefische.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.neuefische.backend.model.GenderOfTenant;
+import de.neuefische.backend.model.RealEstateModel;
 import de.neuefische.backend.model.UtilityBillModel;
+import de.neuefische.backend.repository.RealEstateRepository;
 import de.neuefische.backend.service.PDFGenerator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,6 +35,27 @@ class UtilityBillControllerTest {
     @Autowired
     private PDFGenerator pdfGenerator;
 
+    @Autowired
+    private RealEstateRepository realEstateRepository;
+
+    private RealEstateModel realEstate;
+
+    @BeforeEach
+    void createInitRealEstate() {
+     realEstate = createRealEstate();
+    }
+    private RealEstateModel createRealEstate() {
+        RealEstateModel realEstate = new RealEstateModel();
+        realEstate.setDesignationOfRealEstate("Musterimmobilie");
+        realEstate.setRoadOfRealEstate("Musterstraße");
+        realEstate.setHouseNumberOfRealEstate("1");
+        realEstate.setPostCodeOfRealEstate(77749);
+        realEstate.setLocationOfRealEstate("Musterstadt");
+        realEstate.setGenderOfTenant(GenderOfTenant.MALE);
+        realEstate.setFirstNameOfTenant("Max");
+        realEstate.setLastNameOfTenant("Mustermann");
+        return realEstateRepository.save(realEstate);
+    }
     @Test
     @DirtiesContext
     @WithMockUser(username = "user", password = "123")
@@ -38,15 +63,17 @@ class UtilityBillControllerTest {
         mockMvc.perform(post("/api/utilityBill/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"year":2022,
+                                {
+                                "year":2022,
                                 "prepaymentMonthly":100,
                                 "customExpenseCategoryDTO":[{"expenseCategory":"Strom",
                                                             "distributionKey":"UNITBASEDKEY",
-                                                            "total":3,
+                                                            "total":2,
                                                             "portion":1,
-                                                            "totalBill":1000}]
+                                                            "totalBill":1000}],
+                                "associatedRealEstate": "%s"                            
                                 }
-                                """)
+                                """.formatted(realEstate.getId()))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
@@ -54,14 +81,14 @@ class UtilityBillControllerTest {
                         "year":2022,
                         "prepaymentMonthly":100.0,
                         "prepaymentYear":1200.0,
-                        "finalResult":-866.67,
+                        "finalResult":-700.0,
                         "customExpenseCategoryModel":[{
                                                        "expenseCategory":"Strom",
                                                        "distributionKey":"UNITBASEDKEY",
-                                                       "total":3,
+                                                       "total":2,
                                                        "portion":1,
                                                        "totalBill":1000.0,
-                                                       "proportionalBill":333.33}]
+                                                       "proportionalBill":500.0}]
                         }                         
                         """)
                 )
@@ -91,9 +118,10 @@ class UtilityBillControllerTest {
                                                             "distributionKey":"UNITBASEDKEY",
                                                             "total":3,
                                                             "portion":1,
-                                                            "totalBill":1000}]
+                                                            "totalBill":1000}],
+                                "associatedRealEstate": "%s"                            
                                 }
-                                """)
+                                """.formatted(realEstate.getId()))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -103,7 +131,7 @@ class UtilityBillControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         UtilityBillModel utilityBillModel = objectMapper.readValue(content, UtilityBillModel.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/utilityBill/delete/" + utilityBillModel.getId())
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/utilityBill/delete/" + utilityBillModel.getId() + "/" + realEstate.getId())
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
@@ -138,9 +166,10 @@ class UtilityBillControllerTest {
                                                             "distributionKey":"UNITBASEDKEY",
                                                             "total":3,
                                                             "portion":1,
-                                                            "totalBill":1000}]
+                                                            "totalBill":1000}],
+                                "associatedRealEstate": "%s"                                                     
                                 }
-                                """)
+                                """.formatted(realEstate.getId()))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();

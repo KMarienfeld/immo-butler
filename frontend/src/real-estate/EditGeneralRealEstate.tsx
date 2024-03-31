@@ -93,7 +93,8 @@ function EditGeneralRealEstate(props: Props) {
             genderOfTenant: genderOfTenantN,
             firstNameOfTenant: firstNameOfTenantN,
             lastNameOfTenant: lastNameOfTenantN,
-            listOfExpenseCategories: props.actualRealEstate?.listOfExpenseCategories ?? []
+            listOfExpenseCategories: props.actualRealEstate?.listOfExpenseCategories ?? [],
+            utilityBills: props.actualRealEstate?.utilityBills ?? []
         }
         if (props.actualRealEstate?.id !== undefined) {
             editRealEstate(props.actualRealEstate?.id, editedRealEstateDto)

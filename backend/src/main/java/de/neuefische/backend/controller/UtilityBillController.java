@@ -22,15 +22,14 @@ public class UtilityBillController {
     public UtilityBillModel addUtilityBill(@RequestBody UtilityBillDTOModel utilityBillDTOModel) {
         return utilityBillService.addUtilityBill(utilityBillDTOModel);
     }
-
     @GetMapping("/get-all")
     public List<UtilityBillModel> getAllUtilityBills() {
         return utilityBillService.getAllUtilityBills();
     }
 
-    @DeleteMapping("/delete/{id}")
-    public UtilityBillModel deleteUtilityBillById(@PathVariable String id) {
-        return utilityBillService.deleteUtilityBillById(id);
+    @DeleteMapping("/delete/{idOfUtilityBill}/{idOfAssociatedRealEstate}")
+    public UtilityBillModel deleteUtilityBillById(@PathVariable String idOfUtilityBill, @PathVariable String idOfAssociatedRealEstate) {
+        return utilityBillService.deleteUtilityBillById(idOfUtilityBill, idOfAssociatedRealEstate);
     }
 
     @GetMapping("/getPDF/{id}")

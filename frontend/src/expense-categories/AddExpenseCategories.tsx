@@ -70,7 +70,8 @@ function AddExpenseCategories(props: Props) {
                 genderOfTenant: actualRealEstate.genderOfTenant,
                 firstNameOfTenant: actualRealEstate.firstNameOfTenant,
                 lastNameOfTenant: actualRealEstate.lastNameOfTenant,
-                listOfExpenseCategories: updatedListOfExpenseCategories
+                listOfExpenseCategories: updatedListOfExpenseCategories,
+                utilityBills: actualRealEstate.utilityBills
             }
             editRealEstate(actualRealEstate.id, editedRealEstate);
         }

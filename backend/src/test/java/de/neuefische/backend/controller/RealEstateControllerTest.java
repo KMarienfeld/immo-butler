@@ -71,7 +71,6 @@ class RealEstateControllerTest {
     @DirtiesContext
     @WithMockUser(username = "user", password = "123")
     void when_editRealEstate_then_return200kAndRealEstate() throws Exception {
-
         MvcResult postResult = mockMvc.perform(post("/api/realEstate/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -154,18 +153,6 @@ class RealEstateControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/realEstate/delete/" + realEstateModel.getId())
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(content().json("""
-                                    { 
-                                        "designationOfRealEstate":"Musterimmobilie",
-                                        "roadOfRealEstate":"Musterstraße",
-                                        "houseNumberOfRealEstate":"1",
-                                        "postCodeOfRealEstate":77749,
-                                        "locationOfRealEstate":"Musterstadt",
-                                        "genderOfTenant":"MALE",
-                                        "firstNameOfTenant":"Max",
-                                        "lastNameOfTenant":"Mustermann"
-                                 }
-                                                
-                        """)).andExpect(jsonPath("$.id").value(realEstateModel.getId()));
+                .andExpect(content().string(realEstateModel.getId()));
     }
 }

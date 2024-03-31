@@ -50,7 +50,8 @@ function AddRealEstate(props: Props) {
             genderOfTenant: genderOfTenantN,
             firstNameOfTenant: firstNameOfTenantN,
             lastNameOfTenant: lastNameOfTenantN,
-            listOfExpenseCategories: []
+            listOfExpenseCategories: [],
+            utilityBills: []
         }
         axios.post("/api/realEstate/add", newRealEstate)
             .then(r => {

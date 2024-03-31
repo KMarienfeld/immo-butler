@@ -15,5 +15,6 @@ export type UtilityBillModel = {
     roadOfRealEstate: string,
     houseNumberOfRealEstate: string,
     postCodeOfRealEstate: number,
-    locationOfRealEstate: string
+    locationOfRealEstate: string,
+    associatedRealEstate: string
 }

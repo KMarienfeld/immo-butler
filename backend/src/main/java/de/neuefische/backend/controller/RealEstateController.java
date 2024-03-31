@@ -31,7 +31,7 @@ public class RealEstateController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public RealEstateModel deleteRealEstate(@PathVariable String id) {
+    public String deleteRealEstate(@PathVariable String id) {
         return realEstateService.deleteRealEstate(id);
     }
 }

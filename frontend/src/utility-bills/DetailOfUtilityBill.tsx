@@ -35,9 +35,9 @@ function DetailOfUtilityBill(props: Props) {
         navigate("/all-utility-bills")
     }
 
-    function onClickDeleteButton(id: string | undefined) {
-        if (id !== undefined) {
-            deleteUtilityBill(id)
+    function onClickDeleteButton(idOfUtilityBill: string | undefined, idOfAssociatedRealEstate: string | undefined) {
+        if (idOfUtilityBill !== undefined && idOfAssociatedRealEstate !== undefined) {
+            deleteUtilityBill(idOfUtilityBill, idOfAssociatedRealEstate)
         }
     }
 
@@ -158,7 +158,7 @@ function DetailOfUtilityBill(props: Props) {
                     <Button variant="outline-dark" onClick={handleClose} className="goBackButtonModal">
                         zurück
                     </Button>
-                    <Button variant="primary" onClick={() => onClickDeleteButton(actualUtilityBill?.id)}
+                    <Button variant="primary" onClick={() => onClickDeleteButton(actualUtilityBill?.id, actualUtilityBill?.associatedRealEstate)}
                             className="submitButtonModal">ja</Button>
                 </Modal.Footer>
             </Modal>

@@ -8,8 +8,8 @@ type Props = {
 function useDeleteUtilityBill(props: Props) {
     const navigate = useNavigate();
 
-    function deleteUtilityBill(id: string) {
-        axios.delete("/api/utilityBill/delete/" + id)
+    function deleteUtilityBill(idOfUtilityBill: string, idOfAssociateRealEstate: string) {
+        axios.delete("/api/utilityBill/delete/" + idOfUtilityBill + "/" + idOfAssociateRealEstate)
             .then(r => r.data)
             .then(props.getAllUtilityBills)
             .then(() => navigate("/all-utility-bills"))
