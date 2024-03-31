@@ -19,4 +19,12 @@ public interface RealEstateRepository extends MongoRepository<RealEstateModel, S
         realEstate.getUtilityBills().add(idOfUtilityBill);
         save(realEstate);
     }
+
+    default void removeUtilityBill(String idOfUtilityBill, String idOfRealEstate) {
+        RealEstateModel realEstate = findRealEstateById(idOfRealEstate);
+        if (realEstate != null && realEstate.getUtilityBills() != null) {
+            realEstate.getUtilityBills().remove(idOfUtilityBill);
+            save(realEstate);
+        }
+    }
 }

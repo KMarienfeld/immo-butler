@@ -118,9 +118,10 @@ class UtilityBillControllerTest {
                                                             "distributionKey":"UNITBASEDKEY",
                                                             "total":3,
                                                             "portion":1,
-                                                            "totalBill":1000}]
+                                                            "totalBill":1000}],
+                                "associatedRealEstate": "%s"                            
                                 }
-                                """)
+                                """.formatted(realEstate.getId()))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -130,7 +131,7 @@ class UtilityBillControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         UtilityBillModel utilityBillModel = objectMapper.readValue(content, UtilityBillModel.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/utilityBill/delete/" + utilityBillModel.getId())
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/utilityBill/delete/" + utilityBillModel.getId() + "/" + realEstate.getId())
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""

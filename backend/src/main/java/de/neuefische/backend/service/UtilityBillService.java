@@ -31,10 +31,15 @@ public class UtilityBillService {
         return utilityBillRepository.findAll();
     }
 
-    public UtilityBillModel deleteUtilityBillById(String id) {
-        UtilityBillModel utilityBillModel = utilityBillRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
-        utilityBillRepository.deleteById(id);
+    public UtilityBillModel deleteUtilityBillById(String idOfUtilityBill, String idOfAssociatedRealEstate) {
+        deleteUtilityBillFromAssociatedRealEstate(idOfUtilityBill, idOfAssociatedRealEstate);
+        UtilityBillModel utilityBillModel = utilityBillRepository.findById(idOfUtilityBill).orElseThrow(() -> new RuntimeException("Id not found"));
+        utilityBillRepository.deleteById(idOfUtilityBill);
         return utilityBillModel;
+    }
+
+    private void deleteUtilityBillFromAssociatedRealEstate(String idOfUtilityBill, String idOfAssociatedRealEstate) {
+        realEstateRepository.removeUtilityBill(idOfUtilityBill, idOfAssociatedRealEstate);
     }
 
     public UtilityBillModel findById(String id) {

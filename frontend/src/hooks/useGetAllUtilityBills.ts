@@ -10,7 +10,6 @@ function useGetAllUtilityBills() {
             .then(r => r.data)
             .then(data => {
                 setListOfUtilityBills(data)
-                console.log(data)
             })
             .catch(error => console.log(error))
             .then()
