@@ -47,6 +47,9 @@ function Header(props: Props) {
 x                            {selectedMenu === 'Buy&Hold' &&
                                 <>
                                     <Nav.Link>
+                                        <Link className="menuLink" to="/dashboard">Dashboard</Link>
+                                    </Nav.Link>
+                                    <Nav.Link>
                                         <Link className="menuLink" to="/all-utility-bills">Nebenkostenabrechnung</Link>
                                     </Nav.Link>
                                     <Nav.Link>
@@ -57,7 +60,7 @@ x                            {selectedMenu === 'Buy&Hold' &&
                             {selectedMenu === 'Fix&Flip' &&
                                 <>
                                     <Nav.Link>
-                                        <Link className="menuLink" to="/calculation">Kalkulation</Link>
+                                        <Link className="menuLink" to="/fix-flip/calculation">Kalkulation</Link>
                                     </Nav.Link>
                                 </>
                             }

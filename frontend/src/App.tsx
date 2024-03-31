@@ -5,19 +5,20 @@ import Login from "./login/Login";
 import UseLogin from "./login/UseLogin";
 import Header from "./header/Header";
 import ProtectedRoutes from "./login/ProtectedRoutes";
-import AddExpenseCategories from "./buyAndHold/expense-categories/AddExpenseCategories";
-import AddUtilityBill from "./buyAndHold/utility-bills/AddUtilityBill";
-import DetailOfUtilityBill from "./buyAndHold/utility-bills/DetailOfUtilityBill";
-import useGetAllUtilityBills from "./buyAndHold/hooks/useGetAllUtilityBills";
-import AllUtilityBills from "./buyAndHold/utility-bills/AllUtilityBills";
-import AllRealEstates from "./buyAndHold/real-estate/AllRealEstates";
-import AddRealEstate from "./buyAndHold/real-estate/AddRealEstate";
-import useGetAllRealEstates from "./buyAndHold/hooks/useGetAllRealEstates";
-import EditRealEstate from "./buyAndHold/real-estate/EditRealEstate";
-import EditExpenseCategory from "./buyAndHold/expense-categories/EditExpenseCategory";
+import AddExpenseCategories from "./BuyAndHold/expense-categories/AddExpenseCategories";
+import AddUtilityBill from "./BuyAndHold/utility-bills/AddUtilityBill";
+import DetailOfUtilityBill from "./BuyAndHold/utility-bills/DetailOfUtilityBill";
+import useGetAllUtilityBills from "./BuyAndHold/hooks/useGetAllUtilityBills";
+import AllUtilityBills from "./BuyAndHold/utility-bills/AllUtilityBills";
+import AllRealEstates from "./BuyAndHold/real-estate/AllRealEstates";
+import AddRealEstate from "./BuyAndHold/real-estate/AddRealEstate";
+import useGetAllRealEstates from "./BuyAndHold/hooks/useGetAllRealEstates";
+import EditRealEstate from "./BuyAndHold/real-estate/EditRealEstate";
+import EditExpenseCategory from "./BuyAndHold/expense-categories/EditExpenseCategory";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import SignUp from "./login/SignUp";
+import AllCalculations from "./FixAndFlip/calculation/AllCalculations";
 
 
 function App() {
@@ -63,6 +64,8 @@ function App() {
                     <Route path={"/all-bills/utility-bill/:id"}
                            element={<DetailOfUtilityBill listOfUtilityBills={listOfUtilityBills}
                                                          getAllUtilityBills={getAllUtilityBills}/>}/>
+                    <Route path={"/fix-flip/calculation"}
+                           element={<AllCalculations/>}/>
                 </Route>
         </Routes>
     </div>
