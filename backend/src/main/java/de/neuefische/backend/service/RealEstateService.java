@@ -46,7 +46,6 @@ public class RealEstateService {
         newRealEstateModel.setFirstNameOfTenant(realEstateDTO.getFirstNameOfTenant());
         newRealEstateModel.setLastNameOfTenant(realEstateDTO.getLastNameOfTenant());
         newRealEstateModel.setListOfExpenseCategories(realEstateDTO.getListOfExpenseCategories());
-        newRealEstateModel.setUtilityBills(realEstateDTO.getUtilityBills());
         return newRealEstateModel;
     }
 

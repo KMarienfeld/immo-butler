@@ -22,7 +22,6 @@ public class UtilityBillController {
     public UtilityBillModel addUtilityBill(@RequestBody UtilityBillDTOModel utilityBillDTOModel) {
         return utilityBillService.addUtilityBill(utilityBillDTOModel);
     }
-
     @GetMapping("/get-all")
     public List<UtilityBillModel> getAllUtilityBills() {
         return utilityBillService.getAllUtilityBills();
