@@ -1,4 +1,4 @@
-import {CustomExpenseCategoryForBillModel} from "./CustomExpenseCategoryForBillModel"
+import {CustomExpenseCategoryForBillModel} from "./CustomExpenseCategoryForBillModel";
 
 export type UtilityBillModel = {
     id: string,
