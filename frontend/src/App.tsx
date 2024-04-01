@@ -26,7 +26,7 @@ function App() {
     const {login, user, getUsername, logout} = UseLogin()
     const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills();
     const {getAllRealEstates, listOfRealEstates} = useGetAllRealEstates();
-    const {getAllCalculations, listOfCalculations} = useGetAllCalculations();
+    const {getAllApartmentCalculations, listOfApartmentCalculation, getAllHouseCalculations, listOfHouseCalculation} = useGetAllCalculations();
 
     useEffect(() => getUsername,
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,7 +36,9 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(getAllRealEstates, [user])
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect((getAllCalculations), [user])
+    useEffect(getAllApartmentCalculations, [user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(getAllHouseCalculations, [user]);
 
     return (
         <div>
@@ -69,7 +71,8 @@ function App() {
                            element={<DetailOfUtilityBill listOfUtilityBills={listOfUtilityBills}
                                                          getAllUtilityBills={getAllUtilityBills}/>}/>
                     <Route path={"/fix-flip/calculation"}
-                           element={<AllCalculations listOfAllCalculations={listOfCalculations}/>}/>
+                           element={<AllCalculations listOfAllApartmentCalculations={listOfApartmentCalculation}
+                                                     listOfAllHouseCalculations={listOfHouseCalculation}/>}/>
                 </Route>
         </Routes>
     </div>

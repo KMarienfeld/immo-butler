@@ -1,10 +1,11 @@
 import {Accordion, Button, Container, Nav} from "react-bootstrap";
 import React, {useState} from "react";
-import {CalculationApartmentModel, TypeOfCalculation} from "../model/CalculationApartmentModel";
-import calculationApartment from "./CalculationApartment";
+import {CalculationApartmentModel} from "../model/CalculationApartmentModel";
+import {CalculationHouseModel} from "../model/CalculationHouseModel";
 
 type Props = {
-    listOfAllCalculations: CalculationApartmentModel[],
+    listOfAllApartmentCalculations: CalculationApartmentModel[],
+    listOfAllHouseCalculations: CalculationHouseModel[]
 }
 
 function AllCalculations(props: Props) {
@@ -26,8 +27,7 @@ function AllCalculations(props: Props) {
                     </Nav.Item>
                 </Nav>
                 {activeTab === "calculationApartment" && <>
-                {props.listOfAllCalculations
-                    .filter(calculation => calculation.type === TypeOfCalculation.APARTMENT)
+                {props.listOfAllApartmentCalculations
                     .map((calculationApartment, index) => (
                         <div>
                             <Container key={calculationApartment.id} className=" mb-3">
@@ -49,8 +49,7 @@ function AllCalculations(props: Props) {
                 }
                 </>}
                 {activeTab === "calculationHouse" && <>
-                {props.listOfAllCalculations
-                    .filter(calculation => calculation.type === TypeOfCalculation.HOUSE)
+                {props.listOfAllHouseCalculations
                     .map((calculationHouse, index) => (
                         <div>
                             <Container key={calculationHouse.id} className=" mb-3">
