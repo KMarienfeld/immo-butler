@@ -1,8 +1,3 @@
-export enum TypeOfCalculation {
-    APARTMENT = "apartment",
-    HOUSE = "house"
-}
-
 export type CalculationApartmentModel = {
     id: string,
     name: string,
@@ -16,5 +11,4 @@ export type CalculationApartmentModel = {
     interestCosts: number,
     otherCosts: number,
     houseMoney: number,
-    type: TypeOfCalculation
 }
