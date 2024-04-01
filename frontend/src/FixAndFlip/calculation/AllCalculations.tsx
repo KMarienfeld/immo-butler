@@ -1,9 +1,12 @@
-import {Container, Nav} from "react-bootstrap";
+import {Accordion, Button, Container, Nav} from "react-bootstrap";
 import React, {useState} from "react";
+import {CalculationApartmentModel, TypeOfCalculation} from "../model/CalculationApartmentModel";
+import calculationApartment from "./CalculationApartment";
 
 type Props = {
-
+    listOfAllCalculations: CalculationApartmentModel[],
 }
+
 function AllCalculations(props: Props) {
     const [activeTab, setActiveTab] = useState("calculationApartment");
     const handleTabSelect = (selectedTab: string | null) => {
@@ -22,10 +25,51 @@ function AllCalculations(props: Props) {
                         <Nav.Link className="custom-nav-link" eventKey="calculationHouse">Kalkulation für Häuser</Nav.Link>
                     </Nav.Item>
                 </Nav>
-
-               {/* {activeTab === "calculationApartment" && </>}
-                {activeTab === "calculationHouse" &&
-                    </>}*/}
+                {activeTab === "calculationApartment" && <>
+                {props.listOfAllCalculations
+                    .filter(calculation => calculation.type === TypeOfCalculation.APARTMENT)
+                    .map((calculationApartment, index) => (
+                        <div>
+                            <Container key={calculationApartment.id} className=" mb-3">
+                                <Accordion defaultActiveKey="0" className="expenseCategoryCard" flush>
+                                    <Accordion.Item eventKey={index.toString()}>
+                                        <Accordion.Header
+                                            className="customHeader">#{index + 1} {calculationApartment.name}</Accordion.Header>
+                                        <Accordion.Body>
+                                            <p>Anschrift: </p>
+                                            <Button variant="outline-secondary" className="m-3"
+                                                    >
+                                                Button</Button>
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                </Accordion>
+                            </Container>
+                        </div>
+                    ))
+                }
+                </>}
+                {activeTab === "calculationHouse" && <>
+                {props.listOfAllCalculations
+                    .filter(calculation => calculation.type === TypeOfCalculation.HOUSE)
+                    .map((calculationHouse, index) => (
+                        <div>
+                            <Container key={calculationHouse.id} className=" mb-3">
+                                <Accordion defaultActiveKey="0" className="expenseCategoryCard" flush>
+                                    <Accordion.Item eventKey={index.toString()}>
+                                        <Accordion.Header
+                                            className="customHeader">#{index + 1} {calculationHouse.name}</Accordion.Header>
+                                        <Accordion.Body>
+                                            <p>Anschrift: </p>
+                                            <Button variant="outline-secondary" className="m-3"
+                                                    >
+                                                Button</Button>
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                </Accordion>
+                            </Container>
+                        </div>
+                    ))}
+                </>}
 
 
             </Container>

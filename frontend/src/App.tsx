@@ -19,12 +19,14 @@ import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import SignUp from "./login/SignUp";
 import AllCalculations from "./FixAndFlip/calculation/AllCalculations";
+import useGetAllCalculations from "./FixAndFlip/hooks/useGetAllCalculations";
 
 
 function App() {
     const {login, user, getUsername, logout} = UseLogin()
     const {getAllUtilityBills, listOfUtilityBills} = useGetAllUtilityBills();
     const {getAllRealEstates, listOfRealEstates} = useGetAllRealEstates();
+    const {getAllCalculations, listOfCalculations} = useGetAllCalculations();
 
     useEffect(() => getUsername,
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,6 +35,8 @@ function App() {
     useEffect(getAllUtilityBills, [user])
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(getAllRealEstates, [user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect((getAllCalculations), [user])
 
     return (
         <div>
@@ -65,7 +69,7 @@ function App() {
                            element={<DetailOfUtilityBill listOfUtilityBills={listOfUtilityBills}
                                                          getAllUtilityBills={getAllUtilityBills}/>}/>
                     <Route path={"/fix-flip/calculation"}
-                           element={<AllCalculations/>}/>
+                           element={<AllCalculations listOfAllCalculations={listOfCalculations}/>}/>
                 </Route>
         </Routes>
     </div>

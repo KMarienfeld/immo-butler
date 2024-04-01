@@ -1,4 +1,9 @@
-export type CalculationApartment = {
+export enum TypeOfCalculation {
+    APARTMENT = "apartment",
+    HOUSE = "house"
+}
+
+export type CalculationApartmentModel = {
     id: string,
     name: string,
     address: string,
@@ -11,4 +16,5 @@ export type CalculationApartment = {
     interestCosts: number,
     otherCosts: number,
     houseMoney: number,
+    type: TypeOfCalculation
 }
