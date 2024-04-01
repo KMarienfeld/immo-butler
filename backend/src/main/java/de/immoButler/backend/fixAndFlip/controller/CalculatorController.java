@@ -1,6 +1,7 @@
 package de.immoButler.backend.fixAndFlip.controller;
 
 import de.immoButler.backend.fixAndFlip.model.CalculationApartment;
+import de.immoButler.backend.fixAndFlip.model.CalculationHouse;
 import de.immoButler.backend.fixAndFlip.service.CalculatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,5 +21,10 @@ public class CalculatorController {
     @GetMapping("/apartment/getAll")
     public List<CalculationApartment> getAllApartmentCalculations() {
         return calculatorService.getAllApartmentCalculations();
+    }
+
+    @GetMapping("/house/getAll")
+    public List<CalculationHouse> getAllHouseCalculations() {
+        return calculatorService.getAllHouseCalculations();
     }
 }
